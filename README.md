@@ -52,3 +52,17 @@ To automatically fix formatting errors in your code (if possible), run:
 ```bash
 npm run format:fix
 ```
+
+### Testing
+
+To run the unit / component tests with Vitest and React Testing Library, run:
+
+```bash
+npm run test:unit
+```
+
+To run the end-to-end tests with Cypress, run:
+
+```bash
+npm run test:e2e
+```
