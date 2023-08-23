@@ -1,10 +1,10 @@
 interface ButtonProps {
   text: string;
-  type: 'anchor' | 'button';
+  type: "anchor" | "button";
 }
 
 export function Button({ text, type }: ButtonProps) {
-  if (type === 'anchor') {
+  if (type === "anchor") {
     return <a href="#">{text}</a>;
   }
 
