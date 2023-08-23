@@ -6,6 +6,6 @@ export default defineConfig({
       // implement node event listeners here
     }
   },
-  video: false, 
-  videoUploadOnPasses: false, 
+  video: false,
+  videoUploadOnPasses: false
 });
