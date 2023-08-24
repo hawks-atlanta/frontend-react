@@ -59,19 +59,15 @@ npm run format:fix
 
 ### Testing
 
-To run the unit / component tests with Vitest and React Testing Library, run:
+Run: 
 
 ```bash
-npm run test:unit
+npm run test
 ```
+
+Make sure you have the `React` app running on `localhost:5173` before running the e2e tests. 
 
 ## Coverage
 
 | [![sunburst](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/sunburst.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) | [![grid](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/tree.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
-To run the end-to-end tests with Cypress, run:
-
-```bash
-npm run test:e2e
-```
