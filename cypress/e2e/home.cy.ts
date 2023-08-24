@@ -1,7 +1,7 @@
 describe("Home Page", () => {
   it("Should increment the counter", () => {
     // Initial state
-    cy.visit("http://localhost:5173/");
+    cy.visit("/");
     cy.contains("p", "Count: 0");
 
     // Updated state
