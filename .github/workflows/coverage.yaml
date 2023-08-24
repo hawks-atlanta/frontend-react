@@ -1,0 +1,32 @@
+name: Coverage
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node-20.5.0-chrome-114.0.5735.133-1-ff-114.0.2-edge-114.0.1823.51-1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Component testing
+        uses: cypress-io/github-action@v5
+        with: 
+          install: false
+          component: true
+
+      - name: E2E Tests
+        uses: cypress-io/github-action@v5
+        with: 
+          install: false
+          start: npm run dev
+          wait-on: "http://localhost:5173"
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/clover.xml
+          fail_ci_if_error: true

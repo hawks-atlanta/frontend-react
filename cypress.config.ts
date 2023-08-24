@@ -1,9 +1,27 @@
 import { defineConfig } from "cypress";
+import coverageReportTask from "@cypress/code-coverage/task";
 
 export default defineConfig({
+  env: {
+    codeCoverage: {
+      exclude: "cypress/**/*.*"
+    }
+  },
   e2e: {
-    setupNodeEvents(_on, _config) {
-      // implement node event listeners here
+    baseUrl: "http://localhost:5173",
+    setupNodeEvents(on, config) {
+      coverageReportTask(on, config);
+      return config;
+    }
+  },
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite"
+    },
+    setupNodeEvents(on, config) {
+      coverageReportTask(on, config);
+      return config;
     }
   },
   video: false,
