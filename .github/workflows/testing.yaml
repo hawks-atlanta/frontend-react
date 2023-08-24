@@ -47,9 +47,12 @@ jobs:
       - name: Format
         run: npm run format:check
 
-      - name: Components / Unit Tests
-        run: npm run test:unit
-      
+      - name: Component testing
+        uses: cypress-io/github-action@v5
+        with: 
+          install: false
+          component: true
+
       - name: E2E Tests
         uses: cypress-io/github-action@v5
         with: 
