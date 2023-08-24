@@ -8,6 +8,6 @@ describe("Button tests", () => {
 
   it("Should render an anchor with the given text", () => {
     cy.mount(<Button text="Submit" type="anchor" />);
-    cy.get("a").should("have.text", "Submit");
+    cy.get("button").should("have.text", "Submit");
   });
 });
