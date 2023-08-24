@@ -23,10 +23,9 @@ jobs:
 
       - name: Build
         run: npm run build
-
-  test:
+  
+  lint: 
     runs-on: ubuntu-22.04
-    container: cypress/browsers:node-20.5.0-chrome-114.0.5735.133-1-ff-114.0.2-edge-114.0.1823.51-1
 
     steps:
       - uses: actions/checkout@v3
@@ -47,15 +46,26 @@ jobs:
       - name: Format
         run: npm run format:check
 
+  # Run the tests after the linting step to avoid pulling the cypress container if the linting fails
+  test:
+    runs-on: ubuntu-22.04
+    container: cypress/browsers:node-20.5.0-chrome-114.0.5735.133-1-ff-114.0.2-edge-114.0.1823.51-1
+    needs: lint
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # npm dependencies are handled by the action
       - name: Component testing
         uses: cypress-io/github-action@v5
         with: 
-          install: false
           component: true
 
       - name: E2E Tests
         uses: cypress-io/github-action@v5
         with: 
+          # Dependencies were installed in the previous step
           install: false
+          # The server needs to be started before the tests
           start: npm run dev
           wait-on: "http://localhost:5173"
