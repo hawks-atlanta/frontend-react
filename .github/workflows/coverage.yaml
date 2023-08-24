@@ -15,7 +15,6 @@ jobs:
       - name: Component testing
         uses: cypress-io/github-action@v5
         with: 
-          install: false
           component: true
 
       - name: E2E Tests
