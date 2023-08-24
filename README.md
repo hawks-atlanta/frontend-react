@@ -1,5 +1,9 @@
 # Frontend React
 
+[![Tagging](https://github.com/hawks-atlanta/frontend-react/actions/workflows/tagging.yaml/badge.svg?branch=dev)](https://github.com/hawks-atlanta/frontend-react/actions/workflows/tagging.yaml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![codecov](https://codecov.io/gh/hawks-atlanta/frontend-react/graph/badge.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react)
+
 ## Development
 
 ### Folder structure
@@ -60,6 +64,11 @@ To run the unit / component tests with Vitest and React Testing Library, run:
 ```bash
 npm run test:unit
 ```
+
+## Coverage
+
+| [![sunburst](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/sunburst.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) | [![grid](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/tree.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 To run the end-to-end tests with Cypress, run:
 
