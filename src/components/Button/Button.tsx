@@ -6,7 +6,7 @@ interface ButtonProps {
 
 export function ButtonLogin({ text, type }: ButtonProps) {
   if (type === "anchor") {
-    return <a href="#">{text}</a>;
+    return <a href="/login">{text}</a>;
   }
 
   return (
@@ -21,7 +21,7 @@ export function ButtonLogin({ text, type }: ButtonProps) {
 
 export function ButtonRegister({ text, type }: ButtonProps) {
   if (type === "anchor") {
-    return <a href="#">{text}</a>;
+    return <a href="/register">{text}</a>;
   }
 
   return (
@@ -37,7 +37,7 @@ export function ButtonRegister({ text, type }: ButtonProps) {
 export function ButtonCreate({ text, type, className }: ButtonProps) {
   if (type === "anchor") {
     return (
-      <a href="#" className={className}>
+      <a href="/register" className={className}>
         {text}
       </a>
     );
