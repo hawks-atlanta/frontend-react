@@ -17,8 +17,8 @@ export function App() {
             />
             <p className="ml-2 text-2xl">CapyFile</p>
             <div className="flex flex-grow justify-end gap-4">
-              <ButtonLogin text="Login" type="button" />
-              <ButtonRegister text="Register" type="button" />
+              <ButtonLogin text="Login" type="anchor" />
+              <ButtonRegister text="Register" type="anchor" />
             </div>
           </div>
 
@@ -37,7 +37,7 @@ export function App() {
             <div className="mt-16">
               <ButtonCreate
                 text="Create an Account"
-                type="button"
+                type="anchor"
                 className="mt-2 "
               />
             </div>
