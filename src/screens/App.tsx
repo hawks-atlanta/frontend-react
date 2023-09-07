@@ -7,7 +7,7 @@ export function App() {
   return (
     <main>
       <div className="min-h-1/2 bg-blue-600 py-8">
-        <div className=" mx-auto max-w-screen-2xl">
+        <div className="mx-auto max-w-screen-2xl px-4">
           <div className="max-w-md font-bold text-white">
             <h1 className=" text-5xl">Access your files everywhere</h1>
             <div className="mt-14 max-w-md">
@@ -23,7 +23,7 @@ export function App() {
         </div>
       </div>
 
-      <section className=" bg-white">
+      <section className=" px-4">
         <div className="mx-auto max-w-screen-2xl">
           <div className="mt-10 w-full text-center">
             <h2 className="text-2xl font-bold text-blue-600">MAIN FEATURES</h2>
