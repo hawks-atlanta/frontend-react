@@ -4,6 +4,8 @@ import {
   ButtonRegister
 } from "../components/Button/Button";
 
+import { FeatureCard } from "../components/Text/Text";
+
 import { FileDown, Files, FolderKey } from "lucide-react";
 
 export function App() {
@@ -49,45 +51,22 @@ export function App() {
             <h2 className="text-2xl font-bold text-blue-600">MAIN FEATURES</h2>
           </div>
 
-          <div className=" left-0 top-1/3 mt-14 flex w-full flex-col items-center  justify-center sm:flex-row">
-            <div className="m-2 rounded-lg bg-gray-100 p-10">
-              <div className="mx-1 flex flex-col items-center p-2 text-center sm:mx-2">
-                <FolderKey size={52} />
-                <h3 className="mb-4 mt-2 text-2xl font-bold text-blue-600">
-                  File key
-                </h3>
-                <p className="text-lg text-black">
-                  Keep your documents safe and secure in our distributed storage
-                  system
-                </p>
-              </div>
-            </div>
-
-            <div className="m-2 rounded-lg bg-gray-100 p-10">
-              <div className="mx-1 mt-2 flex flex-col items-center p-2 text-center sm:mx-2 sm:mt-0">
-                <FileDown size={52} />
-                <h3 className="mb-4 mt-2 text-2xl font-bold text-blue-600">
-                  Save your file
-                </h3>
-                <p className="text-lg text-black">
-                  Store your files using our cloud service and download them
-                  from any other device.
-                </p>
-              </div>
-            </div>
-
-            <div className="m-2 rounded-lg bg-gray-100 p-10">
-              <div className="mx-1 mt-2 flex flex-col items-center p-2 text-center sm:mx-2 sm:mt-0">
-                <Files size={52} />
-                <h3 className="mb-4 mt-2 text-2xl font-bold text-blue-600">
-                  Manage your documents
-                </h3>
-                <p className="text-lg text-black">
-                  Use our system to organize and manage your files. Access them
-                  at any time.
-                </p>
-              </div>
-            </div>
+          <div className="left-0 top-1/3 mt-14 flex w-full flex-col items-center justify-center sm:flex-row">
+            <FeatureCard
+              icon={<FolderKey size={52} />}
+              title="File key"
+              description="Keep your documents safe and secure in our distributed storage system."
+            />
+            <FeatureCard
+              icon={<FileDown size={52} />}
+              title="Save your files"
+              description="Store your files using our cloud service and download them from any other device."
+            />
+            <FeatureCard
+              icon={<Files size={52} />}
+              title="Manage your documents"
+              description="Use our system to organize and manage your files. Access them at any time."
+            />
           </div>
         </div>
       </div>
