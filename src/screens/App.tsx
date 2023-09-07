@@ -1,9 +1,4 @@
-import {
-  ButtonLogin,
-  ButtonCreate,
-  ButtonRegister
-} from "../components/Button/Button";
-
+import { Button } from "../components/Button/Button";
 import { FeatureCard } from "../components/Text/Text";
 
 import { FileDown, Files, FolderKey } from "lucide-react";
@@ -13,7 +8,7 @@ export function App() {
     <main className="h-screen w-full">
       <div className="min-h-1/2 bg-blue-600 pb-16">
         <div className=" mx-auto max-w-screen-2xl">
-          <div className="left-4 top-4 flex items-center font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
+          <nav className="left-4 top-4 flex items-center font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
             <img
               src="/Logos/logo.png"
               alt=""
@@ -21,10 +16,10 @@ export function App() {
             />
             <p className="ml-2 text-2xl">CapyFile</p>
             <div className="flex flex-grow justify-end gap-4">
-              <ButtonLogin text="Login" type="anchor" />
-              <ButtonRegister text="Register" type="anchor" />
+              <Button text="Login" to="/login" />
+              <Button text="Register" to="/register" />
             </div>
-          </div>
+          </nav>
 
           <div className="top-38 left-4 m-4 mt-16 max-w-md font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
             <h1 className=" text-5xl">Access your files everywhere</h1>
@@ -35,17 +30,13 @@ export function App() {
               </h1>
             </div>
             <div className="mt-16">
-              <ButtonCreate
-                text="Create an Account"
-                type="anchor"
-                className="mt-2 "
-              />
+              <Button text="Create an Account" to="/register" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="min-h-1/2 relative bg-white">
+      <section className="min-h-1/2  bg-white">
         <div className="mx-auto max-w-screen-2xl">
           <div className=" top-1/5 left-0 mt-10 w-full text-center">
             <h2 className="text-2xl font-bold text-blue-600">MAIN FEATURES</h2>
@@ -69,7 +60,7 @@ export function App() {
             />
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
