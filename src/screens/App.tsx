@@ -1,16 +1,14 @@
 import { Button } from "../components/Button/Button";
-import { FeatureCard } from "../components/Text/Text";
-import { NavbarScreen } from "../components/Nav/Nav";
+import { FeatureCard } from "../components/FeatureCard/FeatureCard";
 
 import { FileDown, Files, FolderKey } from "lucide-react";
 
 export function App() {
   return (
-    <main className="h-screen w-full">
-      <div className="min-h-1/2 bg-blue-600 pb-16">
+    <main>
+      <div className="min-h-1/2 bg-blue-600 py-8">
         <div className=" mx-auto max-w-screen-2xl">
-          <NavbarScreen logoPath="/Logos/logo.png" />
-          <div className="m-4 mt-16 max-w-md font-bold text-white">
+          <div className="max-w-md font-bold text-white">
             <h1 className=" text-5xl">Access your files everywhere</h1>
             <div className="mt-14 max-w-md">
               <h1 className=" text-2xl">
@@ -25,12 +23,11 @@ export function App() {
         </div>
       </div>
 
-      <section className="min-h-1/2  bg-white">
+      <section className=" bg-white">
         <div className="mx-auto max-w-screen-2xl">
           <div className="mt-10 w-full text-center">
             <h2 className="text-2xl font-bold text-blue-600">MAIN FEATURES</h2>
           </div>
-
           <div className="left-0 top-1/3 mt-14 flex w-full flex-col items-center justify-center sm:flex-row">
             <FeatureCard
               icon={<FolderKey size={52} />}

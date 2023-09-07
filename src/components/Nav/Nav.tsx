@@ -1,17 +1,13 @@
 import { Button } from "../Button/Button";
 import { Link } from "react-router-dom";
 
-interface NavbarProps {
-  logoPath: string;
-}
-
-export function NavbarScreen({ logoPath }: NavbarProps) {
+export function NavbarScreen() {
   return (
     <nav className="bg-blue-600 p-4">
       <div className="container mx-auto flex items-center font-bold text-white">
         <Link to="/">
           <img
-            src={logoPath}
+            src="/Logos/logo.png"
             alt=""
             className="mr-2 h-16 w-16 rounded-md border border-gray-500"
           />
