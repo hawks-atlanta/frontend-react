@@ -22,16 +22,12 @@ export function App() {
             </div>
           </div>
 
-          <div className=" top-38 left-4 m-4 mt-16 font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
-            <h1 className="text-5xl">
-              Access your files
-              <br />
-              everywhere
-            </h1>
-            <div className="mt-14">
-              <h1 className="text-2xl">
-                Effortlessly store, organize and access your
-                <br /> files with built-in redundancy.
+          <div className="top-38 left-4 m-4 mt-16 max-w-md font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
+            <h1 className=" text-5xl">Access your files everywhere</h1>
+            <div className="mt-14 max-w-md">
+              <h1 className=" text-2xl">
+                Effortlessly store, organize and access your files with built-in
+                redundancy.
               </h1>
             </div>
             <div className="mt-16">
