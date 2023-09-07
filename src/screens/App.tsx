@@ -1,5 +1,6 @@
 import { Button } from "../components/Button/Button";
 import { FeatureCard } from "../components/Text/Text";
+import { NavbarScreen } from "../components/Nav/Nav";
 
 import { FileDown, Files, FolderKey } from "lucide-react";
 
@@ -8,20 +9,8 @@ export function App() {
     <main className="h-screen w-full">
       <div className="min-h-1/2 bg-blue-600 pb-16">
         <div className=" mx-auto max-w-screen-2xl">
-          <nav className="left-4 top-4 flex items-center font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
-            <img
-              src="/Logos/logo.png"
-              alt=""
-              className="mr-2 h-16 w-16 rounded-md border border-gray-500"
-            />
-            <p className="ml-2 text-2xl">CapyFile</p>
-            <div className="flex flex-grow justify-end gap-4">
-              <Button text="Login" to="/login" />
-              <Button text="Register" to="/register" />
-            </div>
-          </nav>
-
-          <div className="top-38 left-4 m-4 mt-16 max-w-md font-bold text-white sm:left-8 md:left-12 lg:left-16 xl:left-20">
+          <NavbarScreen logoPath="/Logos/logo.png" />
+          <div className="m-4 mt-16 max-w-md font-bold text-white">
             <h1 className=" text-5xl">Access your files everywhere</h1>
             <div className="mt-14 max-w-md">
               <h1 className=" text-2xl">
@@ -38,7 +27,7 @@ export function App() {
 
       <section className="min-h-1/2  bg-white">
         <div className="mx-auto max-w-screen-2xl">
-          <div className=" top-1/5 left-0 mt-10 w-full text-center">
+          <div className="mt-10 w-full text-center">
             <h2 className="text-2xl font-bold text-blue-600">MAIN FEATURES</h2>
           </div>
 
