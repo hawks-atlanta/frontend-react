@@ -1,12 +1,17 @@
+import { Link } from "react-router-dom";
+
 interface ButtonProps {
   text: string;
-  type: "anchor" | "button";
+  to: string;
 }
 
-export function Button({ text, type }: ButtonProps) {
-  if (type === "anchor") {
-    return <a href="#">{text}</a>;
-  }
-
-  return <button type="button">{text}</button>;
+export function Button({ text, to }: ButtonProps) {
+  return (
+    <Link
+      to={to}
+      className="rounded-lg bg-white p-2 text-lg font-bold text-blue-600"
+    >
+      {text}
+    </Link>
+  );
 }

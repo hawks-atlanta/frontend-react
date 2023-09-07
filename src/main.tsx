@@ -1,22 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { App } from "./screens/App.tsx";
-import { NotFound } from "./screens/NotFound.tsx";
-
 import "./global.css";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <NotFound />
-  }
-]);
+import { NavbarScreen } from "./components/Nav/Nav.tsx";
+import { Login } from "./screens/Login.tsx";
+import { Register } from "./screens/Register.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <NavbarScreen />
+      <Routes>
+        <Route path="/" element={<App />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
