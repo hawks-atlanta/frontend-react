@@ -2,18 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      //Axios
-      //console.log(`Username: ${username}, Password: ${password}`);
+      // Axios
+      // console.log(`Username: ${formData.username}, Password: ${formData.password}`);
     } catch (error) {
       console.error("Authentication error:", error);
     }
+  };
+
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
   return (
@@ -30,8 +40,8 @@ export function LoginForm() {
             type="text"
             id="username"
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleInput}
             required
             className="rounded-2xl border-2 border-blue-700 p-1 text-3xl"
           />
@@ -45,8 +55,8 @@ export function LoginForm() {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleInput}
             required
             className="block rounded-2xl border-2 border-blue-700 p-1 text-3xl"
           />
