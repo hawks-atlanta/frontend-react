@@ -28,9 +28,7 @@ export function LoginForm() {
 
   return (
     <div className="mt-1 border border-gray-200 p-5 text-center shadow-sm">
-      <div>
-        <h2 className="mb-4 text-6xl font-bold text-blue-600">Login</h2>
-      </div>
+      <h2 className="mb-4 text-6xl font-bold text-blue-600">Login</h2>
       <form onSubmit={handleSubmit} className="">
         <div className="mb-6 flex flex-col items-start">
           <label htmlFor="username" className="p-2 font-bold">
