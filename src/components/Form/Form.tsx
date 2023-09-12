@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-interface LoginFormProps {
-  onSubmit?: (username: string, password: string) => Promise<void>;
-}
-
-export function LoginForm({ onSubmit }: LoginFormProps) {
+export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (onSubmit) {
-      try {
-        //Axios?
-        await onSubmit(username, password);
-      } catch (error) {
-        console.error("Error de authentication:", error);
-      }
+
+    try {
+      //Axios
+      //console.log(`Username: ${username}, Password: ${password}`);
+    } catch (error) {
+      console.error("Authentication error:", error);
     }
   };
 
