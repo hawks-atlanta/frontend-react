@@ -27,11 +27,11 @@ export function LoginForm() {
   };
 
   return (
-    <div className="mt-1 border border-gray-200 p-5 text-center shadow-sm">
+    <div className="mt-8 border border-gray-200 p-5 text-center shadow-sm">
       <h2 className="mb-4 text-6xl font-bold text-blue-600">Login</h2>
-      <form onSubmit={handleSubmit} className="">
-        <div className="mb-6 flex flex-col items-start">
-          <label htmlFor="username" className="p-2 font-bold">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <div className="flex flex-col items-start gap-2">
+          <label htmlFor="username" className="font-bold">
             Username:
           </label>
           <input
@@ -45,8 +45,8 @@ export function LoginForm() {
           />
         </div>
 
-        <div className="mb-6 flex flex-col items-start">
-          <label htmlFor="password" className="p-2 font-bold">
+        <div className="flex flex-col items-start gap-2">
+          <label htmlFor="password" className="font-bold">
             Password:
           </label>
           <input
@@ -67,7 +67,7 @@ export function LoginForm() {
           Submit
         </button>
 
-        <p className=" mt-4 font-bold">
+        <p className="font-bold">
           No tienes una cuenta?{" "}
           <Link className="text-blue-700" to="/register">
             Regístrate
