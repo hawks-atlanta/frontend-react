@@ -28,7 +28,7 @@ export function Login() {
 
   return (
     <main className="flex items-center justify-center px-4">
-      <div className="mt-8 border border-gray-200 p-5 text-center shadow-sm w-full max-w-md">
+      <div className="mt-8 w-full max-w-md border border-gray-200 p-5 text-center shadow-sm">
         <h2 className="mb-4 text-6xl font-bold text-blue-600">Login</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col items-start gap-2">
