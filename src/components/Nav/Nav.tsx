@@ -9,6 +9,7 @@ export function NavbarScreen() {
           <img
             src="/Logos/logo.png"
             alt=""
+            aria-label="CapyFile Logo"
             className="mr-2 h-16 w-16 rounded-md border border-gray-500"
           />
         </Link>
