@@ -1,24 +1,10 @@
-import { useState, useEffect } from "react";
-import { Button } from "../Button/Button";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { NavbarIcon } from "../Nav/NavbarButtonGroup";
 
 export function NavbarScreen() {
-  const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
@@ -36,26 +22,21 @@ export function NavbarScreen() {
         </Link>
         <p className="ml-2 text-2xl">CapyFile</p>
         <div className="flex flex-grow justify-end gap-4">
-          {isMobile ? (
-            <div className="lg:hidden">
-              <Menu size={54} onClick={toggleMobileMenu} />
-              {showMobileMenu && (
-                <div className="absolute right-0 top-14 rounded-lg bg-white p-2 shadow-lg">
-                  <div className="mb-2 block w-full">
-                    <Button text="Login" to="/login" />
-                  </div>
-                  <div className="block w-full">
-                    <Button text="Register" to="/register" />
-                  </div>
-                </div>
-              )}
+          <div className="lg:hidden">
+            <Menu size={54} onClick={toggleMobileMenu} />
+          </div>
+
+          {showMobileMenu && (
+            <div className="absolute left-0 right-0 top-32 flex -translate-y-1/2 transform items-center justify-center bg-white p-2 lg:hidden">
+              <NavbarIcon text="Login" to="/login" />
+              <NavbarIcon text="Register" to="/register" />
             </div>
-          ) : (
-            <>
-              <Button text="Login" to="/login" />
-              <Button text="Register" to="/register" />
-            </>
           )}
+
+          <div className="hidden lg:flex">
+            <NavbarIcon text="Login" to="/login" />
+            <NavbarIcon text="Register" to="/register" />
+          </div>
         </div>
       </div>
     </nav>
