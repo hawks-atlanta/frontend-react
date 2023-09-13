@@ -67,8 +67,11 @@ export function LoginForm() {
           Submit
         </button>
 
-        <p className="font-bold text-blue-700">
-          No tienes una cuenta? <Link to="/register">Regístrate</Link>
+        <p className=" mt-4 font-bold">
+          No tienes una cuenta?{" "}
+          <Link className="text-blue-700" to="/register">
+            Regístrate
+          </Link>
         </p>
       </form>
     </div>
