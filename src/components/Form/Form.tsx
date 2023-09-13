@@ -41,7 +41,7 @@ export function LoginForm() {
             value={formData.username}
             onChange={handleInput}
             required
-            className="rounded-2xl border-2 border-blue-700 p-1 text-3xl"
+            className="text-xm h-12 w-full rounded-2xl border-2 border-blue-700 p-1"
           />
         </div>
 
