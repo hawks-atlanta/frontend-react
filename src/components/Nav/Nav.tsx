@@ -25,7 +25,7 @@ export function NavbarScreen() {
 
   return (
     <nav className="bg-blue-600 p-4">
-      <div className="container mx-auto flex items-center font-bold text-white">
+      <div className="max-w-screen-2xl mx-auto flex items-center font-bold text-white">
         <Link to="/">
           <img
             src="/Logos/logo.png"
