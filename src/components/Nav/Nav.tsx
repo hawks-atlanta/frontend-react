@@ -1,7 +1,28 @@
+import { useState, useEffect } from "react";
 import { Button } from "../Button/Button";
 import { Link } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 export function NavbarScreen() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
+  };
+
   return (
     <nav className="bg-blue-600 p-4">
       <div className="container mx-auto flex items-center font-bold text-white">
@@ -15,8 +36,26 @@ export function NavbarScreen() {
         </Link>
         <p className="ml-2 text-2xl">CapyFile</p>
         <div className="flex flex-grow justify-end gap-4">
-          <Button text="Login" to="/login" />
-          <Button text="Register" to="/register" />
+          {isMobile ? (
+            <div className="lg:hidden">
+              <Menu size={54} onClick={toggleMobileMenu} />
+              {showMobileMenu && (
+                <div className="absolute right-0 top-14 rounded-lg bg-white p-2 shadow-lg">
+                  <div className="mb-2 block w-full">
+                    <Button text="Login" to="/login" />
+                  </div>
+                  <div className="block w-full">
+                    <Button text="Register" to="/register" />
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Button text="Login" to="/login" />
+              <Button text="Register" to="/register" />
+            </>
+          )}
         </div>
       </div>
     </nav>
