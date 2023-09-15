@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-interface NavbarButtonGroup {
+interface NavbarButtonGroupProps {
   text: string;
   to: string;
 }
 
-export function NavbarIcon({ text, to }: NavbarButtonGroup) {
+export function NavbarButtonGroup({ text, to }: NavbarButtonGroupProps) {
   return (
     <div className="flex items-center">
       <Link
@@ -14,7 +14,6 @@ export function NavbarIcon({ text, to }: NavbarButtonGroup) {
       >
         {text}
       </Link>
-      <span className="mx-1"></span>
     </div>
   );
 }

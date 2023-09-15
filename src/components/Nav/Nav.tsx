@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
-import { NavbarIcon } from "../Nav/NavbarButtonGroup";
+import { NavbarButtonGroup } from "../Nav/NavbarButtonGroup";
 
 export function NavbarScreen() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -29,14 +29,14 @@ export function NavbarScreen() {
           </div>
           {showMobileMenu && (
             <div className="absolute left-0 right-0 top-32 flex -translate-y-1/2 transform items-center justify-center bg-white p-2 lg:hidden">
-              <NavbarIcon text="Login" to="/login" />
-              <NavbarIcon text="Register" to="/register" />
+              <NavbarButtonGroup text="Login" to="/login" />
+              <NavbarButtonGroup text="Register" to="/register" />
             </div>
           )}
 
           <div className="hidden lg:flex">
-            <NavbarIcon text="Login" to="/login" />
-            <NavbarIcon text="Register" to="/register" />
+            <NavbarButtonGroup text="Login" to="/login" />
+            <NavbarButtonGroup text="Register" to="/register" />
           </div>
         </div>
       </div>
