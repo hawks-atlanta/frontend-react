@@ -23,9 +23,10 @@ export function NavbarScreen() {
         <p className="ml-2 text-2xl">CapyFile</p>
         <div className="flex flex-grow justify-end gap-4">
           <div className="lg:hidden">
-            <Menu size={54} onClick={toggleMobileMenu} />
+            <button aria-label="Open menu" onClick={toggleMobileMenu}>
+              <Menu size={54} />
+            </button>
           </div>
-
           {showMobileMenu && (
             <div className="absolute left-0 right-0 top-32 flex -translate-y-1/2 transform items-center justify-center bg-white p-2 lg:hidden">
               <NavbarIcon text="Login" to="/login" />
