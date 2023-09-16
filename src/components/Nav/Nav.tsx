@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
-import { NavbarButtonGroup } from "../Nav/NavbarButtonGroup";
+import { NavButton } from "./NavButton";
 
 export function NavbarScreen() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -10,7 +10,7 @@ export function NavbarScreen() {
   };
 
   return (
-    <nav className="bg-blue-600 p-4">
+    <nav className="relative bg-blue-600 p-4">
       <div className="mx-auto flex max-w-screen-2xl items-center font-bold text-white">
         <Link to="/">
           <img
@@ -23,24 +23,23 @@ export function NavbarScreen() {
         <p className="ml-2 text-2xl">CapyFile</p>
         <div className="flex flex-grow justify-end gap-4">
           <button
-            aria-label="Open menu"
+            aria-label={showMobileMenu ? "Close Menu" : "Open Menu"}
             onClick={toggleMobileMenu}
             className="md:hidden"
           >
-            <Menu size={54} />
+            <Menu size={44} />
           </button>
 
           {showMobileMenu && (
-            <div className="absolute left-0 right-0 top-40 flex -translate-y-1/2 transform flex-col items-center justify-center border border-gray-400 bg-white p-2 md:hidden">
-              <NavbarButtonGroup text="Login" to="/login" />
-              <NavbarButtonGroup text="Register" to="/register" />
+            <div className="absolute left-0 right-0 top-full flex flex-col items-center justify-center gap-4 border bg-white p-4 md:hidden">
+              <NavButton text="Login" to="/login" />
+              <NavButton text="Register" to="/register" />
             </div>
           )}
 
-          <div className="hidden md:flex">
-            {" "}
-            <NavbarButtonGroup text="Login" to="/login" />
-            <NavbarButtonGroup text="Register" to="/register" />
+          <div className="hidden gap-4 md:flex">
+            <NavButton text="Login" to="/login" />
+            <NavButton text="Register" to="/register" />
           </div>
         </div>
       </div>
