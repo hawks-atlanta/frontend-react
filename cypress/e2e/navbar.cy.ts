@@ -30,6 +30,3 @@ describe("Navbar Test", () => {
   });
 });
 
-
-
-

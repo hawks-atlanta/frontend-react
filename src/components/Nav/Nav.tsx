@@ -1,18 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { NavButton } from "./NavButton";
 
 export function NavbarScreen() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const location = useLocation();
+
+  const closeMobileMenu = () => {
+    setShowMobileMenu(false);
+  };
+
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
+  useEffect(() => {
+    closeMobileMenu();
+  }, [location.pathname]);
+
   return (
     <nav className="relative bg-blue-600 p-4">
       <div className="mx-auto flex max-w-screen-2xl items-center font-bold text-white">
-        <Link to="/">
+        <Link to="/" onClick={closeMobileMenu}>
           <img
             src="/Logos/logo.png"
             alt=""
