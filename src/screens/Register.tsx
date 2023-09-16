@@ -39,8 +39,8 @@ export function Register() {
                 required: "The username is required"
               })}
             />
-            {errors.password && (
-              <span className="text-red-500">{errors.password.message}</span>
+            {errors.username && (
+              <span className="text-red-500">{errors.username.message}</span>
             )}
           </div>
 
