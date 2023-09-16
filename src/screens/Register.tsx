@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface FormData {
   username: "";
@@ -9,13 +9,15 @@ interface FormData {
 
 export function Register() {
   const {
+    register,
     handleSubmit,
-    control,
     formState: { errors },
     getValues
   } = useForm<FormData>();
 
-  const onSubmit = async () => {};
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    console.log(data);
+  };
 
   return (
     <main className="flex items-center justify-center px-4">
@@ -28,91 +30,67 @@ export function Register() {
             <label htmlFor="username" className="font-bold">
               Username:
             </label>
-            <Controller
-              name="username"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Username is required" }}
-              render={({ field }) => (
-                <div>
-                  <input
-                    {...field}
-                    type="text"
-                    id="username"
-                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
-                      errors.username ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.username && (
-                    <span className="text-red-500">
-                      {errors.username.message}
-                    </span>
-                  )}
-                </div>
-              )}
+            <input
+              id="username"
+              className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                errors.username ? "border-red-500" : ""
+              }`}
+              {...register("username", {
+                required: "The username is required"
+              })}
             />
+            {errors.password && (
+              <span className="text-red-500">{errors.password.message}</span>
+            )}
           </div>
 
           <div className=" items-start gap-2">
             <label htmlFor="password" className="font-bold">
               Password:
             </label>
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Password is required" }}
-              render={({ field }) => (
-                <div>
-                  <input
-                    {...field}
-                    type="password"
-                    id="password"
-                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
-                      errors.password ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.password && (
-                    <span className="text-red-500">
-                      {errors.password.message}
-                    </span>
-                  )}
-                </div>
-              )}
+            <input
+              id="password"
+              className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                errors.password ? "border-red-500" : ""
+              }`}
+              {...register("password", {
+                required: "The password is required",
+                validate: {
+                  minLength: (value) =>
+                    value.length >= 8 ||
+                    "The password must be at least 8 characters"
+                }
+              })}
             />
+            {errors.password && (
+              <span className="text-red-500">{errors.password.message}</span>
+            )}
           </div>
 
           <div className=" items-start gap-2">
             <label htmlFor="confirmPassword" className="font-bold">
               Confirm password:
             </label>
-            <Controller
-              name="confirmPassword"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Password confirmation is required",
-                validate: (value) =>
-                  value === getValues("password") || "Passwords do not match"
-              }}
-              render={({ field }) => (
-                <div>
-                  <input
-                    {...field}
-                    type="password"
-                    id="confirmPassword"
-                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
-                      errors.confirmPassword ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.confirmPassword && (
-                    <span className="text-red-500">
-                      {errors.confirmPassword.message}
-                    </span>
-                  )}
-                </div>
-              )}
+            <input
+              id="confirmPassword"
+              className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                errors.confirmPassword ? "border-red-500" : ""
+              }`}
+              {...register("confirmPassword", {
+                required: "The password confirmation is required",
+                validate: {
+                  matchPassword: (value) => {
+                    const { password } = getValues();
+                    return password === value || "The passwords do not match";
+                  }
+                }
+              })}
             />
+            {errors.confirmPassword && (
+              <span className="text-red-500">
+                {errors.confirmPassword.message}
+              </span>
+            )}
           </div>
 
           <button
