@@ -31,8 +31,7 @@ export function NavbarScreen() {
           </button>
 
           {showMobileMenu && (
-            <div className="absolute left-0 right-0 top-32 flex -translate-y-1/2 transform items-center justify-center bg-white p-2 md:hidden">
-              {" "}
+            <div className="absolute left-0 right-0 top-40 flex -translate-y-1/2 transform flex-col items-center justify-center border border-gray-400 bg-white p-2 md:hidden">
               <NavbarButtonGroup text="Login" to="/login" />
               <NavbarButtonGroup text="Register" to="/register" />
             </div>

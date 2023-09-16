@@ -7,10 +7,10 @@ interface NavbarButtonGroupProps {
 
 export function NavbarButtonGroup({ text, to }: NavbarButtonGroupProps) {
   return (
-    <div className="flex items-center">
+    <div className="flex w-full items-center">
       <Link
         to={to}
-        className="mx-1 rounded-lg border border-blue-600 bg-white p-2 text-lg font-bold text-blue-600"
+        className="mx-1 mb-3 w-full rounded-lg border border-blue-600 bg-white p-2 text-center text-lg font-bold text-blue-600"
       >
         {text}
       </Link>
