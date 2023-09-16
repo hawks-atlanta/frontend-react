@@ -49,6 +49,7 @@ export function Register() {
               Password:
             </label>
             <input
+              type="password"
               id="password"
               className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
                 errors.password ? "border-red-500" : ""
@@ -72,6 +73,7 @@ export function Register() {
               Confirm password:
             </label>
             <input
+              type="password"
               id="confirmPassword"
               className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
                 errors.confirmPassword ? "border-red-500" : ""
