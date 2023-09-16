@@ -15,7 +15,7 @@ export function Register() {
     getValues
   } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {};
+  const onSubmit = async () => {};
 
   return (
     <main className="flex items-center justify-center px-4">
