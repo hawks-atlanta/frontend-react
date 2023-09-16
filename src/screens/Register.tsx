@@ -1,136 +1,118 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+
+interface FormData {
+  username: "";
+  password: "";
+  confirmPassword: "";
+}
 
 export function Register() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    confirmPassword: ""
-  });
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues
+  } = useForm<FormData>();
 
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-    confirmPassword: ""
-  });
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    try {
-      // Validations
-      if (!formData.username) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          username: "Username is required"
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          username: ""
-        }));
-      }
-
-      if (!formData.password) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: "Password is required"
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: ""
-        }));
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          confirmPassword: "Passwords do not match"
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          confirmPassword: ""
-        }));
-      }
-
-      if (formData.username && formData.password === formData.confirmPassword) {
-        //Axios
-      }
-    } catch (error) {
-      console.error("Error register:", error);
-    }
-  };
-
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value
-    }));
-  };
+  const onSubmit = async (data: FormData) => {};
 
   return (
     <main className="flex items-center justify-center px-4">
-      <div className="mt-8 w-full max-w-md border border-gray-200 p-5 text-center shadow-sm">
-        <h2 className="mb-4 text-6xl font-bold text-blue-600">Register</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="flex flex-col items-start gap-2">
+      <div className="mt-8 w-full max-w-md gap-3 border border-gray-200  p-5 shadow-sm">
+        <h2 className="mb-4 text-center text-6xl font-bold text-blue-600">
+          Register
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <div className=" items-start gap-2">
             <label htmlFor="username" className="font-bold">
               Username:
             </label>
-            <input
-              type="text"
-              id="username"
+            <Controller
               name="username"
-              value={formData.username}
-              onChange={handleInput}
-              className={`text-xm h-12 w-full rounded-2xl border-2 border-blue-700 p-1 ${
-                errors.username ? "border-red-500" : ""
-              }`}
+              control={control}
+              defaultValue=""
+              rules={{ required: "Username is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="text"
+                    id="username"
+                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                      errors.username ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.username && (
+                    <span className="text-red-500">
+                      {errors.username.message}
+                    </span>
+                  )}
+                </div>
+              )}
             />
-            {errors.username && (
-              <span className="text-red-500">{errors.username}</span>
-            )}
           </div>
 
-          <div className="flex flex-col items-start gap-2">
+          <div className=" items-start gap-2">
             <label htmlFor="password" className="font-bold">
               Password:
             </label>
-            <input
-              type="password"
-              id="password"
+            <Controller
               name="password"
-              value={formData.password}
-              onChange={handleInput}
-              className={`text-xm h-12 w-full rounded-2xl border-2 border-blue-700 p-1 ${
-                errors.password ? "border-red-500" : ""
-              }`}
+              control={control}
+              defaultValue=""
+              rules={{ required: "Password is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="password"
+                    id="password"
+                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                      errors.password ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.password && (
+                    <span className="text-red-500">
+                      {errors.password.message}
+                    </span>
+                  )}
+                </div>
+              )}
             />
-            {errors.password && (
-              <span className="text-red-500">{errors.password}</span>
-            )}
           </div>
 
-          <div className="flex flex-col items-start gap-2">
+          <div className=" items-start gap-2">
             <label htmlFor="confirmPassword" className="font-bold">
               Confirm password:
             </label>
-            <input
-              type="password"
-              id="confirmPassword"
+            <Controller
               name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInput}
-              className={`text-xm h-12 w-full rounded-2xl border-2 border-blue-700 p-1 ${
-                errors.confirmPassword ? "border-red-500" : ""
-              }`}
+              control={control}
+              defaultValue=""
+              rules={{
+                required: "Password confirmation is required",
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match"
+              }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    {...field}
+                    type="password"
+                    id="confirmPassword"
+                    className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 ${
+                      errors.confirmPassword ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.confirmPassword && (
+                    <span className="text-red-500">
+                      {errors.confirmPassword.message}
+                    </span>
+                  )}
+                </div>
+              )}
             />
-            {errors.confirmPassword && (
-              <span className="text-red-500">{errors.confirmPassword}</span>
-            )}
           </div>
 
           <button
@@ -140,7 +122,7 @@ export function Register() {
             Submit
           </button>
 
-          <p className="font-bold">
+          <p className="text-center font-bold">
             ¿Ya tienes una cuenta?{" "}
             <Link className="text-blue-700" to="/login">
               Iniciar sesión
