@@ -69,7 +69,7 @@ export function UpdatePassword() {
                   {errors.password && <span className="text-red-500 text-sm mt-1">{String(errors.password.message)}</span>}
                   
                     {/*Confirm new password*/}
-                    <div className="mb-3 pt-0">
+                    <div className="mt-2 pt-0">
                       <input type="password" 
                   {...register("confirmPassword", 
                   {
@@ -81,7 +81,7 @@ export function UpdatePassword() {
                   }
                   
                   )} 
-                  className="relative w-full rounded border bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"/>
+                  className="relative w-full rounded border bg-white px-3 py-2 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"/>
                   {errors.confirmPassword && <span className="text-red-500 text-sm mt-1">{String(errors.confirmPassword.message)}</span>}
                     </div>
                   </div>
