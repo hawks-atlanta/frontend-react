@@ -1,17 +1,18 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export function UpdatePassword() {
   const [showModal, setShowModal] = useState(false);
-  const [password, setPassword] = useState("");
-  const [rpassword, setRPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch
+  } = useForm();
 
-  const isFormValid = () => {
-    return rpassword === password && isSecurePassword();
-  };
-
-  const isSecurePassword = () => {
-    return password.length >= 8;
-  };
+  const onSubmit = handleSubmit((data) =>{
+    console.log(data)
+    });
 
   return (
     <>
@@ -43,63 +44,66 @@ export function UpdatePassword() {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative flex-auto p-6">
-                  {/*Contraseña nueva*/}
+                <form onSubmit={onSubmit}>
+                  <div className="relative flex-auto p-6">
+                    {/*New password*/}
                   <div className="mb-3 pt-0">
-                    <input
-                      type="password"
-                      placeholder="Contraseña nueva"
-                      className="relative w-full rounded border border-slate-300 bg-white bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    {/*Mensaje de contraseña insegura*/}
-                    {!isSecurePassword() ? (
-                      <span className="mr-1 inline-block rounded bg-red-200 px-1 py-0 text-xs font-semibold uppercase uppercase text-red-600 last:mr-0">
-                        La contraseña debe tener al menos 8 caracteres
-                      </span>
-                    ) : null}
+                  <input type="password"
+                  className="relative w-full rounded border bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
+                  {...register("password", 
+                  {
+                    required:{
+                      value:true,
+                      message:"Password required"
+                    },
+                    minLength:{
+                      value:8,
+                      message:"Password must be at least 8 characters"
+                    },
+                    pattern:{
+                      value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                      message:"Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                    }
+                  })} 
+                  />
+                  {errors.password && <span className="text-red-500 text-sm mt-1">{String(errors.password.message)}</span>}
+                  
+                    {/*Confirm new password*/}
+                    <div className="mb-3 pt-0">
+                      <input type="password" 
+                  {...register("confirmPassword", 
+                  {
+                    required:{
+                      value:true,
+                      message:"Password required"
+                    },
+                    validate: value => value === watch('password') || "Passwords do not match"
+                  }
+                  
+                  )} 
+                  className="relative w-full rounded border bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"/>
+                  {errors.confirmPassword && <span className="text-red-500 text-sm mt-1">{String(errors.confirmPassword.message)}</span>}
+                    </div>
                   </div>
-                  {/*Repetir contraseña nueva*/}
-                  <div className="mb-3 pt-0">
-                    <input
-                      type="password"
-                      placeholder="Repita la contraseña"
-                      className="relative w-full rounded border border-slate-300 bg-white bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
-                      value={rpassword}
-                      onChange={(e) => setRPassword(e.target.value)}
-                    />
-                    {/*Mensaje de contraseña no coincide*/}
-                    {!isFormValid() ? (
-                      <span className="mr-1 inline-block rounded bg-red-200 px-1 py-0 text-xs font-semibold uppercase uppercase text-red-600 last:mr-0">
-                        Las contraseñas no coinciden
-                      </span>
-                    ) : null}
                   </div>
-                  {/*Contraseña nueva*/}
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end rounded-b border-t border-solid border-slate-200 p-6">
+                  {/*footer*/}
+                  <div className="flex items-center justify-end rounded-b border-t border-solid border-slate-200 p-6">
                   <button
-                    className="background-transparent mb-1 mr-1 px-6 py-2 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none"
-                    type="button"
-                    onClick={() => {
-                      setShowModal(false);
-                      setPassword("");
-                      setRPassword("");
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                    disabled={!isFormValid()}
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                      className="background-transparent mb-1 mr-1 px-6 py-2 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none"
+                      type="button"
+                      onClick={() => {
+                        setShowModal(false);
+                      }}
+                    >
+                      Close
+                    </button>
+                    <button
+                      className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
