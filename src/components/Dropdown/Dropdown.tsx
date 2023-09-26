@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Trash, Pencil, Share, FolderClosed } from "lucide-react";
+import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
 
 export function Dropdown() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -13,15 +13,7 @@ export function Dropdown() {
         type="button"
         onClick={() => setShowDropdown(!showDropdown)}
       >
-        <svg
-          className="h-5 w-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 4 15"
-        >
-          <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-        </svg>
+        <MoreVertical></MoreVertical>
       </button>
       {showDropdown && (
         <div
@@ -34,7 +26,7 @@ export function Dropdown() {
           >
             <li>
               <div className="flex items-center">
-                <button className="block flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
                   <Trash />
                   Delete
                 </button>
@@ -42,7 +34,7 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="block flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
                   <Pencil />
                   Edit
                 </button>
@@ -50,7 +42,7 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="block flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
                   <Share />
                   Share
                 </button>
@@ -58,7 +50,7 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="block flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
                   <FolderClosed />
                   Move
                 </button>

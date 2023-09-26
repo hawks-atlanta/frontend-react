@@ -20,8 +20,7 @@ export function Homepage() {
       {/*Header*/}
       <div className="col-span-12 row-span-1 flex items-center justify-between bg-blue-500 text-white">
         <div
-          className="ml-10 flex items-center justify-center text-white"
-          style={{ cursor: "pointer" }}
+          className="ml-10 flex items-center justify-center text-white cursor-pointer"
         >
           <img
             src="/Logos/logo.png"
@@ -32,8 +31,7 @@ export function Homepage() {
         </div>
         <div className="relative">
           <div
-            className="mr-10 flex items-center justify-center text-white"
-            style={{ cursor: "pointer" }}
+            className="mr-10 flex items-center justify-center text-white cursor-pointer"
             onClick={toggleDropdown}
           >
             <span className="mr-4 hidden md:inline">Username</span>
@@ -75,22 +73,19 @@ export function Homepage() {
               </button>
             </div>
             <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700"
-              style={{ cursor: "pointer" }}
+              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
             >
               <Home />
               <span className="hidden md:inline">Home</span>
             </div>
             <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700"
-              style={{ cursor: "pointer" }}
+              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
             >
               <Files />
               <span className="hidden md:inline">My Files</span>
             </div>
             <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700"
-              style={{ cursor: "pointer" }}
+              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
             >
               <Share2 />
               <span className="hidden md:inline">Shared</span>

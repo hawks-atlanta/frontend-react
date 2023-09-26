@@ -10,15 +10,14 @@ export function UpdatePassword() {
     watch
   } = useForm();
 
-  const onSubmit = handleSubmit((data) =>{
-    console.log(data)
-    });
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
 
   return (
     <>
       <div
-        className="bg-white-600 block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900"
-        style={{ cursor: "pointer" }}
+        className="bg-white-600 block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         Update Password
@@ -47,48 +46,59 @@ export function UpdatePassword() {
                 <form onSubmit={onSubmit}>
                   <div className="relative flex-auto p-6">
                     {/*New password*/}
-                  <div className="mb-3 pt-0">
-                  <input type="password"
-                  className="relative w-full rounded border bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
-                  {...register("password", 
-                  {
-                    required:{
-                      value:true,
-                      message:"Password required"
-                    },
-                    minLength:{
-                      value:8,
-                      message:"Password must be at least 8 characters"
-                    },
-                    pattern:{
-                      value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-                      message:"Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-                    }
-                  })} 
-                  />
-                  {errors.password && <span className="text-red-500 text-sm mt-1">{String(errors.password.message)}</span>}
-                  
-                    {/*Confirm new password*/}
-                    <div className="mt-2 pt-0">
-                      <input type="password" 
-                  {...register("confirmPassword", 
-                  {
-                    required:{
-                      value:true,
-                      message:"Password required"
-                    },
-                    validate: value => value === watch('password') || "Passwords do not match"
-                  }
-                  
-                  )} 
-                  className="relative w-full rounded border bg-white px-3 py-2 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"/>
-                  {errors.confirmPassword && <span className="text-red-500 text-sm mt-1">{String(errors.confirmPassword.message)}</span>}
+                    <div className="mb-3 pt-0">
+                      <input
+                        type="password"
+                        className="relative w-full rounded border bg-white px-3 py-3 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
+                        {...register("password", {
+                          required: {
+                            value: true,
+                            message: "Password required"
+                          },
+                          minLength: {
+                            value: 8,
+                            message: "Password must be at least 8 characters"
+                          },
+                          pattern: {
+                            value:
+                              /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                            message:
+                              "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                          }
+                        })}
+                      />
+                      {errors.password && (
+                        <span className="mt-1 text-sm text-red-500">
+                          {String(errors.password.message)}
+                        </span>
+                      )}
+
+                      {/*Confirm new password*/}
+                      <div className="mt-2 pt-0">
+                        <input
+                          type="password"
+                          {...register("confirmPassword", {
+                            required: {
+                              value: true,
+                              message: "Password required"
+                            },
+                            validate: (value) =>
+                              value === watch("password") ||
+                              "Passwords do not match"
+                          })}
+                          className="relative w-full rounded border bg-white px-3 py-2 text-sm text-slate-600 placeholder-slate-300 outline-none focus:outline-none focus:ring"
+                        />
+                        {errors.confirmPassword && (
+                          <span className="mt-1 text-sm text-red-500">
+                            {String(errors.confirmPassword.message)}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end rounded-b border-t border-solid border-slate-200 p-6">
-                  <button
+                    <button
                       className="background-transparent mb-1 mr-1 px-6 py-2 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none"
                       type="button"
                       onClick={() => {
@@ -97,9 +107,7 @@ export function UpdatePassword() {
                     >
                       Close
                     </button>
-                    <button
-                      className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
-                    >
+                    <button className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600">
                       Save Changes
                     </button>
                   </div>
