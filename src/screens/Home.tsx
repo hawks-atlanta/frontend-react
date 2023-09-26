@@ -19,9 +19,7 @@ export function Homepage() {
     <div className="grid-rows-8 grid h-screen grid-cols-12">
       {/*Header*/}
       <div className="col-span-12 row-span-1 flex items-center justify-between bg-blue-500 text-white">
-        <div
-          className="ml-10 flex items-center justify-center text-white cursor-pointer"
-        >
+        <div className="ml-10 flex cursor-pointer items-center justify-center text-white">
           <img
             src="/Logos/logo.png"
             alt=""
@@ -31,7 +29,7 @@ export function Homepage() {
         </div>
         <div className="relative">
           <div
-            className="mr-10 flex items-center justify-center text-white cursor-pointer"
+            className="mr-10 flex cursor-pointer items-center justify-center text-white"
             onClick={toggleDropdown}
           >
             <span className="mr-4 hidden md:inline">Username</span>
@@ -72,21 +70,15 @@ export function Homepage() {
                 </div>
               </button>
             </div>
-            <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
-            >
+            <div className="mb-4 flex cursor-pointer items-center justify-center text-blue-500 hover:text-blue-700">
               <Home />
               <span className="hidden md:inline">Home</span>
             </div>
-            <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
-            >
+            <div className="mb-4 flex cursor-pointer items-center justify-center text-blue-500 hover:text-blue-700">
               <Files />
               <span className="hidden md:inline">My Files</span>
             </div>
-            <div
-              className="mb-4 flex items-center justify-center text-blue-500 hover:text-blue-700 cursor-pointer"
-            >
+            <div className="mb-4 flex cursor-pointer items-center justify-center text-blue-500 hover:text-blue-700">
               <Share2 />
               <span className="hidden md:inline">Shared</span>
             </div>

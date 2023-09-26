@@ -17,7 +17,7 @@ export function UpdatePassword() {
   return (
     <>
       <div
-        className="bg-white-600 block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+        className="bg-white-600 block cursor-pointer px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900"
         onClick={() => setShowModal(true)}
       >
         Update Password

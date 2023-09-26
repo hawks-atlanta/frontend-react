@@ -12,10 +12,10 @@ export function File() {
 
   return (
     <div
-      className="relative left-2 top-2 box-border flex h-32 w-32 cursor-pointer flex-col border-2 bg-white p-5 rounded-lg"
+      className="relative left-2 top-2 box-border flex h-32 w-32 cursor-pointer flex-col rounded-lg border-2 bg-white p-5"
       onClick={handleClick}
     >
-      <FileText className="w-16 h-16" />
+      <FileText className="h-16 w-16" />
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
         <Dropdown></Dropdown>
       </div>
