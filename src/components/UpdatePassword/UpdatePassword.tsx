@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function UpdatePassword() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [rpassword, setRPassword] = useState("");
 
@@ -15,13 +15,13 @@ export function UpdatePassword() {
 
   return (
     <>
-      <button
-        className="bg-white-600 mb-1 mr-1 rounded px-6 py-3 text-sm font-bold uppercase text-black shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-pink-600"
-        type="button"
+      <div
+        className="bg-white-600 block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-gray-900"
+        style={{ cursor: "pointer" }}
         onClick={() => setShowModal(true)}
       >
         Update Password
-      </button>
+      </div>
       {showModal ? (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
@@ -31,7 +31,7 @@ export function UpdatePassword() {
                 {/*header*/}
                 <div className="flex items-start justify-between rounded-t border-b border-solid border-slate-200 p-5">
                   <h3 className="text-3xl font-semibold text-blue-600">
-                    Modal Title
+                    Update Password
                   </h3>
                   <button
                     className="float-right ml-auto border-0 bg-transparent p-1 text-3xl font-semibold leading-none text-black opacity-5 outline-none focus:outline-none"

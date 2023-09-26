@@ -12,7 +12,8 @@ export function File() {
 
   return (
     <div
-      className="relative left-2 top-2 box-border flex h-32 w-32 cursor-pointer flex-col border-2 p-5"
+      className="relative left-2 top-2 box-border flex h-32 w-32 cursor-pointer flex-col rounded-full border-2 bg-white p-5"
+      style={{ borderRadius: "8px" }}
       onClick={handleClick}
     >
       <FileText style={{ width: "4rem", height: "4rem" }} />
