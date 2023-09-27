@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { File } from "../components/File/File";
 import { UpdatePassword } from "../components/UpdatePassword/UpdatePassword";
+import { Pagination } from "../components/Pagination/Pagination.tsx";
 import {
   FilePlus,
   FolderPlus,
@@ -10,6 +11,25 @@ import {
   UserCircle2
 } from "lucide-react";
 export function Homepage() {
+  {
+    /**Pagination */
+  }
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const files = Array.from({ length: 12 }, (_, index) => (
+    <File key={index} fileName={`File ${index + 1}`} fileExtension="txt" />
+  ));
+
+  // Calculate the index of the first and last item to display on the current page
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentFiles = files.slice(indexOfFirstItem, indexOfLastItem);
+
+  {
+    /**Update Password */
+  }
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -96,12 +116,21 @@ export function Homepage() {
             />
           </div>
           <div className="flex flex-wrap">
-            {Array.from({ length: 12 }).map((_, index) => (
+            {currentFiles.map((file, index) => (
               <div key={index} className="flex-grow p-1">
-                <File />
+                {file}
               </div>
             ))}
           </div>
+        </div>
+        {/*Paginatinon*/}
+        <div className="absolute bottom-4 right-4">
+          <Pagination
+            totalPosts={files.length}
+            postsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          ></Pagination>
         </div>
       </div>
     </div>

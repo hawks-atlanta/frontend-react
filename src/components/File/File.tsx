@@ -1,7 +1,12 @@
 import { Dropdown } from "../Dropdown/Dropdown";
 import { FileText } from "lucide-react";
 
-export function File() {
+interface Props {
+  fileName: string;
+  fileExtension: string;
+}
+
+export function File({ fileName, fileExtension }: Props) {
   const handleClick = () => {
     console.log("File clicked!");
   };
@@ -19,7 +24,9 @@ export function File() {
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
         <Dropdown></Dropdown>
       </div>
-      <p className="absolute bottom-0 left-1 w-full truncate">Filename.ext</p>
+      <p className="absolute bottom-0 left-1 w-full truncate">
+        {fileName}.{fileExtension}
+      </p>
     </div>
   );
 }
