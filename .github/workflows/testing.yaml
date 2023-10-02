@@ -105,15 +105,12 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-      
-      - name: Install dependencies
-        run: pnpm install
 
       - name: E2E Tests
         uses: cypress-io/github-action@v5
         env:
           CYPRESS_COVERAGE: true
         with: 
-          install: false
+          install-command: pnpm --prefer-frozen-lockfile install
           start: pnpm dev
           wait-on: "http://localhost:5173"
