@@ -11,18 +11,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: "20.5.1"
-          cache: "npm"
-          cache-dependency-path: "./package-lock.json"
+          version: 8.8.0
+          run_install: false
+      
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
       - name: Install dependencies
-        run: npm i
+        run: pnpm install
 
       - name: Build
-        run: npm run build
+        env:
+          CYPRESS_COVERAGE: false
+        run: pnpm build
   
   lint: 
     runs-on: ubuntu-22.04
@@ -30,21 +44,33 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: "20.5.1"
-          cache: "npm"
-          cache-dependency-path: "./package-lock.json"
+          version: 8.8.0
+          run_install: false
+      
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
       - name: Install dependencies
-        run: npm i
+        run: pnpm install
 
       - name: Linter
-        run: npm run lint:check
+        run: pnpm lint:check
 
       - name: Format
-        run: npm run format:check
+        run: pnpm format:check
 
   test:
     runs-on: ubuntu-22.04
@@ -60,11 +86,34 @@ jobs:
 
       - name: Setup docker environment
         run: docker-compose up -d
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.8.0
+          run_install: false
+      
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      - name: Install dependencies
+        run: pnpm install
 
       - name: E2E Tests
         uses: cypress-io/github-action@v5
         env:
           CYPRESS_COVERAGE: true
         with: 
-          start: npm run dev
+          install: false
+          start: pnpm dev
           wait-on: "http://localhost:5173"

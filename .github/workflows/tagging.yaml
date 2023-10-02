@@ -12,11 +12,27 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup node 18.x
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: 18.x
-          cache: "npm"
+          version: 8.8.0
+          run_install: false
+      
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Git Identity
         run: |
@@ -26,7 +42,7 @@ jobs:
           git config --global user.name "Antonio Donis"
 
       - name: Changelog
-        run: 'npx standard-version --message "[ci skip] chore(release): %s"'
+        run: 'pnpx standard-version --message "[ci skip] chore(release): %s"'
         
       - name: Push changes
         run: git push --follow-tags --force origin dev
