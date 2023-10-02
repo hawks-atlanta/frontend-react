@@ -14,6 +14,5 @@ export default defineConfig({
       return config;
     }
   },
-  video: false,
-  videoUploadOnPasses: false
+  video: false
 });
