@@ -14,16 +14,6 @@ export default defineConfig({
       return config;
     }
   },
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "vite"
-    },
-    setupNodeEvents(on, config) {
-      coverageReportTask(on, config);
-      return config;
-    }
-  },
   video: false,
   videoUploadOnPasses: false
 });
