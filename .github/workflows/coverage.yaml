@@ -12,15 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Component testing
-        uses: cypress-io/github-action@v5
-        with: 
-          component: true
-
       - name: E2E Tests
         uses: cypress-io/github-action@v5
+        env:
+          CYPRESS_COVERAGE: true
         with: 
-          install: false
           start: npm run dev
           wait-on: "http://localhost:5173"
 
