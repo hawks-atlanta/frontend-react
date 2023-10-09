@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../services/EndpointProxy";
+import { loginService } from "../services/auth/login.service";
+import toast from "react-hot-toast";
 
 export function Login() {
   const navigate = useNavigate();
@@ -12,24 +13,14 @@ export function Login() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    try {
-      const loginResponse = await loginUser(formData);
-      if (loginResponse.status === 200) {
-        console.log(
-          "Inicio de sesión exitoso. Respuesta del servidor:",
-          loginResponse.data
-        );
-        navigate("/files");
-      } else {
-        console.error(
-          "Error en la solicitud de inicio de sesión. Código de estado:",
-          loginResponse.status
-        );
-      }
-    } catch (error) {
-      console.error("Error de red o servidor:", error);
+    const { success, ...res } = await loginService(formData);
+    if (!success) {
+      toast.error(res.msg);
+      return;
     }
+
+    toast.success(res.msg);
+    navigate("/files");
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
