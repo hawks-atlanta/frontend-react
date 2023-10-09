@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/EndpointProxy";
 
 export function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -11,10 +14,21 @@ export function Login() {
     event.preventDefault();
 
     try {
-      // Axios
-      // console.log(`Username: ${formData.username}, Password: ${formData.password}`);
+      const loginResponse = await loginUser(formData);
+      if (loginResponse.status === 200) {
+        console.log(
+          "Inicio de sesión exitoso. Respuesta del servidor:",
+          loginResponse.data
+        );
+        navigate("/files");
+      } else {
+        console.error(
+          "Error en la solicitud de inicio de sesión. Código de estado:",
+          loginResponse.status
+        );
+      }
     } catch (error) {
-      console.error("Authentication error:", error);
+      console.error("Error de red o servidor:", error);
     }
   };
 
