@@ -6,10 +6,12 @@ import "./global.css";
 import { NavbarScreen } from "./components/Nav/Nav.tsx";
 import { Login } from "./screens/Login.tsx";
 import { Register } from "./screens/Register.tsx";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Toaster position="bottom-right" />
       <NavbarScreen />
       <Routes>
         <Route path="/" element={<App />}></Route>
