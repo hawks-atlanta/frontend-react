@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginService } from "../services/auth/login.service";
-import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 
 export function Login() {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -13,14 +13,8 @@ export function Login() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const { success, ...res } = await loginService(formData);
-    if (!success) {
-      toast.error(res.msg);
-      return;
-    }
-
-    toast.success(res.msg);
-    navigate("/files");
+    const success = await login(formData.username, formData.password);
+    if (success) navigate("/files");
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
