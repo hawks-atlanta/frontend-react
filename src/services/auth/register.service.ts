@@ -19,7 +19,7 @@ export const registerService = async (
     if (req.password !== req.confirmPassword) {
       return {
         success: false,
-        msg: "La contraseña y la confirmación no coinciden",
+        msg: "La contraseña y la confirmación no coinciden"
       };
     }
     const registerResponse = await axios.post(
@@ -31,7 +31,7 @@ export const registerService = async (
     return {
       success: true,
       msg: data.msg,
-      token: data.token,
+      token: data.token
     };
   } catch (error) {
     let errorMsg = "Hubo un error al intentar registrarse";
@@ -42,7 +42,7 @@ export const registerService = async (
 
     return {
       success: false,
-      msg: errorMsg,
+      msg: errorMsg
     };
   }
 };
