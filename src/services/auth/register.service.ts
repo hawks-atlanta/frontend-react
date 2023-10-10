@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import { AxiosError } from "axios";
 
 type RegisterRequest = {
   username: string;
@@ -16,12 +17,6 @@ export const registerService = async (
   req: RegisterRequest
 ): Promise<RegisterResponse> => {
   try {
-    if (req.password !== req.confirmPassword) {
-      return {
-        success: false,
-        msg: "La contraseña y la confirmación no coinciden"
-      };
-    }
     const registerResponse = await axios.post(
       "http://127.0.0.1:5000/account/register",
       req

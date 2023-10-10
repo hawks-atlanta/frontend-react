@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { registerService } from "../services/auth/register.service";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { toast } from "react-hot-toast";
 
 interface FormData {
   username: "";
@@ -23,15 +24,15 @@ export function Register() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const registrationResponse = await registerService(data);
-
     if (registrationResponse.success && registrationResponse.token) {
       updateSession(data.username, registrationResponse.token);
       navigate("/files");
+      toast.success("Registro exitoso.");
     } else {
-      console.error("Error en el registro:", registrationResponse.msg);
       if (!registrationResponse.token) {
-        console.error("Token no válido");
+        toast.error("Error en el registro: Token no válido");
       }
+      toast.error(`Error en el registro: ${registrationResponse.msg}`);
     }
   };
 
