@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { registerService } from "../services/auth/register.service";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 interface FormData {
   username: "";
@@ -8,6 +11,9 @@ interface FormData {
 }
 
 export function Register() {
+  const navigate = useNavigate();
+  const { updateSession } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -16,7 +22,17 @@ export function Register() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data);
+    const registrationResponse = await registerService(data);
+
+    if (registrationResponse.success && registrationResponse.token) {
+      updateSession(data.username, registrationResponse.token);
+      navigate("/files");
+    } else {
+      console.error("Error en el registro:", registrationResponse.msg);
+      if (!registrationResponse.token) {
+        console.error("Token no válido");
+      }
+    }
   };
 
   return (
