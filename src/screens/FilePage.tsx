@@ -1,20 +1,12 @@
-import { Pagination } from "../components/Pagination/Pagination";
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { useState } from "react";
 import { File } from "../components/FileElement/File";
 
 export function FilePage() {
-  const [currentPage, setCurrentPage] = useState(1);
-
   const files = Array.from({ length: 25 }, (_, index) => (
     <File key={index} fileName={`File ${index + 1}`} fileExtension="txt" />
   ));
 
-  // Calculate the index of the first and last item to display on the current page
-  const itemsPerPage = 20;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentFiles = files.slice(indexOfFirstItem, indexOfLastItem);
+  const currentFiles = files;
 
   return (
     <div className="flex min-h-screen">
@@ -37,15 +29,6 @@ export function FilePage() {
               </div>
             ))}
           </div>
-        </div>
-        {/*Pagination*/}
-        <div className="mb-5 ml-auto mt-auto">
-          <Pagination
-            totalPosts={files.length}
-            postsPerPage={itemsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          ></Pagination>
         </div>
       </div>
     </div>

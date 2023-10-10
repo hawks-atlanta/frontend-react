@@ -22,9 +22,9 @@ export function File({ fileName, fileExtension }: Props) {
     >
       <FileText className="h-20 w-20" />
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
-        <Dropdown></Dropdown>
+        <Dropdown fileName={fileName} fileExtension={fileExtension}></Dropdown>
       </div>
-      <p className="absolute bottom-0 left-1 w-full truncate">
+      <p className="bottom-0 left-1 w-full truncate">
         {fileName}.{fileExtension}
       </p>
     </div>

@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
 
-export function Dropdown() {
+interface Props {
+  fileName: string;
+  fileExtension: string;
+}
+
+export function Dropdown({ fileName, fileExtension }: Props) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <div className="relative inline-block text-left">
       <button
-        id="dropdownMenuIconButton"
+        id={`dropdown_${fileName}_${fileExtension}`}
         data-dropdown-toggle="dropdownDots"
         className="inline-flex items-center rounded-lg bg-white p-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none"
         type="button"
+        aria-label="Dropdown to delete, edit, share, or move file"
         onClick={() => setShowDropdown(!showDropdown)}
       >
         <MoreVertical></MoreVertical>
@@ -22,11 +28,14 @@ export function Dropdown() {
         >
           <ul
             className="py-2 text-sm text-gray-700"
-            aria-labelledby="dropdownMenuIconButton"
+            aria-labelledby="Dropdown to delete, edit, share, or move file"
           >
             <li>
               <div className="flex items-center">
-                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Delete"
+                >
                   <Trash />
                   Delete
                 </button>
@@ -34,7 +43,10 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Edit"
+                >
                   <Pencil />
                   Edit
                 </button>
@@ -42,7 +54,10 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Share"
+                >
                   <Share />
                   Share
                 </button>
@@ -50,7 +65,10 @@ export function Dropdown() {
             </li>
             <li>
               <div className="flex items-center">
-                <button className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Move"
+                >
                   <FolderClosed />
                   Move
                 </button>

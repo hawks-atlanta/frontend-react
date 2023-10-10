@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/home" element={<FilePage />}></Route>
+        <Route path="/files" element={<FilePage />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
