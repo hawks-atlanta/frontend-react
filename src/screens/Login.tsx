@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export function Login() {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -9,13 +13,8 @@ export function Login() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    try {
-      // Axios
-      // console.log(`Username: ${formData.username}, Password: ${formData.password}`);
-    } catch (error) {
-      console.error("Authentication error:", error);
-    }
+    const success = await login(formData.username, formData.password);
+    if (success) navigate("/files");
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
