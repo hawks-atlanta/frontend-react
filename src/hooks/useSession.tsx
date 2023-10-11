@@ -36,6 +36,12 @@ export const useSession = () => {
     if (session) setLoading(false);
   }, [session]);
 
+  const updateSession = (username: string, token: string) => {
+    const updatedSession = { username, token };
+    setSession(updatedSession);
+    persistSession(updatedSession);
+  };
+
   const login = async (
     username: string,
     password: string
@@ -49,9 +55,7 @@ export const useSession = () => {
       return false;
     }
 
-    const session = { username, token: res.token };
-    setSession(session);
-    persistSession(session);
+    updateSession(username, res.token);
 
     toast.success(res.msg);
     return true;
@@ -72,6 +76,7 @@ export const useSession = () => {
     loading,
     session,
     login,
-    logout
+    logout,
+    updateSession
   };
 };

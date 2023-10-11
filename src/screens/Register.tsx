@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { registerService } from "../services/auth/register.service";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+import { toast } from "react-hot-toast";
 
 interface FormData {
   username: "";
@@ -8,6 +12,9 @@ interface FormData {
 }
 
 export function Register() {
+  const navigate = useNavigate();
+  const { updateSession } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -16,7 +23,13 @@ export function Register() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data);
+    const registrationResponse = await registerService(data);
+    if (!registrationResponse.success || !registrationResponse.token)
+      return toast.error(registrationResponse.msg);
+
+    updateSession(data.username, registrationResponse.token);
+    toast.success("You have been registered successfully");
+    navigate("/files");
   };
 
   return (
