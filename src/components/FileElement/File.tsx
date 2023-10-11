@@ -21,13 +21,13 @@ export function File({ fileName, fileExtension, fileType, uuid }: Props) {
 
   return (
     <div
-      className="relative flex h-36 w-36 cursor-pointer flex-col items-center space-y-2 rounded-lg border-2 bg-white p-5"
+      className="relative flex h-36 w-36 cursor-pointer flex-col items-center space-y-2 rounded-lg border-2 bg-white p-5 transition-colors hover:bg-gray-50 hover:shadow-sm"
       onClick={handleClick}
     >
       {isFile ? (
-        <FileText className="h-20 w-20" />
+        <FileText className="h-20 w-20" strokeWidth={1.5} />
       ) : (
-        <Folder className="h-20 w-20" />
+        <Folder className="h-20 w-20" strokeWidth={1.5} />
       )}
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
         <Dropdown uuid={uuid}></Dropdown>

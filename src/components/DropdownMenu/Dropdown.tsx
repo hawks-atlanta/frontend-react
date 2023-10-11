@@ -13,7 +13,7 @@ export function Dropdown({ uuid }: Props) {
       <button
         id={`dropdown_${uuid}`}
         data-dropdown-toggle="dropdownDots"
-        className="inline-flex items-center rounded-lg bg-white p-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none"
+        className="inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 focus:outline-none"
         type="button"
         aria-label="Dropdown to delete, edit, share, or move file"
         onClick={() => setShowDropdown(!showDropdown)}
