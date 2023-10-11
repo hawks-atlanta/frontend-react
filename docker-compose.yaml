@@ -7,7 +7,7 @@ services:
     container_name: gateway
     restart: on-failure
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     environment:
       METADATA_BASEURL: http://metadata:8080
       AUTHENTICATION_BASEURL: http://authentication:8080
@@ -24,7 +24,7 @@ services:
     container_name: python-proxy
     restart: on-failure
     ports:
-      - "8000:8080"
+      - "127.0.0.1:8000:8080"
     environment:
       GATEWAY_BASEURL: http://gateway:8080
     depends_on:
@@ -36,7 +36,7 @@ services:
     container_name: worker
     restart: on-failure
     ports:
-      - "1099:1099"
+      - "127.0.0.1:1099:1099"
     environment:
       METADATA_BASEURL: http://metadata:8080/api/v1
       # Use the default directory that is created in the worker container
@@ -47,7 +47,7 @@ services:
     container_name: metadata
     restart: on-failure
     ports:
-      - "8082:8080"
+      - "127.0.0.1:8082:8080"
     environment:
       DATABASE_HOST: "metadata-db"
       DATABASE_PORT: "5432"
@@ -61,7 +61,7 @@ services:
     container_name: authentication
     restart: on-failure
     ports:
-      - "8083:8080"
+      - "127.0.0.1:8083:8080"
     environment:
       DATABASE_ENGINE: postgres
       DATABASE_DSN: "host=authentication-db user=username password=password dbname=database port=5432 sslmode=disable"
@@ -74,7 +74,7 @@ services:
     container_name: authentication-db
     restart: on-failure
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     environment:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=password
@@ -84,7 +84,7 @@ services:
     container_name: metadata-db
     restart: on-failure
     ports:
-      - "5434:5432"
+      - "127.0.0.1:5434:5432"
     environment:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=password
@@ -93,7 +93,7 @@ services:
     image: dpage/pgadmin4
     container_name: postgres-admin
     ports:
-      - "5050:80"
+      - "127.0.0.1:5050:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=postgres@postgres.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
