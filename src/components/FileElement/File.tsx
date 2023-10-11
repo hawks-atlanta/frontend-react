@@ -1,12 +1,14 @@
 import { Dropdown } from "../DropdownMenu/Dropdown";
-import { FileText } from "lucide-react";
+import { FileText, Folder } from "lucide-react";
 
 interface Props {
   fileName: string;
   fileExtension: string;
+  fileType: string;
+  uuid: number;
 }
 
-export function File({ fileName, fileExtension }: Props) {
+export function File({ fileName, fileExtension, fileType, uuid }: Props) {
   const handleClick = () => {
     console.log("File clicked!");
   };
@@ -17,12 +19,16 @@ export function File({ fileName, fileExtension }: Props) {
 
   return (
     <div
-      className="relative left-2 top-2 box-border flex h-32 w-32 cursor-pointer flex-col rounded-lg border-2 bg-white p-5"
+      className="relative box-border flex h-32 w-32 cursor-pointer flex-col rounded-lg border-2 bg-white p-5"
       onClick={handleClick}
     >
-      <FileText className="h-20 w-20" />
+      {fileType == "archive" ? (
+        <FileText className="h-20 w-20" />
+      ) : (
+        <Folder className="h-20 w-20" />
+      )}
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
-        <Dropdown fileName={fileName} fileExtension={fileExtension}></Dropdown>
+        <Dropdown uuid={uuid}></Dropdown>
       </div>
       <p className="bottom-0 left-1 w-full truncate">
         {fileName}.{fileExtension}

@@ -2,17 +2,16 @@ import { useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
 
 interface Props {
-  fileName: string;
-  fileExtension: string;
+  uuid: number;
 }
 
-export function Dropdown({ fileName, fileExtension }: Props) {
+export function Dropdown({ uuid }: Props) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <div className="relative inline-block text-left">
       <button
-        id={`dropdown_${fileName}_${fileExtension}`}
+        id={`dropdown_${uuid}`}
         data-dropdown-toggle="dropdownDots"
         className="inline-flex items-center rounded-lg bg-white p-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none"
         type="button"

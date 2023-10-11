@@ -2,8 +2,14 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import { File } from "../components/FileElement/File";
 
 export function FilePage() {
-  const files = Array.from({ length: 25 }, (_, index) => (
-    <File key={index} fileName={`File ${index + 1}`} fileExtension="txt" />
+  const files = Array.from({ length: 2 }, (_, index) => (
+    <File
+      key={index}
+      fileName={`Folder ${index + 1}`}
+      fileExtension=""
+      uuid={index + 1}
+      fileType={"directory"}
+    />
   ));
 
   const currentFiles = files;
@@ -21,14 +27,10 @@ export function FilePage() {
             className="mt-2 w-full rounded-md border border-gray-300 px-4 py-2"
           />
         </div>
-        <div className="flex justify-start overflow-y-auto">
-          <div className="flex flex-wrap justify-start">
-            {currentFiles.map((file, index) => (
-              <div key={index} className="mb-2 mr-2 p-1">
-                {file}
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-wrap justify-start gap-4 p-2">
+          {currentFiles.map((file, index) => (
+            <div key={index}>{file}</div>
+          ))}
         </div>
       </div>
     </div>
