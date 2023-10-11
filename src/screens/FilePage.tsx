@@ -31,9 +31,7 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {currentFiles.map((file, index) => (
-            <div key={index}>{file}</div>
-          ))}
+          {currentFiles}
         </div>
       </div>
     </div>
