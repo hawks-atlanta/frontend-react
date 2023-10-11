@@ -24,16 +24,12 @@ export function Register() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const registrationResponse = await registerService(data);
-    if (registrationResponse.success && registrationResponse.token) {
-      updateSession(data.username, registrationResponse.token);
-      navigate("/files");
-      toast.success("Registro exitoso.");
-    } else {
-      if (!registrationResponse.token) {
-        toast.error("Error en el registro: Token no válido");
-      }
-      toast.error(`Error en el registro: ${registrationResponse.msg}`);
-    }
+    if (!registrationResponse.success || !registrationResponse.token)
+      return toast.error(registrationResponse.msg);
+
+    updateSession(data.username, registrationResponse.token);
+    toast.success("You have been registered successfully");
+    navigate("/files");
   };
 
   return (
