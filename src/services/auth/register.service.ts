@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AxiosError } from "axios";
+import { ENVIRONMENT } from "../../config/environment";
 
 type RegisterRequest = {
   username: string;
@@ -18,7 +19,7 @@ export const registerService = async (
 ): Promise<RegisterResponse> => {
   try {
     const registerResponse = await axios.post(
-      "http://127.0.0.1:5000/account/register",
+      `${ENVIRONMENT.PROXY_BASE_URL}/account/register`,
       req
     );
     const { data } = registerResponse;
@@ -29,7 +30,7 @@ export const registerService = async (
       token: data.token
     };
   } catch (error) {
-    let errorMsg = "Hubo un error al intentar registrarse";
+    let errorMsg = "There was an error registering your account";
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;
