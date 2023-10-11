@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route
             path="/files"
             element={
-              <AuthMiddleware mustBeAuthenticated={false}>
+              <AuthMiddleware mustBeAuthenticated={true}>
                 <FilePage />
               </AuthMiddleware>
             }
