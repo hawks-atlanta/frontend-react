@@ -25,7 +25,9 @@
 npm install
 ```
 
-2. Run the app
+2. (Optional) Copy the `.env.example` file to `.env` and fill in the environment variables in case you need to change the default values.
+
+3. Run the app
 
 ```bash
 npm run dev
@@ -59,15 +61,15 @@ npm run format:fix
 
 ### Testing
 
-Run: 
+Run:
 
 ```bash
 npm run test
 ```
 
-Make sure you have the `React` app running on `localhost:5173` before running the e2e tests. 
+Make sure you have the `React` app running on `localhost:5173` before running the e2e tests.
 
 ## Coverage
 
 | [![sunburst](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/sunburst.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) | [![grid](https://codecov.io/gh/hawks-atlanta/frontend-react/graphs/tree.svg?token=XKAXVDB3MC)](https://codecov.io/gh/hawks-atlanta/frontend-react) |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |

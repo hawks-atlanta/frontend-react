@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { ENVIRONMENT } from "../../config/environment";
 
 type LoginRequest = {
   username: string;
@@ -16,7 +17,7 @@ export const loginService = async (
 ): Promise<LoginResponse> => {
   try {
     const loginResponse = await axios.post(
-      "http://127.0.0.1:5000/auth/login",
+      `${ENVIRONMENT.PROXY_BASE_URL}/auth/login`,
       req
     );
     const { data } = loginResponse;
