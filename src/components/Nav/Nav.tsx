@@ -20,14 +20,14 @@ export function NavbarScreen() {
   }, [location.pathname]);
 
   return (
-    <nav className="relative bg-blue-600 p-4">
+    <nav className="relative h-20 bg-blue-600 p-4">
       <div className="mx-auto flex max-w-screen-2xl items-center font-bold text-white">
         <Link to="/" onClick={closeMobileMenu}>
           <img
             src="/Logos/logo.png"
             alt=""
             aria-label="CapyFile Logo"
-            className="mr-2 h-16 w-16 rounded-md border border-gray-500"
+            className="mr-2 aspect-square w-12 rounded-md border border-gray-500"
           />
         </Link>
         <p className="ml-2 text-2xl">CapyFile</p>
