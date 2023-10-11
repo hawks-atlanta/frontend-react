@@ -9,6 +9,8 @@ interface Props {
 }
 
 export function File({ fileName, fileExtension, fileType, uuid }: Props) {
+  const isFile = fileType === "archive";
+
   const handleClick = () => {
     console.log("File clicked!");
   };
@@ -19,10 +21,10 @@ export function File({ fileName, fileExtension, fileType, uuid }: Props) {
 
   return (
     <div
-      className="relative box-border flex h-32 w-32 cursor-pointer flex-col rounded-lg border-2 bg-white p-5"
+      className="relative flex h-36 w-36 cursor-pointer flex-col items-center space-y-2 rounded-lg border-2 bg-white p-5"
       onClick={handleClick}
     >
-      {fileType == "archive" ? (
+      {isFile ? (
         <FileText className="h-20 w-20" />
       ) : (
         <Folder className="h-20 w-20" />
@@ -30,8 +32,9 @@ export function File({ fileName, fileExtension, fileType, uuid }: Props) {
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
         <Dropdown uuid={uuid}></Dropdown>
       </div>
-      <p className="bottom-0 left-1 w-full truncate">
-        {fileName}.{fileExtension}
+      <p className="w-ful line-clamp-1">
+        {fileName}
+        {isFile && `.${fileExtension}`}
       </p>
     </div>
   );
