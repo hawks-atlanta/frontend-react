@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { loginService } from "../services/auth/login.service";
 import toast from "react-hot-toast";
 import { useLocalStorage } from "./useLocalStorage";
+import { authRefreshService } from "../services/auth/refresh.service";
 
 export interface SessionState {
   username: string;
@@ -48,17 +49,31 @@ export const useSession = () => {
   ): Promise<boolean> => {
     setLoading(true);
 
-    const { success, ...res } = await loginService({ username, password });
-    if (!success) {
-      toast.error(res.msg);
-      setLoading(false);
-      return false;
+    const token = getItem("token");
+
+    if (token) {
+      const refreshResponse = await authRefreshService(token);
+      if (refreshResponse.success) {
+        updateSession(username, refreshResponse.token);
+        toast.success("Session started successfully.");
+        return true;
+      } else {
+        toast.error(refreshResponse.msg);
+        setLoading(false);
+        return false;
+      }
+    } else {
+      const { success, ...res } = await loginService({ username, password });
+      if (!success) {
+        toast.error(res.msg);
+        setLoading(false);
+        return false;
+      }
+
+      updateSession(username, res.token);
+      toast.success(res.msg);
+      return true;
     }
-
-    updateSession(username, res.token);
-
-    toast.success(res.msg);
-    return true;
   };
 
   const persistSession = (session: SessionState) => {
