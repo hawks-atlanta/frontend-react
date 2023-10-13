@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.9 (2023-10-13)
+
+
+### Features
+
+* Check if session is valid after recovering it ([#41](https://github.com/hawks-atlanta/frontend-react/issues/41)) ([b8cbe80](https://github.com/hawks-atlanta/frontend-react/commit/b8cbe804a596ccd87234573201947b68c87ecb4a))
+
 ### 0.0.8 (2023-10-13)
 
 
