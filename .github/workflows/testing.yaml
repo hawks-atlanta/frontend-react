@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install 
-          pnpx cypress install
+          pnpx cypress install --force
 
       - name: Build
         env:
