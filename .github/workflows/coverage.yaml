@@ -34,7 +34,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install
+          pnpx cypress install
 
       - name: E2E Tests
         uses: cypress-io/github-action@v6

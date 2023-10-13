@@ -31,7 +31,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install 
+          pnpx cypress install
 
       - name: Build
         env:
