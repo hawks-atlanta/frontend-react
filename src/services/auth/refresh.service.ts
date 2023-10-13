@@ -1,34 +1,40 @@
 import axios, { AxiosError } from "axios";
 import { ENVIRONMENT } from "../../config/environment";
 
-type AuthRefreshResponse = {
+type ChallengeServiceResponse = {
   success: boolean;
   msg: string;
   token: string;
 };
 
-export const authRefreshService = async (token: string): Promise<AuthRefreshResponse> => {   
+export const challengeService = async (
+  token: string
+): Promise<ChallengeServiceResponse> => {
   try {
     const response = await axios.post(
       `${ENVIRONMENT.PROXY_BASE_URL}/auth/refresh`,
-      { token }
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
-    
-    const { data } = response;
 
-    if (data.success) {
-      return {
-        success: true,
-        msg: "Token is valid",
-        token: data.token,
-      };
-    } else {
+    const { data } = response;
+    if (!data.token) {
       return {
         success: false,
         msg: "Token is not valid",
-        token: "",
+        token: ""
       };
     }
+
+    return {
+      success: true,
+      msg: "Token is valid",
+      token: data.token
+    };
   } catch (error) {
     let errorMsg = "There was an error while trying to validate the token";
 
@@ -39,7 +45,7 @@ export const authRefreshService = async (token: string): Promise<AuthRefreshResp
     return {
       success: false,
       msg: errorMsg,
-      token: "",
+      token: ""
     };
   }
 };
