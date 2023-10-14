@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.10 (2023-10-14)
+
+
+### Bug Fixes
+
+* **ui:** Update navbar according to session ([#55](https://github.com/hawks-atlanta/frontend-react/issues/55)) ([eb6120a](https://github.com/hawks-atlanta/frontend-react/commit/eb6120a5c5ad9725135f8bfda6b84617bc1eb6db))
+
 ### 0.0.9 (2023-10-13)
 
 
