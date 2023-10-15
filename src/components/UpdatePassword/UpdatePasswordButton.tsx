@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 export function UpdatePassword() {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +10,7 @@ export function UpdatePassword() {
     watch
   } = useForm();
 
-  const onSubmit = handleSubmit((formData: FieldValues) => {
+  const onSubmit = handleSubmit(() => {
     if (!errors.password && !errors.confirmPassword) {
       console.log("Password updated");
     }
