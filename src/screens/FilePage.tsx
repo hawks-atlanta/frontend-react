@@ -12,8 +12,9 @@ export function FilePage() {
   const navigate = useNavigate();
   const [searchParams, _setSearchParams] = useSearchParams();
   const directory = searchParams.get("directory");
-  const [files, setFiles] = useState<File[]>([]);
   const { session } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [files, setFiles] = useState<File[]>([]);
 
   const fetchFiles = async () => {
     const response = await listFilesService({
@@ -27,6 +28,8 @@ export function FilePage() {
       toast.error(response.msg);
       navigate("/");
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +50,11 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {files.length > 0 ? (
+          {isLoading ? (
+            <div className="w-full p-2 text-center text-gray-500">
+              Loading...
+            </div>
+          ) : files.length > 0 ? (
             files.map((file, index) => (
               <FileElement
                 key={index}
