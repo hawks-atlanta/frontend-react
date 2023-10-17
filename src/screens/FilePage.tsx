@@ -1,21 +1,34 @@
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { File } from "../components/FileElement/File";
+import { listFilesService } from "../services/files/list-file.service";
+import { useContext, useEffect, useState } from "react";
+import { File } from "../types/entities";
+import { FileElement } from "../components/FileElement/FileCard";
+import { AuthContext } from "../context/AuthContext";
 
 export function FilePage() {
-  const files = Array.from({ length: 32 }, (_, index) => {
-    const isFile = index % 2 === 0;
-    return (
-      <File
-        key={index}
-        fileName={`${isFile ? "file" : "folder"} ${index + 1}`}
-        fileExtension={isFile ? "zip" : ""}
-        uuid={index + 1}
-        fileType={isFile ? "archive" : "folder"}
-      />
-    );
-  });
+  const [files, setFiles] = useState<File[]>([]);
+  const { session } = useContext(AuthContext);
 
-  const currentFiles = files;
+  const fetchFiles = async () => {
+    try {
+      const response = await listFilesService({
+        token: session?.token || "",
+        directory: null
+      });
+
+      if (response.success) {
+        setFiles(response.files);
+      } else {
+        console.error("Error al obtener archivos: ", response.msg);
+      }
+    } catch (error) {
+      console.error("Error al obtener archivos: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -31,7 +44,15 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {currentFiles}
+          {files.map((file, index) => (
+            <FileElement
+              key={index}
+              fileName={file.name}
+              fileExtension={file.extension || ""}
+              uuid={file.uuid}
+              fileType={file.isFile ? "file" : "folder"}
+            />
+          ))}
         </div>
       </div>
     </div>

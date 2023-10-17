@@ -5,10 +5,15 @@ interface Props {
   fileName: string;
   fileExtension: string;
   fileType: string;
-  uuid: number;
+  uuid: string;
 }
 
-export function File({ fileName, fileExtension, fileType, uuid }: Props) {
+export function FileElement({
+  fileName,
+  fileExtension,
+  fileType,
+  uuid
+}: Props) {
   const isFile = fileType === "archive";
 
   const handleClick = () => {
