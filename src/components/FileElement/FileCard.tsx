@@ -1,5 +1,6 @@
 import { Dropdown } from "../DropdownMenu/Dropdown";
 import { FileText, Folder } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   fileName: string;
@@ -14,10 +15,13 @@ export function FileElement({
   fileType,
   uuid
 }: Props) {
-  const isFile = fileType === "archive";
+  const isFile = fileType === "file";
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const handleClick = () => {
-    console.log("File clicked!");
+    if(!isFile){
+      setSearchParams({directory: uuid})
+    }
   };
 
   const handleDropdownClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -39,7 +43,6 @@ export function FileElement({
       </div>
       <p className="w-ful line-clamp-1">
         {fileName}
-        {isFile && `.${fileExtension}`}
       </p>
     </div>
   );

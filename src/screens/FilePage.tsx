@@ -4,8 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import { File } from "../types/entities";
 import { FileElement } from "../components/FileElement/FileCard";
 import { AuthContext } from "../context/AuthContext";
+import { useSearchParams } from "react-router-dom";
+
 
 export function FilePage() {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const directory = searchParams.get("directory")
   const [files, setFiles] = useState<File[]>([]);
   const { session } = useContext(AuthContext);
 
@@ -13,7 +17,7 @@ export function FilePage() {
     try {
       const response = await listFilesService({
         token: session?.token || "",
-        directory: null
+        directory: directory
       });
 
       if (response.success) {
@@ -28,7 +32,7 @@ export function FilePage() {
 
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [directory]);
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
