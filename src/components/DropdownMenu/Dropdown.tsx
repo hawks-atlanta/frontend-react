@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
 
 interface Props {
-  uuid: number;
+  uuid: string;
 }
 
 export function Dropdown({ uuid }: Props) {
