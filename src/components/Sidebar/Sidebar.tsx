@@ -1,4 +1,5 @@
 import { FilePlus, FolderPlus, Home, Share2, Files } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Sidebar() {
   return (
@@ -29,12 +30,15 @@ export function Sidebar() {
               Home
             </span>
           </div>
-          <div className="mb-4 flex cursor-pointer items-center justify-center gap-1.5 text-blue-600 hover:text-blue-700">
+          <Link
+            to="/files"
+            className="mb-4 flex cursor-pointer items-center justify-center gap-1.5 text-blue-600 hover:text-blue-700"
+          >
             <Files />
             <span className="hidden md:inline" aria-label="My Files">
               My Files
             </span>
-          </div>
+          </Link>
           <div className="mb-4 flex cursor-pointer items-center justify-center gap-1.5 text-blue-600 hover:text-blue-700">
             <Share2 />
             <span className="hidden md:inline" aria-label="Shared">

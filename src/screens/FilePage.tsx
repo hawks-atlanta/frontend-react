@@ -1,21 +1,43 @@
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { File } from "../components/FileElement/File";
+import { listFilesService } from "../services/files/list-file.service";
+import { useContext, useEffect, useState } from "react";
+import { File } from "../types/entities";
+import { FileElement } from "../components/FileElement/FileCard";
+import { AuthContext } from "../context/AuthContext";
+import { useSearchParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function FilePage() {
-  const files = Array.from({ length: 32 }, (_, index) => {
-    const isFile = index % 2 === 0;
-    return (
-      <File
-        key={index}
-        fileName={`${isFile ? "file" : "folder"} ${index + 1}`}
-        fileExtension={isFile ? "zip" : ""}
-        uuid={index + 1}
-        fileType={isFile ? "archive" : "folder"}
-      />
-    );
-  });
+  const [searchParams, _setSearchParams] = useSearchParams();
+  const directory = searchParams.get("directory");
+  const navigate = useNavigate();
 
-  const currentFiles = files;
+  const { session } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [files, setFiles] = useState<File[]>([]);
+
+  const fetchFiles = async () => {
+    setIsLoading(true);
+    const response = await listFilesService({
+      token: session?.token || "",
+      directory: directory
+    });
+
+    if (response.success) {
+      setFiles(response.files);
+    } else {
+      toast.error(response.msg);
+      navigate("/");
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchFiles();
+  }, [directory]);
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -31,7 +53,25 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {currentFiles}
+          {isLoading ? (
+            <div className="w-full p-2 text-center text-gray-500">
+              Loading...
+            </div>
+          ) : files.length > 0 ? (
+            files.map((file, index) => (
+              <FileElement
+                key={index}
+                fileName={file.name}
+                fileExtension={file.extension || ""}
+                uuid={file.uuid}
+                fileType={file.isFile ? "file" : "folder"}
+              />
+            ))
+          ) : (
+            <div className="w-full p-2 text-center text-gray-500">
+              No files to display.
+            </div>
+          )}
         </div>
       </div>
     </div>
