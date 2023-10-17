@@ -47,15 +47,21 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {files.map((file, index) => (
-            <FileElement
-              key={index}
-              fileName={file.name}
-              fileExtension={file.extension || ""}
-              uuid={file.uuid}
-              fileType={file.isFile ? "file" : "folder"}
-            />
-          ))}
+          {files.length > 0 ? (
+            files.map((file, index) => (
+              <FileElement
+                key={index}
+                fileName={file.name}
+                fileExtension={file.extension || ""}
+                uuid={file.uuid}
+                fileType={file.isFile ? "file" : "folder"}
+              />
+            ))
+          ) : (
+            <div className="w-full p-2 text-center text-gray-500">
+              No files to display.
+            </div>
+          )}
         </div>
       </div>
     </div>
