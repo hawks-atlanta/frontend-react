@@ -9,14 +9,17 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export function FilePage() {
-  const navigate = useNavigate();
   const [searchParams, _setSearchParams] = useSearchParams();
   const directory = searchParams.get("directory");
+  const navigate = useNavigate();
+
   const { session } = useContext(AuthContext);
+
   const [isLoading, setIsLoading] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
 
   const fetchFiles = async () => {
+    setIsLoading(true);
     const response = await listFilesService({
       token: session?.token || "",
       directory: directory
