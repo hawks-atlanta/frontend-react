@@ -9,18 +9,13 @@ interface Props {
   uuid: string;
 }
 
-export function FileElement({
-  fileName,
-  fileExtension,
-  fileType,
-  uuid
-}: Props) {
+export function FileElement({ fileName, fileType, uuid }: Props) {
   const isFile = fileType === "file";
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [_searchParams, setSearchParams] = useSearchParams();
 
   const handleClick = () => {
-    if(!isFile){
-      setSearchParams({directory: uuid})
+    if (!isFile) {
+      setSearchParams({ directory: uuid });
     }
   };
 
@@ -41,9 +36,7 @@ export function FileElement({
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
         <Dropdown uuid={uuid}></Dropdown>
       </div>
-      <p className="w-ful line-clamp-1">
-        {fileName}
-      </p>
+      <p className="w-ful line-clamp-1">{fileName}</p>
     </div>
   );
 }

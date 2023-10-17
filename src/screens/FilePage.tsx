@@ -5,28 +5,27 @@ import { File } from "../types/entities";
 import { FileElement } from "../components/FileElement/FileCard";
 import { AuthContext } from "../context/AuthContext";
 import { useSearchParams } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function FilePage() {
-  let [searchParams, setSearchParams] = useSearchParams();
-  const directory = searchParams.get("directory")
+  const navigate = useNavigate();
+  const [searchParams, _setSearchParams] = useSearchParams();
+  const directory = searchParams.get("directory");
   const [files, setFiles] = useState<File[]>([]);
   const { session } = useContext(AuthContext);
 
   const fetchFiles = async () => {
-    try {
-      const response = await listFilesService({
-        token: session?.token || "",
-        directory: directory
-      });
+    const response = await listFilesService({
+      token: session?.token || "",
+      directory: directory
+    });
 
-      if (response.success) {
-        setFiles(response.files);
-      } else {
-        console.error("Error al obtener archivos: ", response.msg);
-      }
-    } catch (error) {
-      console.error("Error al obtener archivos: ", error);
+    if (response.success) {
+      setFiles(response.files);
+    } else {
+      toast.error(response.msg);
+      navigate("/");
     }
   };
 
