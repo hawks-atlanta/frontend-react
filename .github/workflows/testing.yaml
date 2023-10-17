@@ -111,13 +111,13 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ env.CYPRESS_VERSION }}
-      
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Install cypress
         if: steps.cypress-cache.outputs.cache-hit != 'true'
         run: pnpx cypress install --force
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: E2E Tests
         uses: cypress-io/github-action@v6
