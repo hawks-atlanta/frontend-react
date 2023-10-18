@@ -75,6 +75,7 @@ export const CreateFolderDialog = ({
         <input
           type="text"
           value={folderName}
+          aria-label="New folder name"
           onChange={(e) => setFolderName(e.target.value)}
           className="w-full rounded-lg border p-2"
         />
