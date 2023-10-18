@@ -36,7 +36,6 @@ export const CreateFolderDialog = ({
     };
 
     const response = await createNewDirectoryService(createFolderRequest);
-    console.log(response);
     if (!response.success || !response.directoryUUID) {
       toast.error(response.msg);
       return;
