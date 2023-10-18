@@ -61,7 +61,10 @@ export const CreateFolderDialog = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
+    <div
+      role="dialog"
+      className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm"
+    >
       <div className="relative rounded-md border border-gray-300 bg-white p-4 shadow-md">
         <button
           className="absolute right-0 top-0 p-3"
@@ -83,7 +86,7 @@ export const CreateFolderDialog = ({
           className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
           onClick={createFolder}
         >
-          Create Folder
+          Create folder
         </button>
       </div>
     </div>
