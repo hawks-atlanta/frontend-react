@@ -28,10 +28,6 @@ export const createNewDirectoryService = async (
     );
 
     if (response.status !== 201) {
-      console.log(
-        "Error in createNewDirectoryService - Request failed with status " +
-          response.status
-      );
       return {
         success: false,
         msg: "Request failed with status " + response.status
