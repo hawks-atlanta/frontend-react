@@ -61,15 +61,17 @@ export const CreateFolderDialog = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center">
-      <div className="modal absolute rounded-lg border border-black bg-white p-4 ">
+    <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
+      <div className="relative rounded-md border border-gray-300 bg-white p-4 shadow-md">
         <button
           className="absolute right-0 top-0 p-3"
           onClick={closeModalCallback}
         >
           <X className="h-6 w-6 text-gray-600" />
         </button>
-        <h1 className="mb-4 text-xl">Ingresa el nombre de la carpeta</h1>
+        <h1 className="mb-4 max-w-[85%] text-xl">
+          Enter a name for the new folder
+        </h1>
         <input
           type="text"
           value={folderName}
