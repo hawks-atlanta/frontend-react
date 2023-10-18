@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
+import { EditNameDialog } from "../../screens/dialogs/rename-file-dialog";
 
 interface Props {
   uuid: string;
@@ -7,6 +8,13 @@ interface Props {
 
 export function Dropdown({ uuid }: Props) {
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const openEditDialog = () => {
+    setShowDropdown(false);
+    setShowEditModal(true);
+  };
 
   return (
     <div className="relative inline-block text-left">
@@ -45,6 +53,7 @@ export function Dropdown({ uuid }: Props) {
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
                   aria-label="Edit"
+                  onClick={openEditDialog}
                 >
                   <Pencil />
                   Edit
@@ -76,6 +85,16 @@ export function Dropdown({ uuid }: Props) {
           </ul>
         </div>
       )}
+      <EditNameDialog
+        isOpen={showEditModal}
+        itemName=""
+        onSave={(newName) => {
+          console.log(`Nuevo nombre: ${newName}`);
+          setShowEditModal(false);
+        }}
+        onCancel={() => setShowEditModal(false)}
+        fileUUID={uuid}
+      />
     </div>
   );
 }
