@@ -1,6 +1,9 @@
-import { TESTS_DATA } from "./tests-data";
+import { faker } from "@faker-js/faker";
 
 describe("Register tests", () => {
+  const username = faker.internet.userName();
+  const password = faker.internet.password({ length: 8 });
+
   it("Fields are validated", () => {
     cy.visit("/register");
     const submitButton = cy.get("button").contains("Submit");
@@ -38,9 +41,9 @@ describe("Register tests", () => {
 
   it("An user can register", () => {
     cy.visit("/register");
-    cy.get("input[name=username]").type(TESTS_DATA.REGISTER.username);
-    cy.get("input[name=password]").type(TESTS_DATA.REGISTER.password);
-    cy.get("input[name=confirmPassword]").type(TESTS_DATA.REGISTER.password);
+    cy.get("input[name=username]").type(username);
+    cy.get("input[name=password]").type(password);
+    cy.get("input[name=confirmPassword]").type(password);
 
     // An alert is shown
     const submitButton = cy.get("button").contains("Submit");
