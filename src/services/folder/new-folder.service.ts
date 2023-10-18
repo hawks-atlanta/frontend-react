@@ -41,7 +41,7 @@ export const createNewDirectoryService = async (
       return {
         success: true,
         msg: "New directory created successfully",
-        directoryUUID: data.fileUUID,
+        directoryUUID: data.directoryUUID,
       };
     } catch (error) {
       console.log("Error in createNewDirectoryService:", error);

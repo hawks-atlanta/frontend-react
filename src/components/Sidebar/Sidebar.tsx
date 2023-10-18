@@ -4,11 +4,19 @@ import { createNewDirectoryService } from "../../services/folder/new-folder.serv
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { Link, useSearchParams } from "react-router-dom";
+import { File } from "../../types/entities";
 
-export function Sidebar() {
+interface SidebarProps {
+  addFolderCallback: (dir: File) => void;
+}
+
+export function Sidebar({ addFolderCallback }: SidebarProps) {
+  // Url state
   const [searchParams, _setSearchParams] = useSearchParams();
   const directory = searchParams.get("directory");
   const { session } = useContext(AuthContext);
+
+  // Modal state
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
 
@@ -34,15 +42,26 @@ export function Sidebar() {
     };
 
     const response = await createNewDirectoryService(createFolderRequest);
-
-    if (response.success) {
-      toast.success("Carpeta creada exitosamente");
-    } else {
-      toast.error("Error al crear la carpeta: " + response.msg);
+    console.log(response);
+    if (!response.success || !response.directoryUUID) {
+      toast.error(response.msg);
+      return;
     }
 
+    toast.success("The folder have been created successfully");
     setFolderName("");
     setModalIsOpen(false);
+
+    // Add the new folder to the ui
+    const newFolder: File = {
+      isFile: false,
+      isReady: true,
+      name: folderName,
+      size: 0,
+      uuid: response.directoryUUID
+    };
+
+    addFolderCallback(newFolder);
   };
 
   useEffect(() => {
