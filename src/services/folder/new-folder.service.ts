@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ENVIRONMENT } from "../../config/environment";
 
 type CreateNewDirectoryRequest = {
@@ -50,11 +50,15 @@ export const createNewDirectoryService = async (
       directoryUUID: data.directoryUUID
     };
   } catch (error) {
-    console.log("Error in createNewDirectoryService:", error);
+    let errorMsg = "There was an error while trying to list files";
+
+    if (error instanceof AxiosError) {
+      errorMsg = error.response?.data.msg || errorMsg;
+    }
 
     return {
       success: false,
-      msg: "There was an error creating the new directory"
+      msg: errorMsg
     };
   }
 };
