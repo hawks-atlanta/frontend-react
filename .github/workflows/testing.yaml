@@ -29,9 +29,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-      
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install 
 
       - name: Build
         env:
@@ -100,10 +100,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       
-      - name: Install dependencies
+      - name: Get installed cypress version
+        id: cypress-version
         run: |
-          pnpm install
-          pnpx cypress install
+          echo "CYPRESS_VERSION=$(node -e "console.log(require('./package.json').devDependencies['cypress'])")" >> $GITHUB_ENV
+
+      - name: Cache cypress binary
+        id: cypress-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ env.CYPRESS_VERSION }}
+
+      - name: Install cypress
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: pnpx cypress install --force
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: E2E Tests
         uses: cypress-io/github-action@v6

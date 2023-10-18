@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install cypress
+        run: pnpx cypress install --force
+
       - name: E2E Tests
         uses: cypress-io/github-action@v6
         env:

@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.12 (2023-10-18)
+
+### 0.0.11 (2023-10-17)
+
+
+### Features
+
+* List user files ([#57](https://github.com/hawks-atlanta/frontend-react/issues/57)) ([7723c72](https://github.com/hawks-atlanta/frontend-react/commit/7723c727df54e62222bbe35648a64d81f3451a8d))
+
+### 0.0.10 (2023-10-14)
+
+
+### Bug Fixes
+
+* **ui:** Update navbar according to session ([#55](https://github.com/hawks-atlanta/frontend-react/issues/55)) ([eb6120a](https://github.com/hawks-atlanta/frontend-react/commit/eb6120a5c5ad9725135f8bfda6b84617bc1eb6db))
+
+### 0.0.9 (2023-10-13)
+
+
+### Features
+
+* Check if session is valid after recovering it ([#41](https://github.com/hawks-atlanta/frontend-react/issues/41)) ([b8cbe80](https://github.com/hawks-atlanta/frontend-react/commit/b8cbe804a596ccd87234573201947b68c87ecb4a))
+
+### 0.0.8 (2023-10-13)
+
+
+### Features
+
+* [#31](https://github.com/hawks-atlanta/frontend-react/issues/31)_FilePage ([#32](https://github.com/hawks-atlanta/frontend-react/issues/32)) ([87518a8](https://github.com/hawks-atlanta/frontend-react/commit/87518a8c860463322501d658b074387fee1eff74))
+
 ### 0.0.7 (2023-10-11)
 
 ### 0.0.6 (2023-10-11)
