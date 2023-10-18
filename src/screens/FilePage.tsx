@@ -9,12 +9,14 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export function FilePage() {
+  // Url state
   const [searchParams, _setSearchParams] = useSearchParams();
   const directory = searchParams.get("directory");
   const navigate = useNavigate();
 
   const { session } = useContext(AuthContext);
 
+  // Files state
   const [isLoading, setIsLoading] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
 
@@ -39,10 +41,14 @@ export function FilePage() {
     fetchFiles();
   }, [directory]);
 
+  const addNewDirectory = (dir: File) => {
+    setFiles([...files, dir]);
+  };
+
   return (
     <div className="flex h-[calc(100vh-5rem)]">
       <div className="w-1/5 bg-gray-200">
-        <Sidebar />
+        <Sidebar addFolderCallback={addNewDirectory} />
       </div>
       <div className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
         <div className="p-2">
