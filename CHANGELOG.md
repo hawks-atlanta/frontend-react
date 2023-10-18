@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.13 (2023-10-18)
+
+
+### Features
+
+* Create folders ([#58](https://github.com/hawks-atlanta/frontend-react/issues/58)) ([300a4a6](https://github.com/hawks-atlanta/frontend-react/commit/300a4a6038b915bacafbf21ea9763a875bfb2446))
+
 ### 0.0.12 (2023-10-18)
 
 ### 0.0.11 (2023-10-17)
