@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.14 (2023-10-19)
+
+
+### Bug Fixes
+
+* Update nginx config ([#61](https://github.com/hawks-atlanta/frontend-react/issues/61)) ([033c164](https://github.com/hawks-atlanta/frontend-react/commit/033c1642d871485f1cc93fc97ae6e6c56f9e17ca))
+
 ### 0.0.13 (2023-10-18)
 
 
