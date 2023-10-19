@@ -17,7 +17,7 @@ export function UpdatePassword() {
   }
 
   const onSubmit = async (formData: FieldValues) => {
-    let req: UpdatepasswordRequest = {
+    const req: UpdatepasswordRequest = {
       oldPassword: formData.password,
       newPassword: formData.confirmPassword
     };
