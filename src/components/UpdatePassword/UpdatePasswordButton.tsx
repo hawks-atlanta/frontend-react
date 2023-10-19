@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { updatepasswordService } from "../../services/auth/updatepassword.service";
+import { FieldValues, useForm } from "react-hook-form";
 
 export function UpdatePassword() {
   const [showModal, setShowModal] = useState(false);
@@ -10,11 +11,25 @@ export function UpdatePassword() {
     watch
   } = useForm();
 
-  const onSubmit = handleSubmit(() => {
+  interface UpdatepasswordRequest {
+    oldPassword: string;
+    newPassword: string;
+  }
+
+  const onSubmit = async (formData: FieldValues) => {
+    let req: UpdatepasswordRequest = {
+      oldPassword: formData.password,
+      newPassword: formData.confirmPassword
+    };
     if (!errors.password && !errors.confirmPassword) {
-      console.log("Password updated");
+      try {
+        const UpdatePasswordResponse = await updatepasswordService(req);
+        console.log(UpdatePasswordResponse);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  });
+  };
 
   return (
     <>
@@ -26,7 +41,7 @@ export function UpdatePassword() {
       </button>
       {showModal ? (
         <div className="absolute top-full mt-4 flex w-4/5 flex-col items-center justify-center gap-4 border bg-white p-4">
-          <form onSubmit={onSubmit} className="g-2 w-full">
+          <form onSubmit={handleSubmit(onSubmit)} className="g-2 w-full">
             <p className="m-2 ml-2 text-center text-2xl font-bold text-blue-600">
               Update Password
             </p>
@@ -88,7 +103,10 @@ export function UpdatePassword() {
               >
                 Close
               </button>
-              <button className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600">
+              <button
+                type="submit"
+                className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
+              >
                 Save Changes
               </button>
             </footer>
