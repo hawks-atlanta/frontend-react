@@ -1,11 +1,18 @@
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { FileElement } from "../components/FileElement/FileCard";
-import { FilesContext } from "../context/index";
+import {
+  AVAILABLE_DIALOGS,
+  FilesContext,
+  FilesDialogsContext
+} from "../context/index";
 import { useContext } from "react";
-import { CreateFolderDialog } from "./dialogs/index";
+import { CreateFolderDialog, EditNameDialog } from "./dialogs/index";
 
 export function FilePage() {
   const { areFilesLoading: isLoading, files } = useContext(FilesContext);
+  const { dialogsVisibilityState } = useContext(FilesDialogsContext);
+  const showRenameDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.RENAME_FILE];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -26,15 +33,7 @@ export function FilePage() {
               Loading...
             </div>
           ) : files.length > 0 ? (
-            files.map((file, index) => (
-              <FileElement
-                key={index}
-                fileName={file.name}
-                fileExtension={file.extension || ""}
-                uuid={file.uuid}
-                fileType={file.isFile ? "file" : "folder"}
-              />
-            ))
+            files.map((file) => <FileElement key={file.uuid} file={file} />)
           ) : (
             <div className="w-full p-2 text-center text-gray-500">
               No files to display.
@@ -43,6 +42,7 @@ export function FilePage() {
         </div>
       </main>
       <CreateFolderDialog />
+      {showRenameDialog && <EditNameDialog />}
     </div>
   );
 }

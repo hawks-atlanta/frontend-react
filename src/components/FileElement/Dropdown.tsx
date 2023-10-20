@@ -1,25 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
-import { EditNameDialog } from "../../screens/dialogs/rename-file-dialog";
+import { AVAILABLE_DIALOGS, FilesDialogsContext } from "../../context";
+import { File } from "../../types/entities";
 
 interface Props {
-  uuid: string;
+  file: File;
 }
 
-export function Dropdown({ uuid }: Props) {
+export function Dropdown({ file }: Props) {
+  const { openDialog } = useContext(FilesDialogsContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const [showEditModal, setShowEditModal] = useState(false);
-
   const openEditDialog = () => {
-    setShowDropdown(false);
-    setShowEditModal(true);
+    openDialog(AVAILABLE_DIALOGS.RENAME_FILE, file);
   };
 
   return (
     <div className="relative inline-block text-left">
       <button
-        id={`dropdown_${uuid}`}
+        id={`dropdown_${file.uuid}`}
         data-dropdown-toggle="dropdownDots"
         className="inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 focus:outline-none"
         type="button"
@@ -85,16 +84,6 @@ export function Dropdown({ uuid }: Props) {
           </ul>
         </div>
       )}
-      <EditNameDialog
-        isOpen={showEditModal}
-        itemName=""
-        onSave={(newName) => {
-          console.log(`Nuevo nombre: ${newName}`);
-          setShowEditModal(false);
-        }}
-        onCancel={() => setShowEditModal(false)}
-        fileUUID={uuid}
-      />
     </div>
   );
 }

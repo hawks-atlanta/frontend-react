@@ -1,27 +1,27 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { renameFileService } from "../../services/files/rename-file.service";
 import { Dialog } from "../../components/Dialog";
+import {
+  FilesDialogsContext,
+  AuthContext,
+  AVAILABLE_DIALOGS,
+  FilesContext
+} from "../../context/index";
 
-interface EditNameDialogProps {
-  isOpen: boolean;
-  itemName: string;
-  onSave: (newName: string) => void;
-  onCancel: () => void;
-  fileUUID: string;
-}
+export const EditNameDialog = () => {
+  // Dialog state
+  const { dialogsVisibilityState, closeDialog, selectedFile } =
+    useContext(FilesDialogsContext);
+  const isOpen = dialogsVisibilityState[AVAILABLE_DIALOGS.RENAME_FILE];
 
-export const EditNameDialog = ({
-  isOpen,
-  itemName,
-  onSave,
-  onCancel,
-  fileUUID
-}: EditNameDialogProps) => {
+  const [newName, setNewName] = useState(selectedFile?.name || "");
+
+  const { renameFile } = useContext(FilesContext);
+
   const { session } = useContext(AuthContext);
 
-  const [newName, setNewName] = useState(itemName);
+  if (!isOpen || !selectedFile) return null;
 
   const handleSave = async () => {
     if (newName.trim() === "") {
@@ -29,34 +29,26 @@ export const EditNameDialog = ({
     }
 
     const token = session?.token || "";
-
     const renameRequest = {
       token,
-      fileUUID,
+      fileUUID: selectedFile?.uuid,
       newName: newName
     };
 
-    try {
-      const response = await renameFileService(renameRequest);
-
-      if (response.success) {
-        toast.success("Name updated successfully");
-        onSave(newName);
-      } else {
-        toast.error(response.msg);
-      }
-    } catch (error) {
-      toast.error("An error occurred while updating the name");
-      console.error(error);
+    const response = await renameFileService(renameRequest);
+    if (response.success) {
+      toast.success("Name updated successfully");
+      renameFile(selectedFile.uuid, newName);
+      closeDialog(AVAILABLE_DIALOGS.RENAME_FILE);
+    } else {
+      toast.error(response.msg);
     }
   };
-
-  if (!isOpen) return null;
 
   return (
     <Dialog
       isOpen={isOpen}
-      onClose={onCancel}
+      onClose={() => closeDialog(AVAILABLE_DIALOGS.RENAME_FILE)}
       title="Enter a new name for the item"
     >
       <input
