@@ -6,59 +6,76 @@ describe("Rename File Tests", () => {
   const folderName = faker.system.commonFileName();
   const randomNewFolderName = faker.system.commonFileName();
 
-  it("Register user, duplicate rename, update rename", () => {
-    // Register a test user
-    cy.visit("/register");
-    cy.get("input[name=username]").type(username);
-    cy.get("input[name=password]").type(password);
-    cy.get("input[name=confirmPassword]").type(password);
-    cy.get("button").contains("Submit").click();
-    cy.url().should("include", "/files");
+  it("Register a test user", () => {
+  // Register a test user
+  cy.visit("/register");
+  cy.get("input[name=username]").type(username);
+  cy.get("input[name=password]").type(password);
+  cy.get("input[name=confirmPassword]").type(password);
+  cy.get("button").contains("Submit").click();
+  cy.url().should("include", "/files");
+  });
 
-    // Create a folder
-    cy.get("button").contains("New Folder").click();
-    cy.get("input[aria-label='New folder name']").type(folderName);
-    cy.get("button").contains("Create folder").click();
-    cy.get("div").should("contain", folderName);
+  it("Create a folder - rename duplicate", () => {
+  // Login with the test user
+  cy.visit("/login");
+  cy.get("input[name=username]").type(username);
+  cy.get("input[name=password]").type(password);
+  cy.get("button").contains("Submit").click();
+  cy.url().should("include", "/files");
 
-    // Click the three dots to open the dropdown menu
-    cy.get("button[aria-label='Toggle options menu for ${fileName}']").click();
+  // Create a folder
+  cy.get("button").contains("New Folder").click();
+  cy.get("input[aria-label='New folder name']").type(folderName);
+  cy.get("button").contains("Create folder").click();
+  cy.get("div").should("contain", folderName);
 
-    // Click the "Edit" button to rename the folder
-    cy.get("button[aria-label='Edit']").click();
+  // Click the three dots to open the dropdown menu
+  cy.get("button[aria-label='Open options menu for ${folderName}']").click();
 
-    // Assert the rename modal is open
-    cy.get("div[role=dialog]").should("be.visible");
-    cy.get("div[role=dialog]").should("contain", "Enter a new name for the item");
+  // Click the "Edit" button to rename the folder
+  cy.get("button[aria-label='Edit']").click();
+ 
+  // Assert the rename modal is open
+  cy.get("div[role=dialog]").should("be.visible");
+  cy.get("div[role=dialog]").should("contain", "Enter a new name for the item");
+ 
+  // Click the "Save" button
+  cy.get("button").contains("Save").click();
+ 
+  cy.contains("A file with the same name already exists in the file directory").should("be.visible");
+  });
 
-    // Click the "Save" button
-    cy.get("button").contains("Save").click();
+  it("Rename the folder", () => {
+  // Login with the test user
+  cy.visit("/login");
+  cy.get("input[name=username]").type(username);
+  cy.get("input[name=password]").type(password);
+  cy.get("button").contains("Submit").click();
+  cy.url().should("include", "/files");
 
-    cy.contains("A file with the same name already exists in the file directory").should("be.visible");
+  // Click the three dots to open the dropdown menu
+  cy.get("button[aria-label='Open options menu for ${folderName}']").click();
 
-    cy.get("button.absolute.right-0.top-0.p-3").click();
+  // Click the "Edit" button to rename the folder
+  cy.get("button[aria-label='Edit']").click();
 
-    // Click the three dots to open the dropdown menu
-    cy.get("button[aria-label='Toggle options menu for ${fileName}']")
+  cy.get("div[role=dialog]").should("contain", "Enter a new name for the item");
 
-    // Click the "Edit" button to rename the folder
-    cy.get("button[aria-label='Edit']").click();
+  // Clear the input field and type the new random name
+  cy.get("input[aria-label='Edit item name']").clear().type(randomNewFolderName);
+
+  // Click the "Save" button
+  cy.get("button").contains("Save").click();
+
+  // Verify that the success message is displayed
+  cy.contains("Name updated successfully");
+
+  cy.get("div").should(($div) => {
+    expect($div).not.to.contain(folderName);
+  });
   
-    cy.get("div[role=dialog]").should("contain", "Enter a new name for the item");
-      
-    // Clear the input field and type the new random name
-    cy.get("input[aria-label='Edit item name']").clear().type(randomNewFolderName);
-      
-    // Click the "Save" button
-    cy.get("button").contains("Save").click();
-      
-    // Verify that the success message is displayed
-    cy.contains("Name updated successfully")
-
-    // Verify that the previous name is not present
-    cy.get("div").should("not.contain", folderName);
-
-    //Verify that the new name is present
-    cy.get("div").should("contain", randomNewFolderName);
+  // Verify that the new name is present
+  cy.get("div").should("contain", randomNewFolderName);
   });
 });
