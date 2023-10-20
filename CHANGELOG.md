@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.15 (2023-10-20)
+
+
+### Features
+
+* Rename files ([#60](https://github.com/hawks-atlanta/frontend-react/issues/60)) ([ebde563](https://github.com/hawks-atlanta/frontend-react/commit/ebde5636956706c0a6f2f2e4d47cff34fd737e72))
+
 ### 0.0.14 (2023-10-19)
 
 
