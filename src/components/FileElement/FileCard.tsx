@@ -1,21 +1,21 @@
-import { Dropdown } from "../DropdownMenu/Dropdown";
+import { Dropdown } from "./Dropdown";
 import { FileText, Folder } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import { File } from "../../types/entities";
 
 interface Props {
-  fileName: string;
-  fileExtension: string;
-  fileType: string;
-  uuid: string;
+  file: File;
 }
 
-export function FileElement({ fileName, fileType, uuid }: Props) {
-  const isFile = fileType === "file";
+export function FileElement({ file }: Props) {
   const [_searchParams, setSearchParams] = useSearchParams();
 
   const handleClick = () => {
-    if (!isFile) {
-      setSearchParams({ directory: uuid });
+    const isDirectory = !file.isFile;
+    if (isDirectory) {
+      setSearchParams({ directory: file.uuid });
+    } else {
+      console.log("Download file");
     }
   };
 
@@ -28,15 +28,15 @@ export function FileElement({ fileName, fileType, uuid }: Props) {
       className="relative flex h-36 w-36 cursor-pointer flex-col items-center space-y-2  rounded-lg border-2 bg-white p-5 transition-colors hover:bg-gray-50 hover:shadow-sm"
       onClick={handleClick}
     >
-      {isFile ? (
+      {file.isFile ? (
         <FileText className="h-20 w-20" strokeWidth={1.5} />
       ) : (
         <Folder className="h-20 w-20" strokeWidth={1.5} />
       )}
       <div className="absolute right-0 top-0" onClick={handleDropdownClick}>
-        <Dropdown uuid={uuid}></Dropdown>
+        <Dropdown file={file} />
       </div>
-      <p className="line-clamp-1 max-w-[85%]">{fileName}</p>
+      <p className="line-clamp-1 max-w-[85%]">{file.name}</p>
     </div>
   );
 }
