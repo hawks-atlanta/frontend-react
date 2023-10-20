@@ -2,21 +2,19 @@ import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { createNewDirectoryService } from "../../services/folder/new-folder.service";
 import { File } from "../../types/entities";
-import { FilesContext, AuthContext } from "../../context/index";
+import {
+  FilesContext,
+  AuthContext,
+  FilesDialogsContext,
+  AVAILABLE_DIALOGS
+} from "../../context/index";
 import { Dialog } from "../../components/Dialog";
 
-interface CreateFolderDialogProps {
-  isOpen: boolean;
-  currentParentDirectory: string | null;
-  closeModalCallback: () => void;
-}
-
-export const CreateFolderDialog = ({
-  isOpen,
-  closeModalCallback,
-  currentParentDirectory
-}: CreateFolderDialogProps) => {
-  const { addFile } = useContext(FilesContext);
+export const CreateFolderDialog = () => {
+  const { closeDialog, dialogsVisibilityState } =
+    useContext(FilesDialogsContext);
+  const isOpen = dialogsVisibilityState[AVAILABLE_DIALOGS.CREATE_FOLDER];
+  const { addFile, currentDirectory } = useContext(FilesContext);
   const { session } = useContext(AuthContext);
 
   const [folderName, setFolderName] = useState("");
@@ -30,7 +28,7 @@ export const CreateFolderDialog = ({
 
     const createFolderRequest = {
       directoryName: folderName,
-      location: currentParentDirectory,
+      location: currentDirectory,
       token
     };
 
@@ -42,7 +40,7 @@ export const CreateFolderDialog = ({
 
     toast.success("The folder have been created successfully");
     setFolderName("");
-    closeModalCallback();
+    closeDialog(AVAILABLE_DIALOGS.CREATE_FOLDER);
 
     // Add the new folder to the ui
     const newFolder: File = {
@@ -59,7 +57,7 @@ export const CreateFolderDialog = ({
   return (
     <Dialog
       isOpen={isOpen}
-      onClose={closeModalCallback}
+      onClose={() => closeDialog(AVAILABLE_DIALOGS.CREATE_FOLDER)}
       title="Enter a name for the new folder"
     >
       <input

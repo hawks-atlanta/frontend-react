@@ -2,6 +2,7 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import { FileElement } from "../components/FileElement/FileCard";
 import { FilesContext } from "../context/index";
 import { useContext } from "react";
+import { CreateFolderDialog } from "./dialogs/index";
 
 export function FilePage() {
   const { areFilesLoading: isLoading, files } = useContext(FilesContext);
@@ -11,7 +12,7 @@ export function FilePage() {
       <div className="w-1/5 bg-gray-200">
         <Sidebar />
       </div>
-      <div className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
+      <main className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
         <div className="p-2">
           <input
             type="text"
@@ -40,7 +41,8 @@ export function FilePage() {
             </div>
           )}
         </div>
-      </div>
+      </main>
+      <CreateFolderDialog />
     </div>
   );
 }
