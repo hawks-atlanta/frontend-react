@@ -1,23 +1,22 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { createNewDirectoryService } from "../../services/folder/new-folder.service";
 import { X } from "lucide-react";
 import { File } from "../../types/entities";
+import { FilesContext, AuthContext } from "../../context/index";
 
 interface CreateFolderDialogProps {
   isOpen: boolean;
   currentParentDirectory: string | null;
-  addFolderCallback: (dir: File) => void;
   closeModalCallback: () => void;
 }
 
 export const CreateFolderDialog = ({
   isOpen,
-  addFolderCallback,
   closeModalCallback,
   currentParentDirectory
 }: CreateFolderDialogProps) => {
+  const { addFile } = useContext(FilesContext);
   const { session } = useContext(AuthContext);
 
   const [folderName, setFolderName] = useState("");
@@ -54,7 +53,7 @@ export const CreateFolderDialog = ({
       uuid: response.directoryUUID
     };
 
-    addFolderCallback(newFolder);
+    addFile(newFolder);
   };
 
   if (!isOpen) return null;

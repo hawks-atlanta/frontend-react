@@ -1,14 +1,9 @@
 import { FilePlus, FolderPlus, Home, Share2, Files } from "lucide-react";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { File } from "../../types/entities";
 import { CreateFolderDialog } from "../../screens/dialogs/create-folder-dialog";
 
-interface SidebarProps {
-  addFolderCallback: (dir: File) => void;
-}
-
-export function Sidebar({ addFolderCallback }: SidebarProps) {
+export function Sidebar() {
   // Url state
   const [searchParams, _setSearchParams] = useSearchParams();
   const directory = searchParams.get("directory");
@@ -75,7 +70,6 @@ export function Sidebar({ addFolderCallback }: SidebarProps) {
       <CreateFolderDialog
         isOpen={modalIsOpen}
         currentParentDirectory={directory}
-        addFolderCallback={addFolderCallback}
         closeModalCallback={closeModal}
       />
     </>
