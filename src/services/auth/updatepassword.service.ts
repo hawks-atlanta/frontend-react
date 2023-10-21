@@ -5,25 +5,39 @@ import { ENVIRONMENT } from "../../config/environment";
 type UpdatepasswordRequest = {
   oldPassword: string;
   newPassword: string;
+  token: string;
 };
 
 type UpdatepasswordResponse = {
   msg: string;
+  success: boolean;
 };
 
 export const updatepasswordService = async (
   req: UpdatepasswordRequest
 ): Promise<UpdatepasswordResponse> => {
   try {
-    const UpdatepasswordResponse = await axios.patch(
+    const response = await axios.patch(
       `${ENVIRONMENT.PROXY_BASE_URL}/account/password`,
-      req
+      req,
+      {
+        headers: {
+          Authorization: `Bearer ${req.token}`
+        }
+      }
     );
-    const { data } = UpdatepasswordResponse;
 
-    return {
-      msg: data.msg
-    };
+    if (response.status !== 200) {
+      return {
+        success: false,
+        msg: "There was an error updating your password."
+      };
+    } else {
+      return {
+        success: true,
+        msg: "Password updated successfully."
+      };
+    }
   } catch (error) {
     let errorMsg = "There was an error updating your password.";
 
@@ -32,7 +46,8 @@ export const updatepasswordService = async (
     }
 
     return {
-      msg: errorMsg
+      msg: errorMsg,
+      success: false
     };
   }
 };

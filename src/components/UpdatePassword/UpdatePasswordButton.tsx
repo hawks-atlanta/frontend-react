@@ -1,32 +1,40 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { updatepasswordService } from "../../services/auth/updatepassword.service";
 import { FieldValues, useForm } from "react-hook-form";
+import { AuthContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 export function UpdatePassword() {
+  const { session } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    watch
+    formState: { errors }
   } = useForm();
 
   interface UpdatepasswordRequest {
     oldPassword: string;
     newPassword: string;
+    token: string;
   }
 
-  const onSubmit = async (formData: FieldValues) => {
+  const onSubmit = async (formData: FieldValues, token: string) => {
     const req: UpdatepasswordRequest = {
       oldPassword: formData.password,
-      newPassword: formData.confirmPassword
+      newPassword: formData.confirmPassword,
+      token: token
     };
     if (!errors.password && !errors.confirmPassword) {
       try {
-        const UpdatePasswordResponse = await updatepasswordService(req);
-        console.log(UpdatePasswordResponse);
+        const response = await updatepasswordService(req);
+        if (response.success === true) {
+          toast.success("Password updated successfully");
+        } else {
+          toast.error("Failed to update password");
+        }
       } catch (error) {
-        console.error(error);
+        toast.error("Failed to update password");
       }
     }
   };
@@ -41,7 +49,12 @@ export function UpdatePassword() {
       </button>
       {showModal ? (
         <div className="absolute top-full mt-4 flex w-4/5 flex-col items-center justify-center gap-4 border bg-white p-4">
-          <form onSubmit={handleSubmit(onSubmit)} className="g-2 w-full">
+          <form
+            onSubmit={handleSubmit((formData) =>
+              onSubmit(formData, session!.token)
+            )}
+            className="g-2 w-full"
+          >
             <p className="m-2 ml-2 text-center text-2xl font-bold text-blue-600">
               Update Password
             </p>
@@ -59,11 +72,6 @@ export function UpdatePassword() {
                 minLength: {
                   value: 8,
                   message: "Password must be at least 8 characters"
-                },
-                pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-                  message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                 }
               })}
             />
@@ -80,8 +88,11 @@ export function UpdatePassword() {
                   value: true,
                   message: "Password required"
                 },
-                validate: (value: string) =>
-                  value === watch("password") || "Passwords do not match"
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                  message:
+                    "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                }
               })}
               className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 text-black ${
                 errors.confirmPassword ? "border-red-500" : "mb-6"
