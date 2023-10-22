@@ -1,4 +1,4 @@
-describe("Users can create new folders", () => {
+describe("Users can change their passwords", () => {
   const username = "username2";
   const password2 = "Contra123#";
   const password = "Contraseña123#";
