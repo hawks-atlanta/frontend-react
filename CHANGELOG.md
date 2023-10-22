@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.16 (2023-10-22)
+
+
+### Features
+
+* Get the users with whom a file is being shared  ([#62](https://github.com/hawks-atlanta/frontend-react/issues/62)) ([677e892](https://github.com/hawks-atlanta/frontend-react/commit/677e892128a89be7a935b960ee483aa0b0d79803))
+
 ### 0.0.15 (2023-10-20)
 
 
