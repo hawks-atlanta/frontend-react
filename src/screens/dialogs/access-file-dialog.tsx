@@ -62,7 +62,7 @@ export const AccessManagementDialog = () => {
       </button>
       {usersWithAccess.length > 0 && (
         <div className="mt-3">
-          <h2 className="text-lg font-semibold">With whom it is shared</h2>
+          <h2 className="text-lg font-semibold">Shared with:</h2>
           <ul className="max-h-48 space-y-2 overflow-y-auto">
             {usersWithAccess.map((user, index) => (
               <li key={index} className="flex items-center justify-between">
