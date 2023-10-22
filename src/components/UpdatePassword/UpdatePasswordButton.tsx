@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { updatepasswordService } from "../../services/auth/updatepassword.service";
 import { FieldValues, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 export function UpdatePassword() {
   const { session } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
@@ -22,20 +23,22 @@ export function UpdatePassword() {
   const onSubmit = async (formData: FieldValues, token: string) => {
     const req: UpdatepasswordRequest = {
       oldPassword: formData.password,
-      newPassword: formData.confirmPassword,
+      newPassword: formData.newPassword,
       token: token
     };
-    if (!errors.password && !errors.confirmPassword) {
+    if (!errors.password && !errors.newPassword) {
       try {
         const response = await updatepasswordService(req);
         if (response.success === true) {
           toast.success("Password updated successfully");
+          setShowModal(false);
         } else {
           toast.error("Failed to update password");
         }
       } catch (error) {
         toast.error("Failed to update password");
       }
+      formRef.current?.reset();
     }
   };
 
@@ -48,20 +51,22 @@ export function UpdatePassword() {
         Update Password
       </button>
       {showModal ? (
-        <div className="absolute top-full mt-4 flex w-4/5 flex-col items-center justify-center gap-4 border bg-white p-4">
+        <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
           <form
+            ref={formRef}
             onSubmit={handleSubmit((formData) =>
               onSubmit(formData, session!.token)
             )}
-            className="g-2 w-full"
+            className="relative w-80 rounded-md border border-gray-300 bg-white p-4 shadow-md"
           >
-            <p className="m-2 ml-2 text-center text-2xl font-bold text-blue-600">
+            <h1 className="mb-4 max-w-[85%] text-xl text-blue-600">
               Update Password
-            </p>
+            </h1>
             <input
               type="password"
-              placeholder="Password"
-              className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 text-black ${
+              aria-label="Current password"
+              placeholder="Current password"
+              className={`text-xm h-auto min-w-[100%] rounded-2xl border-2 border-blue-700 p-2 text-black ${
                 errors.password ? "border-red-500" : "mb-6"
               }`}
               {...register("password", {
@@ -75,6 +80,7 @@ export function UpdatePassword() {
                 }
               })}
             />
+            <br />
             {errors.password && (
               <span className="mt-1 text-sm text-red-500">
                 {String(errors.password.message)}
@@ -82,25 +88,22 @@ export function UpdatePassword() {
             )}
             <input
               type="password"
-              placeholder="Confirm password"
-              {...register("confirmPassword", {
+              placeholder="New password"
+              aria-label="New password"
+              {...register("newPassword", {
                 required: {
                   value: true,
                   message: "Password required"
-                },
-                pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-                  message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                 }
               })}
-              className={`text-xm h-auto w-full rounded-2xl border-2 border-blue-700 p-2 text-black ${
-                errors.confirmPassword ? "border-red-500" : "mb-6"
+              className={`text-xm h-auto min-w-[100%] rounded-2xl border-2 border-blue-700 p-2 text-black ${
+                errors.newPassword ? "border-red-500" : "mb-6"
               }`}
             />
-            {errors.confirmPassword && (
+            <br />
+            {errors.newPassword && (
               <span className="mt-1 text-sm text-red-500">
-                {String(errors.confirmPassword.message)}
+                {String(errors.newPassword.message)}
               </span>
             )}
             {/*footer*/}

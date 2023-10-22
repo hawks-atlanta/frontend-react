@@ -85,7 +85,10 @@ export function NavbarScreen() {
             )}
           </div>
           {showProfileMenu && (
-            <div className="absolute left-0 right-0 top-full z-50 flex flex-col items-center justify-center gap-4 border bg-white p-4">
+            <div
+              role="dialog"
+              className="absolute top-full z-10 flex w-80 flex-col items-center justify-center gap-4 border bg-white p-4"
+            >
               <UpdatePassword />
               <NavButton text="Logout" to="/" />
             </div>
