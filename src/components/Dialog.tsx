@@ -18,7 +18,7 @@ export const Dialog = ({ title, isOpen, children, onClose }: DialogProps) => {
     >
       <div
         role="dialog"
-        className="relative rounded-md border border-gray-300 bg-white p-4 shadow-md"
+        className="relative rounded-md border border-gray-300 bg-white p-6 shadow-md"
         onClick={(e) => e.stopPropagation()}
       >
         <button className="absolute right-0 top-0 p-3" onClick={onClose}>
