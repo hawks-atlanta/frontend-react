@@ -6,13 +6,20 @@ import {
   FilesDialogsContext
 } from "../context/index";
 import { useContext } from "react";
-import { CreateFolderDialog, EditNameDialog } from "./dialogs/index";
+import {
+  CreateFolderDialog,
+  EditNameDialog,
+  AccessManagementDialog
+} from "./dialogs/index";
 
 export function FilePage() {
   const { areFilesLoading: isLoading, files } = useContext(FilesContext);
   const { dialogsVisibilityState } = useContext(FilesDialogsContext);
   const showRenameDialog =
     dialogsVisibilityState[AVAILABLE_DIALOGS.RENAME_FILE];
+
+  const showAccessDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -43,6 +50,7 @@ export function FilePage() {
       </main>
       <CreateFolderDialog />
       {showRenameDialog && <EditNameDialog />}
+      {showAccessDialog && <AccessManagementDialog />}
     </div>
   );
 }

@@ -1,5 +1,12 @@
 import { useContext, useState } from "react";
-import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
+import {
+  FolderKanban,
+  Trash,
+  Pencil,
+  Share,
+  FolderClosed,
+  MoreVertical
+} from "lucide-react";
 import { AVAILABLE_DIALOGS, FilesDialogsContext } from "../../context";
 import { File } from "../../types/entities";
 
@@ -13,6 +20,10 @@ export function Dropdown({ file }: Props) {
 
   const openEditDialog = () => {
     openDialog(AVAILABLE_DIALOGS.RENAME_FILE, file);
+  };
+
+  const openShareDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT, file);
   };
 
   return (
@@ -78,6 +89,18 @@ export function Dropdown({ file }: Props) {
                 >
                   <FolderClosed />
                   Move
+                </button>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Share"
+                  onClick={openShareDialog}
+                >
+                  <FolderKanban />
+                  Manage
                 </button>
               </div>
             </li>
