@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.17 (2023-10-22)
+
+### 0.0.16 (2023-10-22)
+
+
+### Features
+
+* Get the users with whom a file is being shared  ([#62](https://github.com/hawks-atlanta/frontend-react/issues/62)) ([677e892](https://github.com/hawks-atlanta/frontend-react/commit/677e892128a89be7a935b960ee483aa0b0d79803))
+
+### 0.0.15 (2023-10-20)
+
+
+### Features
+
+* Rename files ([#60](https://github.com/hawks-atlanta/frontend-react/issues/60)) ([ebde563](https://github.com/hawks-atlanta/frontend-react/commit/ebde5636956706c0a6f2f2e4d47cff34fd737e72))
+
+### 0.0.14 (2023-10-19)
+
+
+### Bug Fixes
+
+* Update nginx config ([#61](https://github.com/hawks-atlanta/frontend-react/issues/61)) ([033c164](https://github.com/hawks-atlanta/frontend-react/commit/033c1642d871485f1cc93fc97ae6e6c56f9e17ca))
+
+### 0.0.13 (2023-10-18)
+
+
+### Features
+
+* Create folders ([#58](https://github.com/hawks-atlanta/frontend-react/issues/58)) ([300a4a6](https://github.com/hawks-atlanta/frontend-react/commit/300a4a6038b915bacafbf21ea9763a875bfb2446))
+
 ### 0.0.12 (2023-10-18)
 
 ### 0.0.11 (2023-10-17)

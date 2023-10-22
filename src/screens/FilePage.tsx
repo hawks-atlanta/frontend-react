@@ -1,50 +1,32 @@
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { listFilesService } from "../services/files/list-file.service";
-import { useContext, useEffect, useState } from "react";
-import { File } from "../types/entities";
 import { FileElement } from "../components/FileElement/FileCard";
-import { AuthContext } from "../context/AuthContext";
-import { useSearchParams } from "react-router-dom";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import {
+  AVAILABLE_DIALOGS,
+  FilesContext,
+  FilesDialogsContext
+} from "../context/index";
+import { useContext } from "react";
+import {
+  CreateFolderDialog,
+  EditNameDialog,
+  AccessManagementDialog
+} from "./dialogs/index";
 
 export function FilePage() {
-  const [searchParams, _setSearchParams] = useSearchParams();
-  const directory = searchParams.get("directory");
-  const navigate = useNavigate();
+  const { areFilesLoading: isLoading, files } = useContext(FilesContext);
+  const { dialogsVisibilityState } = useContext(FilesDialogsContext);
+  const showRenameDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.RENAME_FILE];
 
-  const { session } = useContext(AuthContext);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [files, setFiles] = useState<File[]>([]);
-
-  const fetchFiles = async () => {
-    setIsLoading(true);
-    const response = await listFilesService({
-      token: session?.token || "",
-      directory: directory
-    });
-
-    if (response.success) {
-      setFiles(response.files);
-    } else {
-      toast.error(response.msg);
-      navigate("/");
-    }
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchFiles();
-  }, [directory]);
+  const showAccessDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
       <div className="w-1/5 bg-gray-200">
         <Sidebar />
       </div>
-      <div className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
+      <main className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
         <div className="p-2">
           <input
             type="text"
@@ -58,22 +40,17 @@ export function FilePage() {
               Loading...
             </div>
           ) : files.length > 0 ? (
-            files.map((file, index) => (
-              <FileElement
-                key={index}
-                fileName={file.name}
-                fileExtension={file.extension || ""}
-                uuid={file.uuid}
-                fileType={file.isFile ? "file" : "folder"}
-              />
-            ))
+            files.map((file) => <FileElement key={file.uuid} file={file} />)
           ) : (
             <div className="w-full p-2 text-center text-gray-500">
               No files to display.
             </div>
           )}
         </div>
-      </div>
+      </main>
+      <CreateFolderDialog />
+      {showRenameDialog && <EditNameDialog />}
+      {showAccessDialog && <AccessManagementDialog />}
     </div>
   );
 }

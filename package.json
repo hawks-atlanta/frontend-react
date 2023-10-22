@@ -1,7 +1,7 @@
 {
   "name": "frontend-react",
   "private": true,
-  "version": "0.0.12",
+  "version": "0.0.17",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "test:run": "cypress run",
     "test:open": "cypress open",
-    "lint:check": "eslint . --ext ts,tsx,js,jsx --max-warnings 0",
-    "lint:fix": "eslint . --ext ts,tsx,js,jsx --max-warnings 0 --fix",
+    "lint:check": "eslint . --ext ts,tsx,js,jsx",
+    "lint:fix": "eslint . --ext ts,tsx,js,jsx --fix",
     "format:check": "prettier src/ --check",
     "format:fix": "prettier src/ --write"
   },
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "3.12.1",
+    "@faker-js/faker": "8.2.0",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.7.3",

@@ -1,21 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
+import { AVAILABLE_DIALOGS, FilesDialogsContext } from "../../context";
+import { File } from "../../types/entities";
 
 interface Props {
-  uuid: string;
+  file: File;
 }
 
-export function Dropdown({ uuid }: Props) {
+export function Dropdown({ file }: Props) {
+  const { openDialog } = useContext(FilesDialogsContext);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const openEditDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.RENAME_FILE, file);
+  };
+
+  const openShareDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT, file);
+  };
 
   return (
     <div className="relative inline-block text-left">
       <button
-        id={`dropdown_${uuid}`}
+        id={`dropdown_${file.uuid}`}
         data-dropdown-toggle="dropdownDots"
         className="inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 focus:outline-none"
         type="button"
-        aria-label="Dropdown to delete, edit, share, or move file"
+        aria-label="Open options menu for ${folderName}"
         onClick={() => setShowDropdown(!showDropdown)}
       >
         <MoreVertical></MoreVertical>
@@ -27,7 +38,7 @@ export function Dropdown({ uuid }: Props) {
         >
           <ul
             className="py-2 text-sm text-gray-700"
-            aria-labelledby="Dropdown to delete, edit, share, or move file"
+            aria-labelledby="Options menu for ${folderName}"
           >
             <li>
               <div className="flex items-center">
@@ -45,20 +56,10 @@ export function Dropdown({ uuid }: Props) {
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
                   aria-label="Edit"
+                  onClick={openEditDialog}
                 >
                   <Pencil />
                   Edit
-                </button>
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <button
-                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
-                  aria-label="Share"
-                >
-                  <Share />
-                  Share
                 </button>
               </div>
             </li>
@@ -70,6 +71,18 @@ export function Dropdown({ uuid }: Props) {
                 >
                   <FolderClosed />
                   Move
+                </button>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <button
+                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
+                  aria-label="Share"
+                  onClick={openShareDialog}
+                >
+                  <Share />
+                  Share
                 </button>
               </div>
             </li>
