@@ -1,12 +1,5 @@
 import { useContext, useState } from "react";
-import {
-  FolderKanban,
-  Trash,
-  Pencil,
-  Share,
-  FolderClosed,
-  MoreVertical
-} from "lucide-react";
+import { Trash, Pencil, Share, FolderClosed, MoreVertical } from "lucide-react";
 import { AVAILABLE_DIALOGS, FilesDialogsContext } from "../../context";
 import { File } from "../../types/entities";
 
@@ -74,17 +67,6 @@ export function Dropdown({ file }: Props) {
               <div className="flex items-center">
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
-                  aria-label="Share"
-                >
-                  <Share />
-                  Share
-                </button>
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <button
-                  className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
                   aria-label="Move"
                 >
                   <FolderClosed />
@@ -99,8 +81,8 @@ export function Dropdown({ file }: Props) {
                   aria-label="Share"
                   onClick={openShareDialog}
                 >
-                  <FolderKanban />
-                  Manage
+                  <Share />
+                  Share
                 </button>
               </div>
             </li>
