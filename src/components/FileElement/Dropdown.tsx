@@ -19,6 +19,10 @@ export function Dropdown({ file }: Props) {
     openDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT, file);
   };
 
+  const openMoveDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.MOVE_FILE, file);
+  };
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -68,6 +72,7 @@ export function Dropdown({ file }: Props) {
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
                   aria-label="Move"
+                  onClick={openMoveDialog}
                 >
                   <FolderClosed />
                   Move
