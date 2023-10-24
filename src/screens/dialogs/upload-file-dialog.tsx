@@ -2,13 +2,20 @@ import { useContext } from "react";
 import toast from "react-hot-toast";
 import { uploadfileService } from "../../services/files/upload-file.service";
 import { Dialog } from "../../components/Dialog";
-import { File } from "../../types/entities";
 import {
   FilesDialogsContext,
   AuthContext,
   AVAILABLE_DIALOGS,
   FilesContext
 } from "../../context/index";
+
+interface INewFile {
+  isFile: boolean;
+  isReady: boolean;
+  name: string;
+  size: number;
+  uuid: string;
+}
 
 export const UploadFileDialog = () => {
   // Dialog state
@@ -19,7 +26,7 @@ export const UploadFileDialog = () => {
   const { session } = useContext(AuthContext);
 
   function fileToBase64(
-    file: any
+    file: File
   ): Promise<{ base64String: string; filename: string }> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -61,7 +68,7 @@ export const UploadFileDialog = () => {
           toast.error(response.msg);
         }
 
-        const newFile: File = {
+        const newFile: INewFile = {
           isFile: true,
           isReady: true,
           name: filename,
