@@ -15,6 +15,10 @@ export function Dropdown({ file }: Props) {
     openDialog(AVAILABLE_DIALOGS.RENAME_FILE, file);
   };
 
+  const openShareDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT, file);
+  };
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -63,10 +67,10 @@ export function Dropdown({ file }: Props) {
               <div className="flex items-center">
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
-                  aria-label="Share"
+                  aria-label="Move"
                 >
-                  <Share />
-                  Share
+                  <FolderClosed />
+                  Move
                 </button>
               </div>
             </li>
@@ -74,10 +78,11 @@ export function Dropdown({ file }: Props) {
               <div className="flex items-center">
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
-                  aria-label="Move"
+                  aria-label="Share"
+                  onClick={openShareDialog}
                 >
-                  <FolderClosed />
-                  Move
+                  <Share />
+                  Share
                 </button>
               </div>
             </li>
