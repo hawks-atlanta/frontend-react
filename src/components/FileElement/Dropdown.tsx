@@ -30,7 +30,7 @@ export function Dropdown({ file }: Props) {
         data-dropdown-toggle="dropdownDots"
         className="inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 focus:outline-none"
         type="button"
-        aria-label="Open options menu for ${folderName}"
+        aria-label={`Open options menu for ${file.name}`}
         onClick={() => setShowDropdown(!showDropdown)}
       >
         <MoreVertical></MoreVertical>

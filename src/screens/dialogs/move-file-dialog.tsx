@@ -127,6 +127,7 @@ export const MoveFileDialog = () => {
               key={folder.uuid}
               className="hover-bg-blue-700 mb-2 h-12 w-full rounded-lg bg-blue-600 px-4 py-2 text-left"
               onClick={() => changeDirectory(folder.uuid)}
+              aria-label={`Dialog ${folder.name}`}
             >
               <span className="font-bold text-white">
                 <FolderPlus className="mr-2 inline" /> {folder.name}
