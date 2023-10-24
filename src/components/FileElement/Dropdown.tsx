@@ -15,6 +15,10 @@ export function Dropdown({ file }: Props) {
     openDialog(AVAILABLE_DIALOGS.RENAME_FILE, file);
   };
 
+  const openDeleteDialog = () => {
+    openDialog(AVAILABLE_DIALOGS.DELETE_FILE, file);
+  };
+
   const openShareDialog = () => {
     openDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT, file);
   };
@@ -45,6 +49,7 @@ export function Dropdown({ file }: Props) {
                 <button
                   className="flex w-full items-center gap-2 px-4 py-2 hover:bg-gray-100 hover:text-black"
                   aria-label="Delete"
+                  onClick={openDeleteDialog}
                 >
                   <Trash />
                   Delete

@@ -9,7 +9,8 @@ import { useContext } from "react";
 import {
   CreateFolderDialog,
   EditNameDialog,
-  AccessManagementDialog
+  AccessManagementDialog,
+  DeleteFileDialog
 } from "./dialogs/index";
 
 export function FilePage() {
@@ -20,6 +21,9 @@ export function FilePage() {
 
   const showAccessDialog =
     dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
+
+  const showDeleteDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.DELETE_FILE];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -51,6 +55,7 @@ export function FilePage() {
       <CreateFolderDialog />
       {showRenameDialog && <EditNameDialog />}
       {showAccessDialog && <AccessManagementDialog />}
+      {showDeleteDialog && <DeleteFileDialog />}
     </div>
   );
 }

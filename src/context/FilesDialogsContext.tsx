@@ -4,6 +4,7 @@ import { File } from "../types/entities";
 export enum AVAILABLE_DIALOGS {
   "CREATE_FOLDER" = "CREATE_FOLDER",
   "RENAME_FILE" = "RENAME_FILE",
+  "DELETE_FILE" = "DELETE_FILE",
   "ACCESS_MANAGEMENT" = "ACCESS_MANAGEMENT"
 }
 
@@ -18,6 +19,7 @@ const defaultValues: FilesDialogsContext = {
   dialogsVisibilityState: {
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
     [AVAILABLE_DIALOGS.RENAME_FILE]: false,
+    [AVAILABLE_DIALOGS.DELETE_FILE]: false,
     [AVAILABLE_DIALOGS.ACCESS_MANAGEMENT]: false
   },
   selectedFile: null,
@@ -38,6 +40,7 @@ export const FilesDialogsContextProvider = ({
   >({
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
     [AVAILABLE_DIALOGS.RENAME_FILE]: false,
+    [AVAILABLE_DIALOGS.DELETE_FILE]: false,
     [AVAILABLE_DIALOGS.ACCESS_MANAGEMENT]: false
   });
 
