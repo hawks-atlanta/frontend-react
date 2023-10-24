@@ -3,7 +3,8 @@ import { File } from "../types/entities";
 
 export enum AVAILABLE_DIALOGS {
   "CREATE_FOLDER" = "CREATE_FOLDER",
-  "RENAME_FILE" = "RENAME_FILE"
+  "RENAME_FILE" = "RENAME_FILE",
+  "UPLOAD_FILE" = "UPLOAD_FILE"
 }
 
 interface FilesDialogsContext {
@@ -16,7 +17,8 @@ interface FilesDialogsContext {
 const defaultValues: FilesDialogsContext = {
   dialogsVisibilityState: {
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
-    [AVAILABLE_DIALOGS.RENAME_FILE]: false
+    [AVAILABLE_DIALOGS.RENAME_FILE]: false,
+    [AVAILABLE_DIALOGS.UPLOAD_FILE]: false
   },
   selectedFile: null,
   openDialog: () => {},
@@ -35,7 +37,8 @@ export const FilesDialogsContextProvider = ({
     Record<AVAILABLE_DIALOGS, boolean>
   >({
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
-    [AVAILABLE_DIALOGS.RENAME_FILE]: false
+    [AVAILABLE_DIALOGS.RENAME_FILE]: false,
+    [AVAILABLE_DIALOGS.UPLOAD_FILE]: false
   });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
