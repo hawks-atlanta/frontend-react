@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { moveFileService } from "../../services/files/move-file.service";
 import { listFilesService } from "../../services/files/list-file.service";
-import { useSearchParams } from "react-router-dom";
 import { Dialog } from "../../components/Dialog";
 import { File } from "../../types/entities";
 import { FolderPlus } from "lucide-react";
@@ -12,25 +11,22 @@ import {
   FilesContext
 } from "../../context/index";
 import toast from "react-hot-toast";
-
 export const MoveFileDialog = () => {
   const { removeFile } = useContext(FilesContext);
-  const [searchParams, _setSearchParams] = useSearchParams();
   const { dialogsVisibilityState, closeDialog, selectedFile } =
     useContext(FilesDialogsContext);
-  const Open = dialogsVisibilityState[AVAILABLE_DIALOGS.MOVE_FILE];
+  const open = dialogsVisibilityState[AVAILABLE_DIALOGS.MOVE_FILE];
   const { session } = useContext(AuthContext);
   const [folders, setFolders] = useState<File[]>([]);
   const [moving, setMoving] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState<File | null>(null);
-  const directory = searchParams.get("directory");
 
   useEffect(() => {
-    if (Open && selectedFile) {
+    if (open && selectedFile) {
       const fetchFolders = async () => {
         const { success, ...res } = await listFilesService({
           token: session?.token as string,
-          directory: selectedFolder ? selectedFolder.uuid : directory
+          directory: selectedFolder ? selectedFolder.uuid : null
         });
 
         if (!success) {
@@ -45,7 +41,7 @@ export const MoveFileDialog = () => {
 
       fetchFolders();
     }
-  }, [directory]);
+  }, [selectedFolder]);
 
   const handleMove = async () => {
     if (moving || !selectedFolder || !selectedFile) return;
@@ -90,29 +86,11 @@ export const MoveFileDialog = () => {
 
     setSelectedFolder(selectedFolder);
     setFolders([]);
-
-    loadFolderContents(directoryUUID);
-  };
-
-  const loadFolderContents = async (directoryUUID: string) => {
-    const { success, ...res } = await listFilesService({
-      token: session?.token as string,
-      directory: directoryUUID
-    });
-
-    if (success) {
-      const contents = res.files.filter(
-        (file) => file.uuid !== selectedFile?.uuid
-      );
-      setFolders(contents);
-    } else {
-      toast.error(res.msg);
-    }
   };
 
   return (
     <Dialog
-      isOpen={Open}
+      isOpen={open}
       onClose={() => {
         closeDialog(AVAILABLE_DIALOGS.MOVE_FILE);
         setSelectedFolder(null);
@@ -120,35 +98,31 @@ export const MoveFileDialog = () => {
       }}
       title="Move File"
     >
-      <div className="max-h-[300px] overflow-y-auto p-4">
-        <div className="navigation-panel">
-          {folders.map((folder) => (
-            <button
-              key={folder.uuid}
-              className="hover-bg-blue-700 mb-2 h-12 w-full rounded-lg bg-blue-600 px-4 py-2 text-left"
-              onClick={() => changeDirectory(folder.uuid)}
-              aria-label={`Dialog ${folder.name}`}
-            >
-              <span className="font-bold text-white">
-                <FolderPlus className="mr-2 inline" /> {folder.name}
-              </span>
-            </button>
-          ))}
-        </div>
-        <div className="move-action-panel">
-          <p className="text-center text-gray-500">
-            Current Folder: {selectedFolder ? selectedFolder.name : "Root"}
-          </p>
-          {selectedFolder ? (
-            <button
-              className="hover-bg-red-700 w-full rounded-lg bg-red-600 px-4 py-2 text-white"
-              onClick={handleMove}
-            >
-              Move here
-            </button>
-          ) : null}
-        </div>
+      <div className="line-clamp-1 max-h-[300px] w-64 overflow-y-auto p-4">
+        {folders.map((folder) => (
+          <button
+            key={folder.uuid}
+            className="mb-2 line-clamp-1 w-full rounded-lg bg-blue-600 px-4 py-2 text-left"
+            onClick={() => changeDirectory(folder.uuid)}
+            aria-label={`Move to ${folder.name}`}
+          >
+            <span className="font-bold text-white">
+              <FolderPlus className="mr-2 inline" /> {folder.name}
+            </span>
+          </button>
+        ))}
       </div>
+      <p className="text-center text-gray-500">
+        Current Folder: {selectedFolder ? selectedFolder.name : "Root"}
+      </p>
+      {selectedFolder ? (
+        <button
+          className="hover-bg-red-700 w-full rounded-lg bg-red-600 px-4 py-2 text-white"
+          onClick={handleMove}
+        >
+          Move here
+        </button>
+      ) : null}
     </Dialog>
   );
 };

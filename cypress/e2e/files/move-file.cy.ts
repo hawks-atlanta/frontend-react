@@ -43,17 +43,19 @@ describe("Create Folders Tests", () => {
     cy.get("input[name=username]").type(username);
     cy.get("input[name=password]").type(password);
     cy.get("button").contains("Submit").click();
-    cy.url(). should("include", "/files");
-
-    // Open the options menu for the first folder
+    cy.url().should("include", "/files");
+  
     cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
-      
+  
     cy.get("button[aria-label='Move']").click();
-
-    cy.get(`button[aria-label='Dialog ${folderName2}']`).click();
-
+  
+    cy.get(`button[aria-label='Move to ${folderName2}']`).click();
+  
     cy.get("button").contains("Move here").click();
   
     cy.contains("Folder has been moved successfully");
+  
+    cy.get("div").should("not.contain", folderName);
   });
+  
 });
