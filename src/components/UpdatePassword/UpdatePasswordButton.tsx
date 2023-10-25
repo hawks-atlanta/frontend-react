@@ -94,6 +94,10 @@ export function UpdatePassword() {
                 required: {
                   value: true,
                   message: "Password required"
+                },
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters"
                 }
               })}
               className={`text-xm h-auto min-w-[100%] rounded-2xl border-2 border-blue-700 p-2 text-black ${

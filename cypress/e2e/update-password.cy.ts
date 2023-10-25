@@ -1,7 +1,19 @@
+import { faker } from "@faker-js/faker";
+
 describe("Users can change their passwords", () => {
-  const username = "username2";
-  const password2 = "Contra123#";
-  const password = "Contraseña123#";
+  const username = faker.internet.userName();
+  const password = faker.internet.password({ length: 8 });
+  const password2 = faker.internet.password({ length: 8 });
+
+  it("Register a test user", () => {
+    // Register a test user
+    cy.visit("/register");
+    cy.get("input[name=username]").type(username);
+    cy.get("input[name=password]").type(password);
+    cy.get("input[name=confirmPassword]").type(password);
+    cy.get("button").contains("Submit").click();
+    cy.url().should("include", "/files");
+  });
 
   it("Update password", () => {
     // Login with the test user
@@ -12,7 +24,7 @@ describe("Users can change their passwords", () => {
     cy.url().should("include", "/files");
 
     // Open the profile menu
-    cy.get("button").contains("username2").click();
+    cy.get("button").contains(username).click();
 
     // Assert the modal is open
     cy.get("button").should("contain", "Update Password");
