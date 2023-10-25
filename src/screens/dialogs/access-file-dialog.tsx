@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { SharedWithWhoService } from "../../services/files/get-users-file.service";
 import { Dialog } from "../../components/Dialog";
+import { shareFileService } from "../../services/files/share-file.service";
 import {
   FilesDialogsContext,
   AVAILABLE_DIALOGS,
@@ -36,7 +37,21 @@ export const AccessManagementDialog = () => {
     }
   }, [selectedFile]);
 
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    const shareRequest = {
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: newAccess
+    };
+
+    const { success, msg } = await shareFileService(shareRequest);
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+
+    toast.success(msg);
+  };
 
   const handleUnshare = async () => {};
 
