@@ -10,7 +10,8 @@ import {
   CreateFolderDialog,
   EditNameDialog,
   AccessManagementDialog,
-  DeleteFileDialog
+  DeleteFileDialog,
+  MoveFileDialog
 } from "./dialogs/index";
 
 export function FilePage() {
@@ -24,6 +25,8 @@ export function FilePage() {
 
   const showDeleteDialog =
     dialogsVisibilityState[AVAILABLE_DIALOGS.DELETE_FILE];
+  
+  const showMoveDialog = dialogsVisibilityState[AVAILABLE_DIALOGS.MOVE_FILE];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
@@ -56,6 +59,7 @@ export function FilePage() {
       {showRenameDialog && <EditNameDialog />}
       {showAccessDialog && <AccessManagementDialog />}
       {showDeleteDialog && <DeleteFileDialog />}
+      {showMoveDialog && <MoveFileDialog />}
     </div>
   );
 }

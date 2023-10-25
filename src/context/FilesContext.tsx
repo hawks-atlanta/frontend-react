@@ -9,8 +9,8 @@ interface FilesContext {
   areFilesLoading: boolean;
   files: File[];
   addFile: (file: File) => void;
-  removeFile: (uuid: string) => void;
   renameFile: (uuid: string, name: string) => void;
+  removeFile: (uuid: string) => void;
 }
 
 const initialValues: FilesContext = {
