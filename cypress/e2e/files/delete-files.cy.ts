@@ -57,6 +57,6 @@ describe("Users can create new folders", () => {
     cy.get("button").contains("Confirm").click();
 
     // Assert that the file is no longer visible in the UI
-    cy.get("div").should("not.contain", "File name");
+    cy.get("div").should("not.contain", folderName);
   });
 });
