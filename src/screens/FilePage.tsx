@@ -25,7 +25,7 @@ export function FilePage() {
 
   const showDeleteDialog =
     dialogsVisibilityState[AVAILABLE_DIALOGS.DELETE_FILE];
-  
+
   const showMoveDialog = dialogsVisibilityState[AVAILABLE_DIALOGS.MOVE_FILE];
 
   return (
