@@ -22,19 +22,15 @@ export const DeleteFileDialog = () => {
   if (!isOpen || !selectedFile) return null;
 
   const handleConfirm = async () => {
-    if (selectedFile.isFile == false) {
-      return;
-    }
-
     const token = session?.token || "";
     const deleteRequest = {
       token,
-      fileUUID: selectedFile?.uuid
+      fileUUID: selectedFile!.uuid
     };
 
     const response = await deleteFileService(deleteRequest);
     if (response.success) {
-      toast.success("Name updated successfully");
+      toast.success("Element deleted");
       deleteFile(selectedFile.uuid);
       closeDialog(AVAILABLE_DIALOGS.DELETE_FILE);
     } else {
@@ -48,14 +44,12 @@ export const DeleteFileDialog = () => {
       onClose={() => closeDialog(AVAILABLE_DIALOGS.DELETE_FILE)}
       title="Delete item"
     >
-      <p className="w-full rounded-lg border p-2">
-        "El archivo será eliminado"
-      </p>
+      <p className="w-full rounded-lg border p-2">{`Delete: ${selectedFile.name}`}</p>
       <button
         className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
         onClick={handleConfirm}
       >
-        Save
+        Confirm
       </button>
     </Dialog>
   );

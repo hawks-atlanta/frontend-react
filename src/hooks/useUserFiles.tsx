@@ -45,14 +45,7 @@ export const useUserFiles = () => {
   };
 
   const deleteFile = (uuid: string) => {
-    setFiles((curr) =>
-      curr.map((file) => {
-        if (file.uuid === uuid) {
-          return { ...file };
-        }
-        return file;
-      })
-    );
+    setFiles((curr) => curr.filter((file) => file.uuid !== uuid));
   };
 
   const renameFile = (uuid: string, name: string) => {

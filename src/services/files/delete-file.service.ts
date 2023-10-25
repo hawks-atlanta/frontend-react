@@ -32,7 +32,7 @@ export const deleteFileService = async (
       msg: data.msg
     };
   } catch (error) {
-    let errorMsg = "There was an error while trying to rename the file";
+    let errorMsg = "There was an error while trying to delete the element";
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;
