@@ -15,7 +15,7 @@ export const DeleteFileDialog = () => {
     useContext(FilesDialogsContext);
   const isOpen = dialogsVisibilityState[AVAILABLE_DIALOGS.DELETE_FILE];
 
-  const { deleteFile } = useContext(FilesContext);
+  const { removeFile } = useContext(FilesContext);
 
   const { session } = useContext(AuthContext);
 
@@ -31,7 +31,7 @@ export const DeleteFileDialog = () => {
     const response = await deleteFileService(deleteRequest);
     if (response.success) {
       toast.success("Element deleted");
-      deleteFile(selectedFile.uuid);
+      removeFile(selectedFile.uuid);
       closeDialog(AVAILABLE_DIALOGS.DELETE_FILE);
     } else {
       toast.error(response.msg);
