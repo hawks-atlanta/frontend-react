@@ -44,17 +44,14 @@ describe("Users can create new folders", () => {
 
   it("Delete a element", () => {
     // Click the dropdown dots
-    cy.get("button[id='`Delete: ${selectedFile.name}`").click();
+    cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
 
     // Click the delete button
     cy.get("button[aria-label='Delete']").click();
 
     // Assert the delete modal is open
     cy.get("div[role=dialog]").should("be.visible");
-    cy.get("div[role=dialog]").should(
-      "contain",
-      "`Delete: ${selectedFile.name}`"
-    );
+    cy.get("div[role=dialog]").should("contain", `Delete: ${folderName}`);
 
     // Click the confirm button
     cy.get("button").contains("Confirm").click();
