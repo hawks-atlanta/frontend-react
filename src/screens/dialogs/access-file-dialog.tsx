@@ -51,6 +51,7 @@ export const AccessManagementDialog = () => {
     }
 
     toast.success(msg);
+    closeDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT);
   };
 
   const handleUnshare = async () => {};
@@ -73,7 +74,7 @@ export const AccessManagementDialog = () => {
         className="hover-bg-blue-700 mt-3 rounded-md bg-blue-600 px-4 py-2 text-white"
         onClick={handleSave}
       >
-        Share
+        Save
       </button>
       {usersWithAccess.length > 0 && (
         <div className="mt-3">
