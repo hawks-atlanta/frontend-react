@@ -21,7 +21,7 @@ const defaultValues: FilesDialogsContext = {
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
     [AVAILABLE_DIALOGS.RENAME_FILE]: false,
     [AVAILABLE_DIALOGS.ACCESS_MANAGEMENT]: false,
-    [AVAILABLE_DIALOGS.MOVE_FILE]: false
+    [AVAILABLE_DIALOGS.MOVE_FILE]: false,
     [AVAILABLE_DIALOGS.DELETE_FILE]: false
   },
   selectedFile: null,
