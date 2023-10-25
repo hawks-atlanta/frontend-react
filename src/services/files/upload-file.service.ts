@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { ENVIRONMENT } from "../../config/environment";
 
 type UploadfileRequest = {
-  fileContent: string;
+  fileContent: Uint8Array;
   fileName: string;
   location: string;
   token: string;
@@ -19,7 +19,7 @@ export const uploadfileService = async (
   req: UploadfileRequest
 ): Promise<UploadfileResponse> => {
   try {
-    const response = await axios.patch(
+    const response = await axios.post(
       `${ENVIRONMENT.PROXY_BASE_URL}/file/upload`,
       req,
       {
