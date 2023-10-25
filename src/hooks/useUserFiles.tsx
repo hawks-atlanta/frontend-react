@@ -60,11 +60,15 @@ export const useUserFiles = () => {
     );
   };
 
+  const removeFile = (uuid: string) => {
+    setFiles((curr) => curr.filter((file) => file.uuid !== uuid));
+  };
+
   return {
     areLoading,
     files,
     addFile,
-    deleteFile,
-    renameFile
+    renameFile,
+    removeFile
   };
 };
