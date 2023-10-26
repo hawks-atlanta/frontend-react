@@ -3,6 +3,8 @@ import { updatepasswordService } from "../../services/auth/updatepassword.servic
 import { FieldValues, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import { Dialog } from "../../components/Dialog";
+import { ButtonSubmit } from "../Button/ButtonSubmit";
 
 export function UpdatePassword() {
   const { session } = useContext(AuthContext);
@@ -20,6 +22,8 @@ export function UpdatePassword() {
     token: string;
   }
 
+  const closeModal = () => setShowModal(false);
+
   const onSubmit = async (formData: FieldValues, token: string) => {
     const req: UpdatepasswordRequest = {
       oldPassword: formData.password,
@@ -27,15 +31,11 @@ export function UpdatePassword() {
       token: token
     };
     if (!errors.password && !errors.newPassword) {
-      try {
-        const response = await updatepasswordService(req);
-        if (response.success === true) {
-          toast.success("Password updated successfully");
-          setShowModal(false);
-        } else {
-          toast.error("Failed to update password");
-        }
-      } catch (error) {
+      const response = await updatepasswordService(req);
+      if (response.success === true) {
+        toast.success("Password updated successfully");
+        setShowModal(false);
+      } else {
         toast.error("Failed to update password");
       }
       formRef.current?.reset();
@@ -51,23 +51,14 @@ export function UpdatePassword() {
         Update Password
       </button>
       {showModal ? (
-        <div className="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit((formData) =>
-              onSubmit(formData, session!.token)
-            )}
-            className="relative w-80 rounded-md border border-gray-300 bg-white p-4 shadow-md"
-          >
-            <h1 className="mb-4 max-w-[85%] text-xl text-blue-600">
-              Update Password
-            </h1>
+        <Dialog isOpen={showModal} onClose={closeModal} title="Update Password">
+          <form ref={formRef}>
             <input
               type="password"
               aria-label="Current password"
               placeholder="Current password"
-              className={`text-xm h-auto min-w-[100%] rounded-2xl border-2 border-blue-700 p-2 text-black ${
-                errors.password ? "border-red-500" : "mb-6"
+              className={`w-full rounded-lg border p-2 text-black ${
+                errors.password ? "" : "mb-4"
               }`}
               {...register("password", {
                 required: {
@@ -100,8 +91,8 @@ export function UpdatePassword() {
                   message: "Password must be at least 8 characters"
                 }
               })}
-              className={`text-xm h-auto min-w-[100%] rounded-2xl border-2 border-blue-700 p-2 text-black ${
-                errors.newPassword ? "border-red-500" : "mb-6"
+              className={`w-full rounded-lg border p-2 text-black ${
+                errors.password ? "" : "mb-4"
               }`}
             />
             <br />
@@ -113,7 +104,7 @@ export function UpdatePassword() {
             {/*footer*/}
             <footer>
               <button
-                className="background-transparent mb-1 mr-1 px-6 py-2 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none"
+                className="hover-bg-blue-700 mt-2 rounded-full bg-blue-600 px-4 py-2 text-white"
                 type="button"
                 onClick={() => {
                   setShowModal(false);
@@ -121,15 +112,15 @@ export function UpdatePassword() {
               >
                 Close
               </button>
-              <button
-                type="submit"
-                className="mb-1 mr-1 rounded bg-blue-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600"
-              >
-                Save Changes
-              </button>
+              <ButtonSubmit
+                onClick={handleSubmit((formData) =>
+                  onSubmit(formData, session!.token)
+                )}
+                text={"Save changes"}
+              />
             </footer>
           </form>
-        </div>
+        </Dialog>
       ) : null}
     </>
   );

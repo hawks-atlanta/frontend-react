@@ -17,27 +17,13 @@ export const updatepasswordService = async (
   req: UpdatepasswordRequest
 ): Promise<UpdatepasswordResponse> => {
   try {
-    const response = await axios.patch(
-      `${ENVIRONMENT.PROXY_BASE_URL}/account/password`,
-      req,
-      {
-        headers: {
-          Authorization: `Bearer ${req.token}`
-        }
+    await axios.patch(`${ENVIRONMENT.PROXY_BASE_URL}/account/password`, req, {
+      headers: {
+        Authorization: `Bearer ${req.token}`
       }
-    );
+    });
 
-    if (response.status !== 200) {
-      return {
-        success: false,
-        msg: "There was an error updating your password."
-      };
-    } else {
-      return {
-        success: true,
-        msg: "Password updated successfully."
-      };
-    }
+    return { success: true, msg: "Password updated successfully." };
   } catch (error) {
     let errorMsg = "There was an error updating your password.";
 
