@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { updatepasswordService } from "../../services/auth/updatepassword.service";
 import { FieldValues, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
@@ -22,7 +22,15 @@ export function UpdatePassword() {
     token: string;
   }
 
-  const closeModal = () => setShowModal(false);
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    errors.password = undefined;
+    errors.newPassword = undefined;
+    formRef.current?.reset();
+  }, [showModal]);
 
   const onSubmit = async (formData: FieldValues, token: string) => {
     const req: UpdatepasswordRequest = {
@@ -38,7 +46,6 @@ export function UpdatePassword() {
       } else {
         toast.error("Failed to update password");
       }
-      formRef.current?.reset();
     }
   };
 
@@ -52,13 +59,13 @@ export function UpdatePassword() {
       </button>
       {showModal ? (
         <Dialog isOpen={showModal} onClose={closeModal} title="Update Password">
-          <form ref={formRef}>
+          <form ref={formRef} className="w-60">
             <input
               type="password"
               aria-label="Current password"
               placeholder="Current password"
               className={`w-full rounded-lg border p-2 text-black ${
-                errors.password ? "" : "mb-4"
+                errors.password ? "" : "mb-2"
               }`}
               {...register("password", {
                 required: {
@@ -71,9 +78,8 @@ export function UpdatePassword() {
                 }
               })}
             />
-            <br />
             {errors.password && (
-              <span className="mt-1 text-sm text-red-500">
+              <span className="text-sm text-red-500">
                 {String(errors.password.message)}
               </span>
             )}
@@ -92,12 +98,11 @@ export function UpdatePassword() {
                 }
               })}
               className={`w-full rounded-lg border p-2 text-black ${
-                errors.password ? "" : "mb-4"
+                errors.password ? "" : "mb-2"
               }`}
             />
-            <br />
             {errors.newPassword && (
-              <span className="mt-1 text-sm text-red-500">
+              <span className="text-sm text-red-500">
                 {String(errors.newPassword.message)}
               </span>
             )}
