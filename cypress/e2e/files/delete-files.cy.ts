@@ -5,21 +5,12 @@ describe("Users can create new folders", () => {
   const password = faker.internet.password({ length: 8 });
   const folderName = faker.system.commonFileName();
 
-  it("Register test user", () => {
+  it("Delete elements", () => {
     cy.visit("/register");
     cy.get("input[name=username]").type(username);
     cy.get("input[name=password]").type(password);
     cy.get("input[name=confirmPassword]").type(password);
     cy.get("button").contains("Submit").click();
-  });
-
-  it("Create new folder", () => {
-    // Login with the test user
-    cy.visit("/login");
-    cy.get("input[name=username]").type(username);
-    cy.get("input[name=password]").type(password);
-    cy.get("button").contains("Submit").click();
-    cy.url().should("include", "/files");
 
     // Open the modal to create a new folder
     cy.get("button").contains("New Folder").click();
@@ -40,9 +31,7 @@ describe("Users can create new folders", () => {
 
     // Assert the new folder is visible in the list
     cy.get("div").should("contain", folderName);
-  });
 
-  it("Delete a element", () => {
     // Click the dropdown dots
     cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
 
