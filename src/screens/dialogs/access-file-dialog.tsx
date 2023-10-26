@@ -9,7 +9,15 @@ import {
 import toast from "react-hot-toast";
 import { unshareFileService } from "../../services/files/unshare-file.service";
 
-export const AccessManagementDialog = () => {
+interface UserWithAccessRowProps {
+  user: string;
+  unshareCallback: (username: string) => void;
+}
+
+export const AccessManagementDialog = ({
+  user,
+  unshareCallback
+}: UserWithAccessRowProps) => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
   const [newAccess, setNewAccess] = useState("");
 
@@ -53,6 +61,7 @@ export const AccessManagementDialog = () => {
     }
 
     toast.success(msg);
+    unshareCallback(userName);
   };
 
   return (
@@ -76,7 +85,7 @@ export const AccessManagementDialog = () => {
         Share
       </button>
       {usersWithAccess.length > 0 && (
-        <div className="mt-3">
+        <div key={user} className="mt-3">
           <h2 className="text-lg font-semibold">Shared with:</h2>
           <ul className="max-h-48 space-y-2 overflow-y-auto">
             {usersWithAccess.map((user, index) => (
