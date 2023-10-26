@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-describe("Users can create new folders", () => {
+describe("Users can delete elements", () => {
   const username = faker.internet.userName();
   const password = faker.internet.password({ length: 8 });
   const folderName = faker.system.commonFileName();
