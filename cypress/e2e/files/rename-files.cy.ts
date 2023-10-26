@@ -31,7 +31,7 @@ describe("Rename File Tests", () => {
   cy.get("div").should("contain", folderName);
 
   // Click the three dots to open the dropdown menu
-  cy.get("button[aria-label='Open options menu for ${folderName}']").click();
+  cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
 
   // Click the "Edit" button to rename the folder
   cy.get("button[aria-label='Edit']").click();
@@ -55,7 +55,7 @@ describe("Rename File Tests", () => {
   cy.url().should("include", "/files");
 
   // Click the three dots to open the dropdown menu
-  cy.get("button[aria-label='Open options menu for ${folderName}']").click();
+  cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
 
   // Click the "Edit" button to rename the folder
   cy.get("button[aria-label='Edit']").click();
