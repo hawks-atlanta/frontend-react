@@ -1,28 +1,35 @@
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { File } from "../components/FileElement/File";
+import { FileElement } from "../components/FileElement/FileCard";
+import {
+  AVAILABLE_DIALOGS,
+  FilesContext,
+  FilesDialogsContext
+} from "../context/index";
+import { useContext } from "react";
+import {
+  CreateFolderDialog,
+  EditNameDialog,
+  AccessManagementDialog,
+  MoveFileDialog
+} from "./dialogs/index";
 
 export function FilePage() {
-  const files = Array.from({ length: 32 }, (_, index) => {
-    const isFile = index % 2 === 0;
-    return (
-      <File
-        key={index}
-        fileName={`${isFile ? "file" : "folder"} ${index + 1}`}
-        fileExtension={isFile ? "zip" : ""}
-        uuid={index + 1}
-        fileType={isFile ? "archive" : "folder"}
-      />
-    );
-  });
+  const { areFilesLoading: isLoading, files } = useContext(FilesContext);
+  const { dialogsVisibilityState } = useContext(FilesDialogsContext);
+  const showRenameDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.RENAME_FILE];
 
-  const currentFiles = files;
+  const showAccessDialog =
+    dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
+
+  const showMoveDialog = dialogsVisibilityState[AVAILABLE_DIALOGS.MOVE_FILE];
 
   return (
     <div className="flex h-[calc(100vh-5rem)]">
       <div className="w-1/5 bg-gray-200">
         <Sidebar />
       </div>
-      <div className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
+      <main className="mx-6 flex w-4/5 flex-col overflow-y-auto bg-white">
         <div className="p-2">
           <input
             type="text"
@@ -31,9 +38,23 @@ export function FilePage() {
           />
         </div>
         <div className="flex flex-wrap justify-start gap-4 p-2">
-          {currentFiles}
+          {isLoading ? (
+            <div className="w-full p-2 text-center text-gray-500">
+              Loading...
+            </div>
+          ) : files.length > 0 ? (
+            files.map((file) => <FileElement key={file.uuid} file={file} />)
+          ) : (
+            <div className="w-full p-2 text-center text-gray-500">
+              No files to display.
+            </div>
+          )}
         </div>
-      </div>
+      </main>
+      <CreateFolderDialog />
+      {showRenameDialog && <EditNameDialog />}
+      {showAccessDialog && <AccessManagementDialog />}
+      {showMoveDialog && <MoveFileDialog />}
     </div>
   );
 }

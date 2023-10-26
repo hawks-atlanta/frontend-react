@@ -9,8 +9,8 @@ import { Register } from "./screens/Register.tsx";
 
 import { FilePage } from "./screens/FilePage.tsx";
 import { Toaster } from "react-hot-toast";
-import { AuthContextProvider } from "./context/AuthContext.tsx";
 import { AuthMiddleware } from "./screens/middlewares/AuthMiddleware.tsx";
+import { FilesContextProvider, AuthContextProvider } from "./context/index.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -40,7 +40,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/files"
             element={
               <AuthMiddleware mustBeAuthenticated={true}>
-                <FilePage />
+                <FilesContextProvider>
+                  <FilePage />
+                </FilesContextProvider>
               </AuthMiddleware>
             }
           ></Route>
