@@ -2,6 +2,9 @@ import { Dropdown } from "./Dropdown";
 import { FileText, Folder } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { File } from "../../types/entities";
+import { DownloadFileService } from "../../services/files/download-file.service";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 interface Props {
   file: File;
@@ -9,13 +12,23 @@ interface Props {
 
 export function FileElement({ file }: Props) {
   const [_searchParams, setSearchParams] = useSearchParams();
+  const { session } = useContext(AuthContext);
+
+  interface DownloadFileRequest {
+    fileUUID: string;
+    token: string;
+  }
 
   const handleClick = () => {
     const isDirectory = !file.isFile;
     if (isDirectory) {
       setSearchParams({ directory: file.uuid });
     } else {
-      console.log("Download file");
+      const req: DownloadFileRequest = {
+        token: session!.token,
+        fileUUID: file.uuid
+      };
+      console.log(DownloadFileService(req));
     }
   };
 
