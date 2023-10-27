@@ -86,11 +86,12 @@ export const UploadFileDialog = () => {
         className="w-full rounded-lg border p-2"
       />
       <button
-        className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
+        className="hover-bg-blue-700 mt-4 flex rounded-full bg-blue-600 px-4 py-2 text-white"
         onClick={uploadFile}
         disabled={isUploading}
       >
-        {isUploading ? <Loader /> : "Upload files"}
+        {isUploading && <Loader className="mr-2 animate-spin" />}
+        Upload files
       </button>
     </Dialog>
   );
