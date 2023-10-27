@@ -13,7 +13,6 @@ import { unshareFileService } from "../../services/files/unshare-file.service";
 export const AccessManagementDialog = () => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
   const [newAccess, setNewAccess] = useState("");
-  const [shared, setShared] = useState(false);
 
   const { dialogsVisibilityState, closeDialog, selectedFile } =
     useContext(FilesDialogsContext);
@@ -27,14 +26,13 @@ export const AccessManagementDialog = () => {
       fileUUID: selectedFile?.uuid as string,
       otherUsername: newAccess
     };
-
     const { success, msg } = await shareFileService(shareRequest);
     if (!success) {
       toast.error(msg);
       return;
     }
-    setShared(true);
     toast.success(msg);
+    setUsersWithAccess([...usersWithAccess, newAccess]);
   };
 
   useEffect(() => {
@@ -53,7 +51,7 @@ export const AccessManagementDialog = () => {
     if (Open && selectedFile) {
       fetchUsersWithAccess();
     }
-  }, [selectedFile, shared]);
+  }, [selectedFile]);
 
   const handleUnshare = async (userName: string) => {
     const unShareRequest = {
