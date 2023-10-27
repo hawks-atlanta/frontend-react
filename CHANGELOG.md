@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.20 (2023-10-27)
+
+
+### Features
+
+* Log out ([#72](https://github.com/hawks-atlanta/frontend-react/issues/72)) ([c5dd200](https://github.com/hawks-atlanta/frontend-react/commit/c5dd2004ad767f83954561bdfd913cf87215b0f6))
+
 ### 0.0.19 (2023-10-27)
 
 
