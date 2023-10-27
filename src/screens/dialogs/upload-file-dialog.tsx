@@ -58,7 +58,6 @@ export const UploadFileDialog = () => {
           toast.success(`The file ${file.name} has been uploaded successfully`);
 
           files.push(newFile);
-          closeDialog(AVAILABLE_DIALOGS.UPLOAD_FILE);
         } else {
           toast.error(response.msg);
         }
@@ -70,6 +69,7 @@ export const UploadFileDialog = () => {
 
   const addFilesUI = () => {
     addFiles(files);
+    closeDialog(AVAILABLE_DIALOGS.UPLOAD_FILE);
   };
 
   return (
@@ -88,6 +88,7 @@ export const UploadFileDialog = () => {
       <button
         className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
         onClick={uploadFile}
+        disabled={isUploading}
       >
         {isUploading ? <Loader /> : "Upload files"}
       </button>
