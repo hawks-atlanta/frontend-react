@@ -48,5 +48,11 @@ describe("Share File Tests", () => {
     cy.get("#share-file").click({ force: true });
     // Click the "Share" button to share the element
     cy.contains("The file is already shared with the user");
+
+    // Click the "Un-Share" button to rename the folder
+    cy.get("button").contains("Un-share").should("exist");
+    cy.get("button:contains('Un-share')").click();
+
+    cy.contains("File unshared successfully");
   });
 });
