@@ -53,7 +53,7 @@ export function FilePage() {
       </main>
       <CreateFolderDialog />
       {showRenameDialog && <EditNameDialog />}
-      {showAccessDialog && <AccessManagementDialog user={""} />}
+      {showAccessDialog && <AccessManagementDialog />}
       {showMoveDialog && <MoveFileDialog />}
     </div>
   );

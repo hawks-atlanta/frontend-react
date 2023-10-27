@@ -9,11 +9,7 @@ import {
 import toast from "react-hot-toast";
 import { unshareFileService } from "../../services/files/unshare-file.service";
 
-interface UserWithAccessRowProps {
-  user: string;
-}
-
-export const AccessManagementDialog = ({ user }: UserWithAccessRowProps) => {
+export const AccessManagementDialog = () => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
   const [newAccess, setNewAccess] = useState("");
 
@@ -83,7 +79,7 @@ export const AccessManagementDialog = ({ user }: UserWithAccessRowProps) => {
         Share
       </button>
       {usersWithAccess.length > 0 && (
-        <div key={user} className="mt-3">
+        <div className="mt-3">
           <h2 className="text-lg font-semibold">Shared with:</h2>
           <ul className="max-h-48 space-y-2 overflow-y-auto">
             {usersWithAccess.map((user, index) => (
