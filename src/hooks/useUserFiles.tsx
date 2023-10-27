@@ -44,6 +44,10 @@ export const useUserFiles = () => {
     setFiles([...files, dir]);
   };
 
+  const addFiles = (newFiles: File[]) => {
+    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+  };
+
   const removeFile = (uuid: string) => {
     setFiles((curr) => curr.filter((file) => file.uuid !== uuid));
   };
@@ -64,6 +68,7 @@ export const useUserFiles = () => {
     areLoading,
     files,
     addFile,
+    addFiles,
     removeFile,
     renameFile
   };
