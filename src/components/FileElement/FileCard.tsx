@@ -1,13 +1,13 @@
 import { Dropdown } from "./Dropdown";
 import { FileText, Folder } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
-import { File } from "../../types/entities";
+import { File as IFile } from "../../types/entities";
 import { DownloadFileService } from "../../services/files/download-file.service";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 interface Props {
-  file: File;
+  file: IFile;
 }
 
 export function FileElement({ file }: Props) {
@@ -19,7 +19,7 @@ export function FileElement({ file }: Props) {
     token: string;
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const isDirectory = !file.isFile;
     if (isDirectory) {
       setSearchParams({ directory: file.uuid });
@@ -28,7 +28,20 @@ export function FileElement({ file }: Props) {
         token: session!.token,
         fileUUID: file.uuid
       };
-      console.log(DownloadFileService(req));
+      const response = await DownloadFileService(req);
+
+      if (response) {
+        const newFile = new File([response.fileContent], file.name);
+        const url = URL.createObjectURL(newFile);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        console.error(`Failed to download file: ${response}`);
+      }
     }
   };
 

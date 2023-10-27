@@ -7,8 +7,7 @@ type DownloadFileRequest = {
 };
 
 type DownloadFileResponse = {
-  success: boolean;
-  file: string;
+  fileContent: File;
   msg: string;
 };
 
@@ -16,7 +15,7 @@ export const DownloadFileService = async (
   req: DownloadFileRequest
 ): Promise<DownloadFileResponse> => {
   try {
-    const downloadFileResponse = await axios.post(
+    const downloadFileResponse = await axios.get(
       `${ENVIRONMENT.PROXY_BASE_URL}/file/download/${req.fileUUID}`,
       {
         headers: {
@@ -25,11 +24,9 @@ export const DownloadFileService = async (
       }
     );
     const { data } = downloadFileResponse;
-
     return {
-      success: true,
-      msg: data.msg,
-      file: data.file
+      fileContent: data,
+      msg: "File downloaded successfully"
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to download the file";
@@ -39,9 +36,8 @@ export const DownloadFileService = async (
     }
 
     return {
-      success: false,
-      msg: errorMsg,
-      file: ""
+      fileContent: new File([], ""),
+      msg: "There was an error while trying to download the file"
     };
   }
 };
