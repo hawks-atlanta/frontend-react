@@ -2,8 +2,9 @@ import { useState, useEffect, useContext, Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, UserCircle2 } from "lucide-react";
 import { NavButton } from "./NavButton";
-import { UpdatePassword } from "../UpdatePassword/UpdatePasswordButton";
+import { UpdatePassword } from "../ProfileButtons/UpdatePasswordButton";
 import { AuthContext } from "../../context/AuthContext";
+import { LogOut } from "../ProfileButtons/LogOutButton";
 
 export function NavbarScreen() {
   const { session } = useContext(AuthContext);
@@ -90,7 +91,7 @@ export function NavbarScreen() {
               className="absolute top-full z-10 flex w-80 flex-col items-center justify-center gap-4 border bg-white p-4"
             >
               <UpdatePassword />
-              <NavButton text="Logout" to="/" />
+              <LogOut onClick={closeMenus} />
             </div>
           )}
         </div>

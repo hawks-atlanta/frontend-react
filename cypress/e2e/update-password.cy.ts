@@ -18,7 +18,7 @@ describe("Users can change their passwords", () => {
 
     // Assert the modal is open
     cy.get("button").should("contain", "Update Password");
-    cy.get("a").should("contain", "Logout");
+    cy.get("a").should("contain", "Log out");
     cy.get("button").contains("Update Password").click();
     // Update the password
     cy.get("input[aria-label='Current password']").type(password);
@@ -29,7 +29,7 @@ describe("Users can change their passwords", () => {
     cy.contains("Password updated successfully").should("be.visible");
     // Make the password change fail
     cy.get("button").should("contain", "Update Password");
-    cy.get("a").should("contain", "Logout");
+    cy.get("a").should("contain", "Log out");
 
     cy.get("button").contains("Update Password").click();
 
