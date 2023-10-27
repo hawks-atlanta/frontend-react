@@ -3,7 +3,7 @@ import { updatepasswordService } from "../../services/auth/updatepassword.servic
 import { FieldValues, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
-import { Dialog } from "../../components/Dialog";
+import { Dialog } from "../Dialog";
 import { ButtonSubmit } from "../Button/ButtonSubmit";
 
 export function UpdatePassword() {
