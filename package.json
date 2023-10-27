@@ -1,7 +1,7 @@
 {
   "name": "frontend-react",
   "private": true,
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,24 +16,24 @@
   },
   "dependencies": {
     "axios": "^1.5.1",
-    "lucide-react": "^0.279.0",
+    "lucide-react": "^0.289.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "6.16.0"
+    "react-router-dom": "6.17.0"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "3.12.1",
+    "@cypress/code-coverage": "3.12.6",
     "@faker-js/faker": "8.2.0",
-    "@types/react": "^18.2.24",
-    "@types/react-dom": "^18.2.8",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
     "@vitejs/plugin-react-swc": "^3.4.0",
     "autoprefixer": "10.4.16",
-    "cypress": "13.3.0",
-    "eslint": "^8.50.0",
+    "cypress": "13.3.3",
+    "eslint": "^8.52.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
@@ -42,11 +42,11 @@
     "nyc": "15.1.0",
     "postcss": "8.4.31",
     "prettier": "3.0.3",
-    "prettier-plugin-tailwindcss": "0.5.4",
+    "prettier-plugin-tailwindcss": "0.5.6",
     "standard-version": "9.5.0",
-    "tailwindcss": "3.3.3",
+    "tailwindcss": "3.3.5",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
+    "vite": "^4.5.0",
     "vite-plugin-istanbul": "5.0.0"
   }
 }

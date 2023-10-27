@@ -5,6 +5,7 @@ export enum AVAILABLE_DIALOGS {
   "CREATE_FOLDER" = "CREATE_FOLDER",
   "RENAME_FILE" = "RENAME_FILE",
   "UPLOAD_FILE" = "UPLOAD_FILE",
+  "DELETE_FILE" = "DELETE_FILE",
   "ACCESS_MANAGEMENT" = "ACCESS_MANAGEMENT",
   "MOVE_FILE" = "MOVE_FILE"
 }
@@ -22,7 +23,8 @@ const defaultValues: FilesDialogsContext = {
     [AVAILABLE_DIALOGS.RENAME_FILE]: false,
     [AVAILABLE_DIALOGS.UPLOAD_FILE]: false,
     [AVAILABLE_DIALOGS.ACCESS_MANAGEMENT]: false,
-    [AVAILABLE_DIALOGS.MOVE_FILE]: false
+    [AVAILABLE_DIALOGS.MOVE_FILE]: false,
+    [AVAILABLE_DIALOGS.DELETE_FILE]: false
   },
   selectedFile: null,
   openDialog: () => {},
@@ -43,6 +45,7 @@ export const FilesDialogsContextProvider = ({
     [AVAILABLE_DIALOGS.CREATE_FOLDER]: false,
     [AVAILABLE_DIALOGS.RENAME_FILE]: false,
     [AVAILABLE_DIALOGS.UPLOAD_FILE]: false,
+    [AVAILABLE_DIALOGS.DELETE_FILE]: false,
     [AVAILABLE_DIALOGS.ACCESS_MANAGEMENT]: false,
     [AVAILABLE_DIALOGS.MOVE_FILE]: false
   });

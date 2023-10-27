@@ -18,8 +18,8 @@ const initialValues: FilesContext = {
   areFilesLoading: false,
   files: [],
   addFile: () => {},
-  renameFile: () => {},
-  removeFile: () => {}
+  removeFile: () => {},
+  renameFile: () => {}
 };
 
 export const FilesContext = createContext(initialValues);
@@ -32,7 +32,7 @@ export const FilesContextProvider = ({
   const [params, _] = useSearchParams();
   const currentDirectory = params.get("directory");
 
-  const { areLoading, files, addFile, renameFile, removeFile } = useUserFiles();
+  const { areLoading, files, addFile, removeFile, renameFile } = useUserFiles();
 
   return (
     <FilesContext.Provider
@@ -41,8 +41,8 @@ export const FilesContextProvider = ({
         areFilesLoading: areLoading,
         files: files,
         addFile: addFile,
-        renameFile: renameFile,
-        removeFile: removeFile
+        removeFile: removeFile,
+        renameFile: renameFile
       }}
     >
       <FilesDialogsContextProvider>{children}</FilesDialogsContextProvider>
