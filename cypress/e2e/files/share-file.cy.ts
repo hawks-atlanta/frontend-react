@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker";
 describe("Share File Tests", () => {
   const username = faker.internet.userName();
   const password = faker.internet.password({ length: 8 });
+  const username2 = faker.internet.userName();
+  const password2 = faker.internet.password({ length: 8 });
   const folderName = faker.system.commonFileName();
 
   it("Tests to share a file", () => {
@@ -11,6 +13,15 @@ describe("Share File Tests", () => {
     cy.get("input[name=username]").type(username);
     cy.get("input[name=password]").type(password);
     cy.get("input[name=confirmPassword]").type(password);
+    cy.get("button").contains("Submit").click();
+    cy.url().should("include", "/files");
+
+    // Register a second test user
+    cy.clearAllLocalStorage();
+    cy.visit("/register");
+    cy.get("input[name=username]").type(username2);
+    cy.get("input[name=password]").type(password2);
+    cy.get("input[name=confirmPassword]").type(password2);
     cy.get("button").contains("Submit").click();
     cy.url().should("include", "/files");
 
@@ -29,7 +40,7 @@ describe("Share File Tests", () => {
 
     cy.get("div[role=dialog]").should("contain", "Share file");
 
-    cy.get("input[aria-label='Edit access permissions']").type("username");
+    cy.get("input[aria-label='Edit access permissions']").type(username);
     // Click the "Share" button
     cy.get("button:contains('Save')").click();
     // Verify that the success message is displayed
@@ -45,7 +56,7 @@ describe("Share File Tests", () => {
     cy.get("button[aria-label='Share']").click();
     cy.get("div[role=dialog]").should("contain", "Share file");
 
-    cy.get("input[aria-label='Edit access permissions']").type("username");
+    cy.get("input[aria-label='Edit access permissions']").type(username);
     // Click the "Share" button
     cy.get("button:contains('Save')").click();
     cy.contains("The file is already shared with the user");
