@@ -9,6 +9,7 @@ import { useContext } from "react";
 import {
   CreateFolderDialog,
   EditNameDialog,
+  UploadFileDialog,
   AccessManagementDialog,
   DeleteFileDialog,
   MoveFileDialog
@@ -55,6 +56,7 @@ export function FilePage() {
           )}
         </div>
       </main>
+      <UploadFileDialog />
       <CreateFolderDialog />
       {showRenameDialog && <EditNameDialog />}
       {showAccessDialog && <AccessManagementDialog />}
