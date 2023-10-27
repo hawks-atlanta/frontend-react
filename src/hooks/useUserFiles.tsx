@@ -42,6 +42,10 @@ export const useUserFiles = () => {
   // State setters
   const addFile = (dir: File) => {
     setFiles([...files, dir]);
+  }
+
+  const addFiles = (newFiles: File[]) => {
+    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
   };
 
   const removeFile = (uuid: string) => {
@@ -64,6 +68,7 @@ export const useUserFiles = () => {
     areLoading,
     files,
     addFile,
+    addFiles,
     removeFile,
     renameFile
   };

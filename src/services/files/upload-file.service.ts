@@ -35,18 +35,11 @@ export const uploadfileService = async (
       }
     );
 
-    if (response.status !== 201) {
-      return {
-        success: false,
-        msg: "There was an error in the upload."
-      };
-    } else {
-      return {
-        success: true,
-        msg: "Upload successful",
-        fileUUID: response.data.fileUUID
-      };
-    }
+    return {
+      success: true,
+      msg: "Upload successful",
+      fileUUID: response.data.fileUUID
+    };
   } catch (error) {
     let errorMsg = "There was an error in the upload.";
 

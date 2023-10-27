@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { uploadfileService } from "../../services/files/upload-file.service";
 import { Dialog } from "../../components/Dialog";
+import { Loader } from "lucide-react";
 import {
   FilesDialogsContext,
   AuthContext,
@@ -21,12 +22,17 @@ export const UploadFileDialog = () => {
   // Dialog state
   const { closeDialog, dialogsVisibilityState } =
     useContext(FilesDialogsContext);
+  const [isUploading, setIsUploading] = useState(false);
   const isOpen = dialogsVisibilityState[AVAILABLE_DIALOGS.UPLOAD_FILE];
-  const { addFile, currentDirectory } = useContext(FilesContext);
+  const { addFiles, currentDirectory } = useContext(FilesContext);
   const { session } = useContext(AuthContext);
 
+  const files: INewFile[] = [];
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const uploadFile = async () => {
-    const fileInput = document.querySelector<HTMLInputElement>("#myfile");
+    setIsUploading(true);
+    const fileInput = fileInputRef.current;
     if (fileInput?.files?.length) {
       const fileList = fileInput.files;
       for (let i = 0; i < fileList.length; i++) {
@@ -50,14 +56,21 @@ export const UploadFileDialog = () => {
             uuid: response.fileUUID!
           };
           toast.success(`The file ${file.name} has been uploaded successfully`);
-          addFile(newFile);
+
+          files.push(newFile);
           closeDialog(AVAILABLE_DIALOGS.UPLOAD_FILE);
         } else {
           toast.error(response.msg);
         }
       }
     }
+    addFilesUI();
+    setIsUploading(false);
   };
+
+  const addFilesUI = () => {
+    addFiles(files);
+  }
 
   return (
     <Dialog
@@ -67,7 +80,8 @@ export const UploadFileDialog = () => {
     >
       <input
         type="file"
-        id="myfile"
+        ref={fileInputRef}
+        multiple
         aria-label="Select the files"
         className="w-full rounded-lg border p-2"
       />
@@ -75,7 +89,11 @@ export const UploadFileDialog = () => {
         className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
         onClick={uploadFile}
       >
-        Upload files
+        {isUploading ? (
+          <Loader />
+        ) : (
+          "Upload files"
+        )}
       </button>
     </Dialog>
   );

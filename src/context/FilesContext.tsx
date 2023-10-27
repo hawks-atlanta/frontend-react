@@ -9,6 +9,7 @@ interface FilesContext {
   areFilesLoading: boolean;
   files: File[];
   addFile: (file: File) => void;
+  addFiles: (file: File[]) => void;
   renameFile: (uuid: string, name: string) => void;
   removeFile: (uuid: string) => void;
 }
@@ -17,9 +18,10 @@ const initialValues: FilesContext = {
   currentDirectory: null,
   areFilesLoading: false,
   files: [],
-  addFile: () => {},
-  removeFile: () => {},
-  renameFile: () => {}
+  addFile: () => { },
+  addFiles: () => { },
+  removeFile: () => { },
+  renameFile: () => { }
 };
 
 export const FilesContext = createContext(initialValues);
@@ -32,7 +34,7 @@ export const FilesContextProvider = ({
   const [params, _] = useSearchParams();
   const currentDirectory = params.get("directory");
 
-  const { areLoading, files, addFile, removeFile, renameFile } = useUserFiles();
+  const { areLoading, files, addFile, addFiles, removeFile, renameFile } = useUserFiles();
 
   return (
     <FilesContext.Provider
@@ -41,6 +43,7 @@ export const FilesContextProvider = ({
         areFilesLoading: areLoading,
         files: files,
         addFile: addFile,
+        addFiles: addFiles,
         removeFile: removeFile,
         renameFile: renameFile
       }}
