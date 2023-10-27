@@ -35,8 +35,19 @@ describe("Share File Tests", () => {
     // Verify that the success message is displayed
     cy.contains("File shared successfully");
 
-    // Close the dropdown
+    // Share fails if the file is already shared with the user
     cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
     cy.get("button").contains("Share").should("not.exist");
+    // Click the three dots to open the dropdown menu
+    cy.get(`button[aria-label='Open options menu for ${folderName}']`).click();
+    // Click the "Share" button to rename the folder
+    cy.get("button").contains("Share").should("exist");
+    cy.get("button[aria-label='Share']").click();
+    cy.get("div[role=dialog]").should("contain", "Share file");
+
+    cy.get("input[aria-label='Edit access permissions']").type("username");
+    // Click the "Share" button
+    cy.get("button:contains('Save')").click();
+    cy.contains("The file is already shared with the user");
   });
 });
