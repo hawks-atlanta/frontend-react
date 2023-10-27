@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { SharedWithWhoService } from "../../services/files/get-users-file.service";
 import { Dialog } from "../../components/Dialog";
+import { shareFileService } from "../../services/files/share-file.service";
 import {
   FilesDialogsContext,
   AVAILABLE_DIALOGS,
@@ -19,6 +20,21 @@ export const AccessManagementDialog = () => {
 
   const { session } = useContext(AuthContext);
 
+  const handleShare = async () => {
+    const shareRequest = {
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: newAccess
+    };
+    const { success, msg } = await shareFileService(shareRequest);
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+    toast.success(msg);
+    setUsersWithAccess([...usersWithAccess, newAccess]);
+  };
+
   useEffect(() => {
     const fetchUsersWithAccess = async () => {
       const response = await SharedWithWhoService({
@@ -36,8 +52,6 @@ export const AccessManagementDialog = () => {
       fetchUsersWithAccess();
     }
   }, [selectedFile]);
-
-  const handleSave = async () => {};
 
   const handleUnshare = async (userName: string) => {
     const unShareRequest = {
@@ -73,8 +87,9 @@ export const AccessManagementDialog = () => {
         className="mb-3 w-full rounded-lg border p-2"
       />
       <button
+        id="share-file"
         className="hover-bg-blue-700 mt-3 rounded-md bg-blue-600 px-4 py-2 text-white"
-        onClick={handleSave}
+        onClick={handleShare}
       >
         Share
       </button>
