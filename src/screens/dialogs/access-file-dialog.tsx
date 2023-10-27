@@ -11,13 +11,9 @@ import { unshareFileService } from "../../services/files/unshare-file.service";
 
 interface UserWithAccessRowProps {
   user: string;
-  unshareCallback: (username: string) => void;
 }
 
-export const AccessManagementDialog = ({
-  user,
-  unshareCallback
-}: UserWithAccessRowProps) => {
+export const AccessManagementDialog = ({ user }: UserWithAccessRowProps) => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
   const [newAccess, setNewAccess] = useState("");
 
@@ -60,8 +56,10 @@ export const AccessManagementDialog = ({
       return;
     }
 
+    setUsersWithAccess(
+      usersWithAccess.filter((username) => username !== userName)
+    );
     toast.success(msg);
-    unshareCallback(userName);
   };
 
   return (
