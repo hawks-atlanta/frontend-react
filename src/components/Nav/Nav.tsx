@@ -2,30 +2,38 @@ import { useState, useEffect, useContext, Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, UserCircle2 } from "lucide-react";
 import { NavButton } from "./NavButton";
+import { UpdatePassword } from "../ProfileButtons/UpdatePasswordButton";
 import { AuthContext } from "../../context/AuthContext";
+import { LogOut } from "../ProfileButtons/LogOutButton";
 
 export function NavbarScreen() {
   const { session } = useContext(AuthContext);
 
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const location = useLocation();
 
-  const closeMobileMenu = () => {
+  const closeMenus = () => {
     setShowMobileMenu(false);
+    setShowProfileMenu(false);
   };
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
+  const toggleProfileMenu = () => {
+    setShowProfileMenu(!showProfileMenu);
+  };
+
   useEffect(() => {
-    closeMobileMenu();
+    closeMenus();
   }, [location.pathname]);
 
   return (
     <nav className="relative h-20 bg-blue-600 px-4 py-2">
       <div className="mx-auto flex h-full max-w-screen-2xl items-center text-white">
-        <Link to="/" onClick={closeMobileMenu}>
+        <Link to="/" onClick={closeMenus}>
           <img
             src="/Logos/logo.png"
             alt=""
@@ -46,7 +54,10 @@ export function NavbarScreen() {
           {showMobileMenu && (
             <div className="absolute left-0 right-0 top-full z-50 flex flex-col items-center justify-center gap-4 border bg-white p-4 md:hidden">
               {session ? (
-                <NavButton text="Profile" to="/profile" />
+                <Fragment>
+                  <UpdatePassword></UpdatePassword>
+                  <LogOut onClick={closeMenus} />
+                </Fragment>
               ) : (
                 <Fragment>
                   <NavButton text="Login" to="/login" />
@@ -58,15 +69,14 @@ export function NavbarScreen() {
 
           <div className="hidden gap-4 md:flex">
             {session ? (
-              <Link
-                to="/profile"
-                className="flex items-center gap-x-2"
-                aria-label="Go to profile page"
+              <button
+                className="flex items-center gap-x-2 font-semibold"
+                onClick={toggleProfileMenu}
               >
+                {session.username}
                 {/* show user avatar and username if logged in */}
-                <span className="font-semibold">{session.username}</span>
                 <UserCircle2 className="h-10 w-10" strokeWidth={1.5} />
-              </Link>
+              </button>
             ) : (
               <Fragment>
                 {/* show login and register buttons if not logged in */}
@@ -75,6 +85,15 @@ export function NavbarScreen() {
               </Fragment>
             )}
           </div>
+          {showProfileMenu && (
+            <div
+              role="dialog"
+              className="absolute top-full z-10 flex w-80 flex-col items-center justify-center gap-4 border bg-white p-4"
+            >
+              <UpdatePassword />
+              <LogOut onClick={closeMenus} />
+            </div>
+          )}
         </div>
       </div>
     </nav>

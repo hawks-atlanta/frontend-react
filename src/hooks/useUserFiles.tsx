@@ -44,6 +44,10 @@ export const useUserFiles = () => {
     setFiles([...files, dir]);
   };
 
+  const removeFile = (uuid: string) => {
+    setFiles((curr) => curr.filter((file) => file.uuid !== uuid));
+  };
+
   const renameFile = (uuid: string, name: string) => {
     setFiles((curr) =>
       curr.map((file) => {
@@ -56,15 +60,11 @@ export const useUserFiles = () => {
     );
   };
 
-  const removeFile = (uuid: string) => {
-    setFiles((curr) => curr.filter((file) => file.uuid !== uuid));
-  };
-
   return {
     areLoading,
     files,
     addFile,
-    renameFile,
-    removeFile
+    removeFile,
+    renameFile
   };
 };
