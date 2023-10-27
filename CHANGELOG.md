@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.22 (2023-10-27)
+
+### 0.0.21 (2023-10-27)
+
+
+### Features
+
+* un-share files ([#67](https://github.com/hawks-atlanta/frontend-react/issues/67)) ([7633ca6](https://github.com/hawks-atlanta/frontend-react/commit/7633ca6baca66817645aa7891af1ffa108280a97))
+
+### 0.0.20 (2023-10-27)
+
+
+### Features
+
+* Log out ([#72](https://github.com/hawks-atlanta/frontend-react/issues/72)) ([c5dd200](https://github.com/hawks-atlanta/frontend-react/commit/c5dd2004ad767f83954561bdfd913cf87215b0f6))
+
+### 0.0.19 (2023-10-27)
+
+
+### Features
+
+* Update pasword modal ([#56](https://github.com/hawks-atlanta/frontend-react/issues/56)) ([31aaade](https://github.com/hawks-atlanta/frontend-react/commit/31aaadeda4b01bcfbe42b54119f4c3624939f0df))
+
+### 0.0.18 (2023-10-26)
+
+
+### Features
+
+* move a file ([#64](https://github.com/hawks-atlanta/frontend-react/issues/64)) ([7c95b23](https://github.com/hawks-atlanta/frontend-react/commit/7c95b23bfcf2fd747c43557174de49d8808b6c39))
+
 ### 0.0.17 (2023-10-22)
 
 ### 0.0.16 (2023-10-22)

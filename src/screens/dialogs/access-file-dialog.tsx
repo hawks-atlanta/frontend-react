@@ -8,6 +8,7 @@ import {
   AuthContext
 } from "../../context/index";
 import toast from "react-hot-toast";
+import { unshareFileService } from "../../services/files/unshare-file.service";
 
 export const AccessManagementDialog = () => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
@@ -52,8 +53,24 @@ export const AccessManagementDialog = () => {
     }
   }, [selectedFile, handleShare]);
 
- 
-  const handleUnshare = async () => {};
+  const handleUnshare = async (userName: string) => {
+    const unShareRequest = {
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: userName
+    };
+
+    const { success, msg } = await unshareFileService(unShareRequest);
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+
+    setUsersWithAccess(
+      usersWithAccess.filter((username) => username !== userName)
+    );
+    toast.success(msg);
+  };
 
   return (
     <Dialog
@@ -84,7 +101,7 @@ export const AccessManagementDialog = () => {
                 <span>{user}</span>
                 <button
                   className="hover-bg-red-600 mt-0.5 rounded-md bg-red-500 px-2 py-1 text-white"
-                  onClick={() => handleUnshare()}
+                  onClick={() => handleUnshare(user)}
                 >
                   Un-share
                 </button>
