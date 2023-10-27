@@ -56,7 +56,7 @@ export function NavbarScreen() {
               {session ? (
                 <Fragment>
                   <UpdatePassword></UpdatePassword>
-                  <NavButton text="Logout" to="/" />
+                  <LogOut onClick={closeMenus} />
                 </Fragment>
               ) : (
                 <Fragment>
