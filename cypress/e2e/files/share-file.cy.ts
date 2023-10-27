@@ -52,7 +52,7 @@ describe("Share File Tests", () => {
     // Click the "Un-Share" button to rename the folder
     cy.get("button").contains("Un-share").should("exist");
     cy.get("button:contains('Un-share')").click();
-
     cy.contains("File unshared successfully");
+    cy.get("ul").should("not.contain", "UserToRemove");
   });
 });
