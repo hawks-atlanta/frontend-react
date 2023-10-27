@@ -26,7 +26,7 @@ export const uploadfileService = async (
 
     const response = await axios.post(
       `${ENVIRONMENT.PROXY_BASE_URL}/file/upload`,
-      req,
+      formData,
       {
         headers: {
           "Authorization": `Bearer ${req.token}`,
@@ -35,7 +35,7 @@ export const uploadfileService = async (
       }
     );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       return {
         success: false,
         msg: "There was an error in the upload."

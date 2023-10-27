@@ -40,8 +40,6 @@ export const UploadFileDialog = () => {
           token
         };
         const response = await uploadfileService(uploadRequest);
-        console.log(response);
-        console.log(uploadRequest);
 
         if (response.success) {
           const newFile: INewFile = {
