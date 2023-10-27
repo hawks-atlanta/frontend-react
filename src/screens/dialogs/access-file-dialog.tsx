@@ -13,12 +13,14 @@ import { unshareFileService } from "../../services/files/unshare-file.service";
 export const AccessManagementDialog = () => {
   const [usersWithAccess, setUsersWithAccess] = useState<string[]>([]);
   const [newAccess, setNewAccess] = useState("");
+  const [shared, setShared] = useState(false);
 
   const { dialogsVisibilityState, closeDialog, selectedFile } =
     useContext(FilesDialogsContext);
   const Open = dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
 
   const { session } = useContext(AuthContext);
+
   const handleShare = async () => {
     const shareRequest = {
       token: session?.token as string,
@@ -31,7 +33,7 @@ export const AccessManagementDialog = () => {
       toast.error(msg);
       return;
     }
-
+    setShared(true);
     toast.success(msg);
   };
 
@@ -51,7 +53,7 @@ export const AccessManagementDialog = () => {
     if (Open && selectedFile) {
       fetchUsersWithAccess();
     }
-  }, [selectedFile, handleShare]);
+  }, [selectedFile, shared]);
 
   const handleUnshare = async (userName: string) => {
     const unShareRequest = {
@@ -87,6 +89,7 @@ export const AccessManagementDialog = () => {
         className="mb-3 w-full rounded-lg border p-2"
       />
       <button
+        id="share-file"
         className="hover-bg-blue-700 mt-3 rounded-md bg-blue-600 px-4 py-2 text-white"
         onClick={handleShare}
       >
