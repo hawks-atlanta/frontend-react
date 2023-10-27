@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.19 (2023-10-27)
+
+
+### Features
+
+* Update pasword modal ([#56](https://github.com/hawks-atlanta/frontend-react/issues/56)) ([31aaade](https://github.com/hawks-atlanta/frontend-react/commit/31aaadeda4b01bcfbe42b54119f4c3624939f0df))
+
 ### 0.0.18 (2023-10-26)
 
 
