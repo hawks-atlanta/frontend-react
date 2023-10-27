@@ -70,7 +70,7 @@ export const UploadFileDialog = () => {
 
   const addFilesUI = () => {
     addFiles(files);
-  }
+  };
 
   return (
     <Dialog
@@ -89,11 +89,7 @@ export const UploadFileDialog = () => {
         className="hover-bg-blue-700 mt-4 rounded-full bg-blue-600 px-4 py-2 text-white"
         onClick={uploadFile}
       >
-        {isUploading ? (
-          <Loader />
-        ) : (
-          "Upload files"
-        )}
+        {isUploading ? <Loader /> : "Upload files"}
       </button>
     </Dialog>
   );
