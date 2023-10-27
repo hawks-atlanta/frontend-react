@@ -53,6 +53,6 @@ describe("Share File Tests", () => {
     cy.get("button").contains("Un-share").should("exist");
     cy.get("button:contains('Un-share')").click();
     cy.contains("File unshared successfully");
-    cy.get("ul").should("not.contain", "UserToRemove");
+    cy.get("div").should("not.contain", "username");
   });
 });
