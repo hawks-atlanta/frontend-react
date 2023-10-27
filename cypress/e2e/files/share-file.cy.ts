@@ -42,7 +42,7 @@ describe("Share File Tests", () => {
 
     cy.get("input[aria-label='Edit access permissions']").type(username);
     // Click the "Share" button
-    cy.get("button:contains('Save')").click();
+    cy.get("button:contains('Share')").click();
     // Verify that the success message is displayed
     cy.contains("File shared successfully");
 
@@ -58,7 +58,7 @@ describe("Share File Tests", () => {
 
     cy.get("input[aria-label='Edit access permissions']").type(username);
     // Click the "Share" button
-    cy.get("button:contains('Save')").click();
+    cy.get("button:contains('Share')").click();
     cy.contains("The file is already shared with the user");
   });
 });

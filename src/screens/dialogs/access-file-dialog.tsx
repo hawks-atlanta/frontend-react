@@ -18,6 +18,21 @@ export const AccessManagementDialog = () => {
   const Open = dialogsVisibilityState[AVAILABLE_DIALOGS.ACCESS_MANAGEMENT];
 
   const { session } = useContext(AuthContext);
+  const handleShare = async () => {
+    const shareRequest = {
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: newAccess
+    };
+
+    const { success, msg } = await shareFileService(shareRequest);
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+
+    toast.success(msg);
+  };
 
   useEffect(() => {
     const fetchUsersWithAccess = async () => {
@@ -35,25 +50,9 @@ export const AccessManagementDialog = () => {
     if (Open && selectedFile) {
       fetchUsersWithAccess();
     }
-  }, [selectedFile]);
+  }, [selectedFile, handleShare]);
 
-  const handleSave = async () => {
-    const shareRequest = {
-      token: session?.token as string,
-      fileUUID: selectedFile?.uuid as string,
-      otherUsername: newAccess
-    };
-
-    const { success, msg } = await shareFileService(shareRequest);
-    if (!success) {
-      toast.error(msg);
-      return;
-    }
-
-    toast.success(msg);
-    closeDialog(AVAILABLE_DIALOGS.ACCESS_MANAGEMENT);
-  };
-
+ 
   const handleUnshare = async () => {};
 
   return (
@@ -72,9 +71,9 @@ export const AccessManagementDialog = () => {
       />
       <button
         className="hover-bg-blue-700 mt-3 rounded-md bg-blue-600 px-4 py-2 text-white"
-        onClick={handleSave}
+        onClick={handleShare}
       >
-        Save
+        Share
       </button>
       {usersWithAccess.length > 0 && (
         <div className="mt-3">

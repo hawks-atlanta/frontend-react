@@ -17,7 +17,7 @@ export const shareFileService = async (
   const URL = `${ENVIRONMENT.PROXY_BASE_URL}/file/share`;
 
   try {
-    const shareFileResponse = await axios.post(
+    await axios.post(
       URL,
       {
         fileUUID: req.fileUUID,
@@ -29,17 +29,11 @@ export const shareFileService = async (
         }
       }
     );
-    if (shareFileResponse.status !== 200) {
-      return {
-        success: false,
-        msg: "There was an error while trying to share the file"
-      };
-    } else {
-      return {
-        success: true,
-        msg: "File shared successfully"
-      };
-    }
+    return {
+      success: true,
+      msg: "File shared successfully"
+    };
+
   } catch (error) {
     let errorMsg = "There was an error while trying to share the file";
 
