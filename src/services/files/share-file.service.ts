@@ -33,7 +33,6 @@ export const shareFileService = async (
       success: true,
       msg: "File shared successfully"
     };
-
   } catch (error) {
     let errorMsg = "There was an error while trying to share the file";
 
