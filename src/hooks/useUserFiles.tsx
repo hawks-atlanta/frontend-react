@@ -42,7 +42,7 @@ export const useUserFiles = () => {
   // State setters
   const addFile = (dir: File) => {
     setFiles([...files, dir]);
-  }
+  };
 
   const addFiles = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
