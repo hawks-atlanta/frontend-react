@@ -40,13 +40,25 @@ describe("Share File Tests", () => {
 
     cy.get("div[role=dialog]").should("contain", "Share file");
     cy.get("input[aria-label='Edit access permissions']").type(username);
+
     // Click the "Share" button
     cy.get("#share-file").click({ force: true });
     // Verify that the success message is displayed
     cy.contains("File shared successfully");
+
     // Share fails if the file is already shared with the user
+    cy.get("input[aria-label='Edit access permissions']").type(username);
     cy.get("#share-file").click({ force: true });
-    // Click the "Share" button to share the element
     cy.contains("The file is already shared with the user");
+
+    // Clear the input field
+    cy.get("input[aria-label='Edit access permissions']").clear();
+
+    // Click the "Un-Share" button to rename the folder
+    cy.get("div").should("contain", username);
+    cy.get("button").contains("Un-share").should("exist");
+    cy.get("button:contains('Un-share')").click();
+    cy.contains("File unshared successfully");
+    cy.get("div").should("not.contain", username);
   });
 });
