@@ -31,6 +31,8 @@ export const AccessManagementDialog = () => {
       toast.error(msg);
       return;
     }
+
+    setNewAccess("");
     toast.success(msg);
     setUsersWithAccess([...usersWithAccess, newAccess]);
   };
