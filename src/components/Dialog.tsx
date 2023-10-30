@@ -24,7 +24,7 @@ export const Dialog = ({ title, isOpen, children, onClose }: DialogProps) => {
         <button className="absolute right-0 top-0 p-3" onClick={onClose}>
           <X className="h-6 w-6 text-gray-600" />
         </button>
-        <h1 className="mb-4 max-w-[85%] text-xl">{title}</h1>
+        <h1 className="mb-4 max-w-[85%] text-xl text-blue-600">{title}</h1>
         {children}
       </div>
     </div>

@@ -20,8 +20,8 @@ const initialValues: FilesContext = {
   files: [],
   sharedFiles: [],
   addFile: () => {},
-  renameFile: () => {},
-  removeFile: () => {}
+  removeFile: () => {},
+  renameFile: () => {}
 };
 
 export const FilesContext = createContext(initialValues);
@@ -45,8 +45,8 @@ export const FilesContextProvider = ({
         files: files,
         sharedFiles: sharedFiles,
         addFile: addFile,
-        renameFile: renameFile,
-        removeFile: removeFile
+        removeFile: removeFile,
+        renameFile: renameFile
       }}
     >
       <FilesDialogsContextProvider>{children}</FilesDialogsContextProvider>
