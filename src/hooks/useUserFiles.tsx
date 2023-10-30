@@ -17,6 +17,7 @@ export const useUserFiles = () => {
   // Files state
   const [areLoading, setAreLoading] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
+  const [sharedFiles, setSharedFiles] = useState<File[]>([]);
 
   // Fetch user files when the directory param changes
   useEffect(() => {
@@ -30,6 +31,7 @@ export const useUserFiles = () => {
 
       if (response.success) {
         setFiles(response.files);
+        setSharedFiles(response.files);
       } else {
         toast.error(response.msg);
       }
@@ -42,10 +44,6 @@ export const useUserFiles = () => {
 
   // State setters
   const addFile = (dir: File) => {
-    setFiles([...files, dir]);
-  };
-
-  const sharedFiles = (dir: File) => {
     setFiles([...files, dir]);
   };
 
@@ -68,8 +66,8 @@ export const useUserFiles = () => {
   return {
     areLoading,
     files,
-    addFile,
     sharedFiles,
+    addFile,
     renameFile,
     removeFile
   };
