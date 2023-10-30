@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context";
 import toast from "react-hot-toast";
 import { listFilesService } from "../services/files/list-file.service";
+import { listFilesSharedWithUserService } from "../services/files/get-files-shared-with-user.service";
 import { File } from "../types/entities";
 
 export const useUserFiles = () => {
@@ -16,6 +17,7 @@ export const useUserFiles = () => {
   // Files state
   const [areLoading, setAreLoading] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
+  const [sharedFiles, setSharedFiles] = useState<File[]>([]);
 
   // Fetch user files when the directory param changes
   useEffect(() => {
@@ -29,6 +31,7 @@ export const useUserFiles = () => {
 
       if (response.success) {
         setFiles(response.files);
+        setSharedFiles(response.files);
       } else {
         toast.error(response.msg);
       }
@@ -67,6 +70,7 @@ export const useUserFiles = () => {
   return {
     areLoading,
     files,
+    sharedFiles,
     addFile,
     addFiles,
     removeFile,

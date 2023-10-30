@@ -49,12 +49,15 @@ export function Sidebar() {
               My Files
             </span>
           </Link>
-          <div className="mb-4 flex cursor-pointer items-center justify-center gap-1.5 text-blue-600 hover:text-blue-700">
+          <Link
+            className="mb-4 flex cursor-pointer items-center justify-center gap-1.5 text-blue-600 hover:text-blue-700"
+            to="/shared"
+          >
             <Share2 />
             <span className="hidden md:inline" aria-label="Shared">
               Shared
             </span>
-          </div>
+          </Link>
         </div>
       </div>
     </aside>

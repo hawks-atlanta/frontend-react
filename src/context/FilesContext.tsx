@@ -8,8 +8,8 @@ interface FilesContext {
   currentDirectory: string | null;
   areFilesLoading: boolean;
   files: File[];
+  sharedFiles: File[];
   addFile: (file: File) => void;
-  addFiles: (file: File[]) => void;
   renameFile: (uuid: string, name: string) => void;
   removeFile: (uuid: string) => void;
 }
@@ -18,8 +18,8 @@ const initialValues: FilesContext = {
   currentDirectory: null,
   areFilesLoading: false,
   files: [],
+  sharedFiles: [],
   addFile: () => {},
-  addFiles: () => {},
   removeFile: () => {},
   renameFile: () => {}
 };
@@ -34,7 +34,7 @@ export const FilesContextProvider = ({
   const [params, _] = useSearchParams();
   const currentDirectory = params.get("directory");
 
-  const { areLoading, files, addFile, addFiles, removeFile, renameFile } =
+  const { areLoading, files, sharedFiles, addFile, renameFile, removeFile } =
     useUserFiles();
 
   return (
@@ -43,8 +43,8 @@ export const FilesContextProvider = ({
         currentDirectory: currentDirectory,
         areFilesLoading: areLoading,
         files: files,
+        sharedFiles: sharedFiles,
         addFile: addFile,
-        addFiles: addFiles,
         removeFile: removeFile,
         renameFile: renameFile
       }}

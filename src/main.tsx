@@ -46,6 +46,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               </AuthMiddleware>
             }
           ></Route>
+          <Route
+            path="/shared"
+            element={
+              <AuthMiddleware mustBeAuthenticated={true}>
+                <FilesContextProvider>
+                  <FilePage />
+                </FilesContextProvider>
+              </AuthMiddleware>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
