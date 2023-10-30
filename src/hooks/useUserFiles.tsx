@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context";
 import toast from "react-hot-toast";
 import { listFilesService } from "../services/files/list-file.service";
+import { listFilesSharedWithUserService } from "../services/files/get-files-shared-with-user.service";
 import { File } from "../types/entities";
 
 export const useUserFiles = () => {
@@ -44,6 +45,10 @@ export const useUserFiles = () => {
     setFiles([...files, dir]);
   };
 
+  const sharedFiles = (dir: File) => {
+    setFiles([...files, dir]);
+  };
+
   const renameFile = (uuid: string, name: string) => {
     setFiles((curr) =>
       curr.map((file) => {
@@ -64,6 +69,7 @@ export const useUserFiles = () => {
     areLoading,
     files,
     addFile,
+    sharedFiles,
     renameFile,
     removeFile
   };
